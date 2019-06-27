@@ -1,0 +1,89 @@
+<div id="Step2">
+    <div id="step_2_prerequsites" class="alert alert-danger hidden">
+        <strong>Prerequisites missing!</strong>
+        Check to ensure that you have the FASTQ files in
+        <div id="step_2_prerequsites_directory" style="display:inline;">.</div>
+        <br>
+        <button class="btn" onclick="mu.flow.setCurStepFromServer();mu.flow.click(2)">Re-Check Prerequisites</button>
+    </div>
+
+    <div id="step_2_samples_exist" class="alert alert-info hidden col-md-10 container margin">
+
+        <strong class="text-center">Sample set exists</strong>
+
+        <div class="text-center">
+            Files <strong>FullSampleRun_R1.fq</strong> and <strong>FullSampleRun_R2.fq</strong> exist.
+        <!--<br/><br/>They will be overwritten if this step is re-run.<br/>-->
+        </div>
+        <!--<br>-->
+        <button class="btn btn-right navbar-right" onclick="mu.flow.getStepObject(2).removeExistingSamples();">Remove existing files</button>
+        <button class="btn" onclick="mu.flow.getStepObject(2).showLog()">Show Log</button>
+        <br>
+    </div>
+    <div id="step2_pause_cancel" class="pause_cancel_div">
+        <button id="step2_pause_btn" class="btn step2_pause_cancel_btn" onclick="mu.flow.getStepObject(2).onPauseBtn()">Pause</button>&nbsp;
+        <button class="btn step2_pause_cancel_btn" onclick="mu.flow.getStepObject(2).onCancelBtn()">Cancel</button>
+        <input id="step2_auto_scroll" type="checkbox" /> auto scroll
+    </div>
+
+    <div id="step_2_fullrun_create_success" class="alert alert-info hidden col-md-10 container margin">
+
+        <strong class="text-center"><span class='glyphicon glyphicon-ok textgreen'></span>&nbsp;&nbsp;Sample Set Created</strong>
+
+        <div class="text-center">
+            Files <strong>FullSampleRun_R1.fq</strong> and <strong>FullSampleRun_R2.fq</strong> successfully created
+            <br/><span id="fullrun_create_detail"></span> You can remove them if you need to re-run this Step.
+        </div>
+        <br>
+        <button class="btn btn-right navbar-right" onclick="mu.flow.getStepObject(2).removeExistingSamples();">Remove existing files</button>
+        <button class="btn" onclick="mu.flow.getStepObject(2).showLog()">Show Info</button>
+        <br>
+    </div>
+
+    <!--TODO: Add code that checks prerequsites-->
+    <!--TODO: restore original sample names once cleared toggle button-->
+    <!--TODO: try this when prereqs are missing-->
+    <!--TODO: Grey out "next" buttons when they're not ready to go-->
+    <div class="container col-md-12 margin">
+        <h2>Sample names</h2>
+        <div class="row">
+            <p class="col-md-5">FASTQ files from <span id="step_2_project_path" style="display:inline;"></span>. <span id="step_2_sample_count"></span><br>
+                Click on any Sample name or Population name to change it.
+                <br/><span id="sample_delim_span"><span>Sample delimiter in Filename:</span> <input id="step2_delimstr" type="text" size="8" value="_" \>
+                <input id="step2_delimstr_regex" type="checkbox" /> regex</span>
+            </p>
+            <!--<button class="btn col-md-2" id="create_sample_name" onclick='mu.flow.getStepObject(2).onSetSampleNamesFromFile()'>Set Name from Filename</button>-->
+            <button class="btn col-md-2 margin_left_small disable_if_files" onclick='mu.flow.getStepObject(2).clearSampleNames()'>Clear Sample names</button>
+            <button class="btn col-md-2 margin_left_small" onclick='mu.flow.getStepObject(2).clearPopulationNames()'>Clear Population names</button>
+            <br><br>
+            <span id="population_delim_span" class="col-md-5"><span>Population delimiter:</span> <input id="population_delimstr" type="text" size="8" value="_" \>
+                <input id="population_delimstr_regex" type="checkbox" /> regex
+                <input id="population_trailing_digits" type="checkbox" /> remove trailing digits</span>
+        </div>
+
+        <div class="row">
+            <button onclick='mu.flow.getStepObject(2).createFullSampleRunFiles();' class="btn col-md-8 btn-success" id="create_button">Create Full Sample Run files</button>
+            <button id="step2_sort_table" onclick='mu.flow.getStepObject(2).sortTable()' class="btn margin_left_small">Sort Names</button>
+        </div>
+        <br>
+
+        <div class="row">
+            <table class="clearfix table-bordered table-striped table-condensed">
+                <thead>
+                <tr>
+                    <th><button id="sample_name_hdr" class="btn disable_if_files" onclick='mu.flow.getStepObject(2).onSetSampleNamesFromFilename()'> Sample name </button></th>
+                    <th>R1 (forward) filename</th>
+                    <th>R2 (reverse) filename</th>
+                    <th><button id="population_name_hdr" class="btn" onclick='mu.flow.getStepObject(2).onSetPopNamesFromFile()'>Population</button></th>
+                    <th>Appended</th>
+                </tr>
+                </thead>
+                <tbody id="fastq_files">
+
+                </tbody>
+            </table>
+            <br/>
+        </div>
+    </div>
+
+</div>

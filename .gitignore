@@ -4,6 +4,8 @@ muserver
 *.fastq
 *.fasta
 *.pyc
+venv
+env
 progress.txt
 options.json
 sample_fqmap.txt

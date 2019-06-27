@@ -1,0 +1,10 @@
+muserver
+.idea
+*.iml
+*.fastq
+*.fasta
+*.pyc
+progress.txt
+options.json
+sample_fqmap.txt
+.DS_Store

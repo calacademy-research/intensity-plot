@@ -1,0 +1,163 @@
+<div id="contents" class="container">
+   <br>
+   <div class="h2">Documentation</div>
+   <label for="todo_list">Open Tasks/TODO</label>
+   <ul id="todo_list">
+      <li>Use the "Step" labels to list the steps, and the text under the circles to explain in more detail</li>
+      <li>Base state representation off something other than “progress.txt”; it’s pretty easy to break.</li>
+      <li>Create requirements file</li>
+       <li>Some kind of ‘done’ indication besides the spinney - a popup?</li>
+       <li>Bug: clicking “load file” after pasting a path (e.g.: “/Users/joe/bathwater_data/primer_info.tsv”
+            into the locus files tab causes a pop-up error. “Set bath” tree browser works fine.</li>
+       <li>Clarify what the show button is for on the create sample set tab</li>
+   </ul>
+   <label for="bug_list">Bugs</label>
+   <ul id="bug_list">
+      <li>Sample analysis not working with gzipped files</li>
+      <li>Process files tab should maybe be called process full run</li>
+      <li>Process full run and process files are 2 steps conflated on one tab</li>
+      <li>Unclear that the “make locus files” next button is the same as clicking the tab on process files tab</li>
+   </ul>
+   <h3>Setup and configuration</h3>
+   <ul>
+      <li>Install programs as outlined in the top-level README</li>
+      <li> Set up the options.json file. There is an example file in options.json.example.
+         Copy this to options.json, edit to suit, and re-launch server (we might not need to re-launch; check?).
+      </li>
+   </ul>
+   <h3>Running Sample Analysis</h3>
+   <ol class="start" start="1">
+   <li>Start with the paired end read fastq files with the good naming
+      (step 0 in the shared google drive); bug - Not working with not gzipped files
+   </li>
+   <li>
+      Create Sample Set
+      <ol type="a">
+         <li>Sample names are clickable, and may be re-assigned</li>
+         <li>TODO: Sample names are interpolated from a specific file name set;
+            we should document this expected format.</li>
+         <li>Once you are happy with the sample names, click “Create full sample run files” (note: What is “show” for?)</li>
+         <li>This runs “prepend_one_samp.sh” for each paired end file</li>
+         <li>At the end of this step, you will have created two concatenated files,
+            “FullSampleRun_R1.fq” and “FullSampleRun_R2.fq”</li>
+         <li>There is also now a “progress.txt” which records the state of the run, which may go away.</li>
+      </ol>
+   </li>
+   <li>
+      Process files
+      <ol>
+         <li>Click on “process sample set” OR click on the third tab over, “process full run”.</li>
+         <li>Click on “trim”. Wait for the run to complete. This runs trimmomatic.</li>
+         <li>
+            You now have
+            <ol type="i">
+               <li>FullSampleRun_trim_R1.fq</li>
+               <li>FullSampleRun_trim_R2.fq</li>
+               <li>R1_sngl.fq</li>
+               <li>R2_sngl.fq </li>
+            </ol>
+         </li>
+         <li>
+            Click on “merge” to run the pear program (TODO: not currently the interactive output).
+            This takes some time; when complete it will pop up a window and you will have these files:
+            <ol type="i">
+               <li>MergeFullRun.assembled.fastq</li>
+               <li>MergeFullRun.discarded.fastq</li>
+               <li>MergeFullRun.unassembled.forward.fastq</li>
+               <li>MergeFullRun.unassembled.reverse.fastq</li>
+            </ol>
+         </li>
+      </ol>
+   </li>
+   <li>
+      Make locus files - this requires a csv input file (“primer file”) with a specific text format.
+      Example file added to bathwater_data’s top level (we should ship an example file and maybe example data
+      with the program). File is primer_info.tsv.
+      <ol type="a">
+         <li>Bug: clicking “load file” after pasting a path (e.g.: “/Users/joe/bathwater_data/primer_info.tsv”
+            causes a pop-up error. “Set bath” tree browser works fine.
+         </li>
+         <li>Bug: for some reason, the system is rewriting primer_info.tsv and mangling it by removing the linefeed
+            after the header columns.
+         </li>
+         <li>Navigate to the file and click “load file”</li>
+         <li>Click “Extract” to preview (we shoud rephrase; it sounds like “extract” is optional. It’s required)</li>
+         <li>Once extract has been clicked, click on “create locus files”. TODO: Not hooked up to fancy interactive display we use for other long running processes.</li>
+         <li>This creates the “*AlleleLens.txt” files (output files)</li>
+         <li>TODO: Document this output format</li>
+      </ol>
+   <li>
+      Graphs
+      <ol>
+         <li>Graphjs and grid graphs view the same data and both support allele calling</li>
+         <li>Bug: Called alleles showing on grid graph don’t necessarily show on standard graphs</li>
+      </ol>
+   <li>
+      Grid graphs
+      <ol type="a">
+         <li>Bug: Not remembering called alleles after refreshing the page? No, it’s because the “save called alleles” hasn’t
+            been invoked. That only happens when we navigate away. We should save as we click...
+         </li>
+         <li>Hover over point shows the number of samples, the length of that column, and the name of the sample.</li>
+         <li>Background of hover over box is light green when hovering over a called allele.</li>
+         <li>Supports grouping of rows</li>
+         <li>Size of dot indicates the number of hits</li>
+         <li>Colored dots with grey backgrounds are called alleles</li>
+         <li>Colors correspond to allele length</li>
+         <li>Clicking on a dot toggles its “called allele” status. Only two are allowed per row.</li>
+         <li>Clicking on a row will add that row to the current group. Clicking again will remove it.</li>
+         <li>“Add group” creates a new group</li>
+         <li>“Remove group” removes the current group</li>
+         <li>Each bar in the bar graph on the bottom represents the sum of each column, with the largest sum having a 100% bar.</li>
+         <li>Adding/removing rows will cause the bar graph to recalculate </li>
+         <li>Bug: going back to call alleles will unset alleles you set on this page</li>
+      </ol>
+   </li>
+   <li>
+      Results for export generates a json file: “primer_info.tsv”
+      <ol type="a">
+         <li>Bug: “merge completed successfully” shows multiple times when you re-run trim.</li>
+         <li>TODO: MS12, etc, are hardcoded.</li>
+      </ol>
+   </li>
+   </ol>
+
+    <h3>JSON Options</h3>
+
+    <p>For future fleshing out, here’s the options.json (so far):</p>
+   <pre><code>{
+   "program_arguments":{
+      "R1":"FullSampleRun_R1.fq",
+      "R2":"FullSampleRun_R2.fq",
+      "trimmomatic_adapter_file":"TruSeq3-PE-2.fa",
+      "R2_trim":"FullSampleRun_trim_R2.fq",
+      "R1_single":"R1_sngl.fq",
+      "R1_trim":"FullSampleRun_trim_R1.fq",
+      "merge_settings":"-p 0.001 -v 100 -m 412 -n 141 -q 30 -j 20 -t 90",
+      "merge_prefix":"MergeFullRun",
+      "trimmomatic_suffix":":2:30:10",
+      "R2_single":"R2_sngl.fq"
+   },
+   "dependency_paths":{
+      "merge_program":"pear",
+      "java_bin_path":"/usr/bin/java",
+      "trimmomatic_adapters_path":"/Users/joe/Trimmomatic-0.36/adapters",
+      "trimmomatic_jar_path":"/Users/joe/Trimmomatic-0.36/trimmomatic-0.36.jar",
+      "merge_path":"/Users/joe/PEAR/src"
+   },
+   "program":{
+      "project_directory":"/Users/joe/bathwater_data/"
+   },
+   "program_argument_sets":{
+      "merge_custom_parameters":"-f FullSampleRun_trim_R1.fq -r FullSampleRun_trim_R2.fq -o MergeFullRun -p 0.001 -v 100 -m 412 -n 141 -q 30 -j 20 -t 90",
+      "trimmomatic_custom_parameters":"PE FullSampleRun_R1.fq FullSampleRun_R2.fq FullSampleRun_trim_R1.fq R1_sngl.fq FullSampleRun_trim_R2.fq R2_sngl.fq ILLUMINACLIP:~/Trimmomatic-0.36/adapters/TruSeq3-PE-2.fa:2:30:10"
+   }
+}</code></pre>
+
+   <h3>Frequently Asked Questions</h3>
+   <p>IOError: [Errno 2] No such file or directory: &#39;options.json&#39; - see step 0, set up options.json</p>
+
+    <h3>Resources</h3>
+
+       <p>Progress tab framework: http://quanticalabs.com/script/dynamic-step-process-panels/118950</p>
+</div>

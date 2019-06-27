@@ -1,0 +1,430 @@
+Install flask:
+pip install Flask
+pip install --upgrade google-api-python-client
+
+If on mac:
+pip install flask-socketio  --ignore-installed six
+if not on mac:
+pip install flask-socketio
+pip install flask-bootstrap
+pip install gevent-websocket
+pip install pyyaml
+pip install eventlet
+
+(if you get permission errors, use 'sudo pip install' for a system wide install)
+
+Run server:
+python mSat_server.py
+or just
+mSat_server.py
+
+
+requirements:
+trim and pear (requires JRE)
+python (version?)
+Trimmomatic 0.36 or greater - http://www.usadellab.org/cms/?page=trimmomatic
+PEAR - http://www.exelixis-lab.org/web/software/pear
+
+
+Note: no security, don't expose!
+
+
+Steps (prerequesites are coded in step_definitions.yml)
+1: set working directory.
+  User input: directory name.
+  output: none
+
+2: Create sample set:
+  Creates unified "FullSampleRun_R?.fq" files
+  input: fastq files. "H*.fastq.gz" files.
+  user input: Sample names
+  output:  FullSampleRun_R1.fq, FullSampleRun_R2.fq concatenated sample files by sample name
+
+
+3: set working directory.
+  input: directory name
+  output: none
+
+4: set working directory.
+  input: directory name
+  output: none
+
+5: create locus files.
+  input: primer_info.tsv
+    Locus Name      Forward Primer  Reverse Primer  Motif   Matching Reads   Samples
+    TG_MS1 TGCACCCGTGTTCAATTTC     CACGGTGTCCAGAAATGCC     AT      192819  94
+    TG_MS3  GGCTATTGACGTTGTAGGCG    TGACGTAACTGAGGCACCC     AT      481394  95
+
+  output: outputs "AlleleCalls" files.
+
+
+Bugs:
+
+TODO: Sort the file browser result; server side sort alphabetical
+
+
+todo: have a filter available for the file browser. For instance: select only fastq files, or only directories
+
+TODO: define the directories and the erasable files in each step in the step_definitions file.
+
+TODO: Give an option to not retain intermediate data - if people are space constrained
+
+
+Todo: change ‘working directory’ to ‘project directory’
+
+TODO: Keep pre-defined filenames (e.g.: FullRun, Merge). But code them so they're only in one locaiton, and remove them from "options".
+
+TODO: File missing errors from server don’t show filename making it very hard to figure problem out
+
+
+TODO: Stop the reactive div shuffling -- we want horizontal scrolling
+
+TODO: confirm should be replaced by the “pretty version”
+
+TODO: replace “prepended” with “in front”
+
+Henrik todo: Give us your new and alternative notes on running without trimmomatic and any other variants you think are valid
+
+Todo: 1.2 nice-to-have - make it possible to provide a static naming mapping
+
+TODO: top and bottom prev/next consistently. We do it on step 2 only
+
+todo: we need to be able to cancel the operation when spinny isn’t being displayed
+
+TODO: double check that closing the in progress box cancels the run of that step
+
+TODO: Jim commented out the spin
+
+TODO: bug - running “trim” is now skipping lines after jim totally broke it
+
+TODO: Step 4 - it’s not rendering the intermediate percentages on the spinny screen
+
+TODO: ship defaults to limit the number of cores?
+
+TODO: Give time estimate runs based on data set runs. “This will take 5 minutes based on X” or “20 minutes based on X”
+
+TOOD: Merge in step 4 doesn’t show anything while the terminal prints 10% 20% 30%, etc.
+
+TODO: static font (monospace) when rendering progress
+
+TODO: In the report show the number of reads in the assembled file (step 4)
+
+TODO: Documentation note; explain TSV format for step 5.
+
+
+
+TODO: Directory filter can be a negative filter (i.e.: remove all fastq)
+
+TODO: Standardizing on “primer file” - not “loci/locus”
+
+TODO: change allele files to “loci” files? step 5 - change “Create allege files” to “Create locus file” (loci file?)
+
+Todo: Rainbow spinner
+
+
+TODO: Step 5: print incremental information in the overlay, instead of just print the status in the white box. Print name . . . number. (add ellipsis)
+
+TODO: Step 5 - scroll back to the top when complete
+
+TODO: Change AlleleCalls.txt to AlleleLength.txt
+
+TODO: Going from step 5 “next” going to the proper step in in display cleanly.
+
+TODO: Name for scatter - “Intensity plot”
+
+
+What genemapper does is:
+You upload a reference set of specimens, which covers a wide range of alleles.
+You call these alleles in a similar fashion like we are doing it (e.g. autocall and then correct by hand)
+In doing this you can also set a range for each called allele, e.g. say that the actual alleles can spread over more than one base (if a single base is added by PCR error, this is accounted for)
+You save the called alleles to a database
+Whenever you run another dataset for the according loci, you can use this database to autocorrect alleles calls. It will try to match the database alleles with the data. Only if they do not match, it will assign a new call. This saves considerable time over a fully manual calling step.
+
+
+TODO: “results of called alleles for samples” do a  color highlight for poor data quality and/or problematic reads
+
+
+
+For paired-end filename guessing in filesystem_navigation.py I’ve made a simpler version that will work with more common scenarios. However, it sacrifices smart Sample name extraction for generality. In the server we might be able to run both and get a count of returned pairs; if the smarter version returns the same number of pairs as the more forgiving version we could use its results giving the user a leg-up on the guessed Sample names.
+
+
+
+TOOD: maybe we highlight more than two alleles?
+
+TODO: Delete all samples from a locus in final stats screen. (if results aren’t great). E.g.: be able to rmove columns, rows. (TGMs15) and samples (S199). (mark them for deletion) and don’t export. Use a color highlight.
+
+TODO: Edit the cell value directly in the final screen. (e.g. PCR artifact could be shifted by one)
+
+TODO: Save this to a file from the web page
+
+TODO: Inverse - mark for export vs. mark for omit
+
+
+
+TODO: displaying results (like in step 2) that run past the end of the screen, we should page to the end
+      of said screen.  When they're finished, print "done" at the end of the screen. "close" x button in
+      upper right should float along with this.
+
+BUG TODO: Step 2 is displaying the number of matched samples without removing the "x" from that box.
+
+TODO: on first launch when the browser is not populated, we get a host of errors.
+Entering any valid directory before hitting "browse" fixes this.
+
+TODO: Documetation - good news, if we leave the path blank for a binary, it does the right thing and
+just runs the binary and will use local path.
+
+TODO: There's a "project directory" in options that's distinct from the CWD set in step 1
+
+TODO: File browser should show CWD at the top
+
+TODO: Looks like "set path" is broken.
+
+TODO: When we say "invalid primer file" - display the path of the file that it expects
+
+TODO: When we change directories and hit "set" on the first streen (stgep one), the "select primer tsv file" dialog box on step 5
+will remain at the old value, or reset.
+
+TODO: Primer TSV field shoudn't require a directory; it should default to the project directory and only require a filename
+
+TODO: Don't show dotfiles in file browser dialog
+
+TODO: in firefox (maybe in chrome?) you can always scroll left and right a little bit. Very strange, some kind of bootstrap thing.
+Noticed it on the optiosn page.
+
+TODO: Change “create a separate working directory “ to “create an output directory, or use exiting <PWD> for output”” [language isn’t great here, “yes” to an “or” question]
+
+TODO: Remove the output file names to be static, remove them from options - example, FullSampleRun, etc
+
+TODO: bars are broken, we’re not showing progress - we should check against new
+
+TODO: indicate that it’s 5’ -> 3’ direction for the primers in step 1.
+
+TODO: Have an indicator of what fields have available popup help (e.g.: on the population column in step 1.2.
+
+TODO: regex might not be a term that the target audience is familiar with. Next steps unclear, open question.
+
+TODO: Currently we’re assuming illiumia file naming spec; test with new sets to see if that breaks
+
+TODO: Pear doesn’t run on windows (Find alternative or fix?)
+
+TODO: Change “completed steps” to green dots.    [joe: done?]
+
+TODO: AllaleLens - add a fourth field that contains the entire read, starting with the start and ending with end of the primers. [nice to have]
+
+
+TODO: Some kind of visual indicator that the rows and columns are excludable (+ or - button?)
+
+TODO: Collapse excluded rows, visually (potentially wth a double line, TBD)
+
+TODO: FST between two different populations, nice to have. HENRIK: to provide calc. Possibly do a proportion of shared alleles between two populations. Using just allele length. You subtract from one to get the distance, so no overlap would be a distance of “1”. (e.g.: [162, 172] [162,175] would be 0.5). Each have two, one of the two is shared. In a population you’ll have more alleles, so you’ll have more interesting numbers between 0 and 1. Take the whole population of alleles between two populations and do the diff. If we have this, we don’t need FST.
+  Jim: that would be a new table,
+  Henrik, 
+
+TODO: Step 1.2: Add a “REGEN” button near “sample delimiter in filename”
+
+
+TODO: Get rid of “already” in the 1.2 completion text
+
+TODO: when autoscroll is on, it rescrolls up to the top. possibly add a button at the bottom to warp back up to the top.
+
+TODO: joe rainbow spinner just because
+
+TODO: autoscroll on the overlay
+
+TODO: We’re inconsistent between pear and trimmomatic - one of those blanks the screen during the status overlay, and the other keeps it and makes you close it. We think it should stay open.
+
+TODO: on the overlay we should have a “floating” x so we can close it without scrolling back up?
+
+TODO: test laptop sleeping when the server is running, what happens to our logging?
+
+TODO: Trimmomatc quality trimming to 20
+
+TODO: henrik to play with this system and determine some good shipping defaults.
+
+TODO: Step 1.1; a drop down for most recently used projects. This is in LocalStorage.
+
+TODO: breadcrumbs at top of file browser [note: nice to have, for later versions, would be a pile of work]
+
+TODO: merge no maximum recommendation. Minimum of maybe 100.
+
+TODO: on intensity graph, optionally break out by population.
+
+TODO: Intensity graph allow exclusion of samples for output? (and link to the output page)
+
+TODO: mouseover for the summary stats on the bottom on the intensity graph
+
+TODO: ensure that called alleles on the intensity graph are reflected in the traditional graphs
+
+TODO: If the *AlleleLens* files are missing (final output of 1.x steps), then the "explore" steps become
+avaialble, but throw an error because the final output files are missing.
+
+TODO: Clicking on any 1.X step after theyv'e all been completed shows no indicator about what step you're actually on
+
+TODO: For intensity plot, having the screen too wide causes whitespace between the plot and the locus/called vertical.
+
+TODO: A data validator to ensure that data invariants are met
+
+TODO: “step directory” - make it an option? Where we do one set of derived data per directory
+
+TODO: Henrik: update procedures document
+
+TODO: Step_definitons.yml has a lot of stuff commented out; jimh says there may be bugs with the wildcards. See step_definitions.yml for details
+
+TODO: hardcoded tooltios in step_2_sample_names.js need to be moved to the template html file
+
+TODO: After each step is completed (especially 1.2) it would be nice to see an obvious visual indicator that the step is complete. We see this with the overlay in step 1.5, but not 1.2 and 1.3.
+
+TODO: Add help to intensity plot.
+
+TODO: Current directory should be shown at top of directory browser
+
+
+
+
+
+
+TODO: in scatter graph, if you create many groups, high numbered groups all have the same grey highlight color
+
+Ideally we’d ship a default.options.json file that wouldn’t be changed if user followed setup
+instructions. Those instructions would lead them to
+1) make sure the PEAR program was on the PATH,
+2) create a softlink to the trimmomatic adapters directory in the bathwater installation dir and
+3) create a trim.sh to run trimmomatic that uses the softlinked adapter dir and runs the jar file
+
+------
+1 - default options should be changeable as well as the options file in the target directory
+2 - we should be able to run trimmomatic binary directly (for all binaries), -or- support having a trim.sh intermediary
+3 - defaults options should be statically defined a little better, right now it’s one-size-fits-nobody.
+4 - potentially we have a smart “configure” like utility that fixes defaults.options in the master directory. Nice-to-have.
+
+
+-------
+
+Trim:
+Henrik: setup side - cygwin instructions - can we do python and pip without cygwin? we need to have
+Looks like the trimming is not much effort, so we might as well leave it. I would think about
+changing the defaults for assembly. E.g. -q 20 -v 50 and we could think about changing the -n and -m options
+
+
+setup side - cygwin instructions - can we do python and pip without cygwin? we need to have
+
+
+
+TODO: See if we can support single/double click in file browser. Currently it's single-select.
+Single-double would be single open, double select.
+
+
+
+
+
+
+
+
+# TODO: if the motif length is > 2, then auto-called peaks have to be farther away
+
+
+
+TODO: Make buttons warn and stuff for save and load calls. Grey out when that makes sense
+
+# TODO: Add CAS and GPL headers
+
+TODO: sanatize git repo  (remove history)
+
+
+TODO: ask henrik about reference set
+
+
+TODO hover in scatter graph, reverse the X and Y values to match the graph
+
+
+TODO: Red dot showing current step in data pipeline is missing
+
+
+Note: When we save the call mask, (aka: 'save calls'), we are saving the set of positives
+(aka: we called this) and negatives. Negatives are extracted from the AlleleLens.txt files
+on the server side. So, if an allele exists in the data but is NOT called, then it is marked
+as such in the mask file (currently "cur_locuscalls"). To qualify for the "not" list, the
+allele length must be at least 20% of the length of the most frequently appearing allele in
+the AlleleLength file. Todo: make this an option that can be user adjusted?
+
+
+# TODO: port to/check on python3
+
+
+New feature to do and notice:
+
+#TODO bug? - TG_MS11, why are we saving 146,156,171,226,232 as "uncalled loci"? we should start at 234....
+
+
+Algorithm optimization:
+  We can say that for the majority of cases (a very small percentage can be a partial stutter),
+  peaks can be no closer than the motif length. The peaksFromPts algorithm will be changed to disregard
+  potential peaks within (motif length - 1) of a chosen peak. Implementation TBD
+
+
+
+TODO: Some kind of error overlay that replaces "alerts". alerts are ugly.
+
+
+
+TODO: It's possible to choose more than two alleles in bar graph
+
+
+todo: feature "Auto call alleles" for current locus only?
+
+TODO: Ad the "g" labels to each group in the intenisty plot
+
+
+todo: export group informaiton from intensity graph
+
+TODO: Step 1.1 - create a seperate output directory is currenlty not functional
+
+
+TODO: Check that we have write permissions on our output directory
+
+
+
+
+TODO: Step 1.2 - click on "Sample name" - to auto-create populations , ditto populations
+
+TODO: "Populations" button is ambuigous; it means "generate population names".
+
+TODO: Clarify that we can manually set up populations (add some exposition) ? (it does say it, but we missed it)
+
+TODO: export calls change button name to save template
+
+TODO: Apply template calls is going to the wrong place when we are working in bathwater_4... very strange. "cur_locuscalls" not found
+
+TODO: If you have multiple items selected in the file browser and choose "select", it alerts and then closes the file browser. it shoudln't close the file browser after alerting
+
+
+TODO: no notificaiton if the options file is missing
+
+TODO: make an option for copying the json file from an old locaiton
+
+TODO: make a way to copy the exported template (cur_locuscalls) to a new working directory
+
+todo: make an option for copying the options file from an old location
+
+TODO: mouseover help for the save buttons on the graph viewing.
+
+TODO oLocusCalls not cleaing when we switch directories
+
+
+TODO: in directory "~/HedgehogData/PMHH3a", we have no allele length files even though step 5 reports
+     complete. Switching from happyface data makes it look for "TG_MS1_AlleleLens.txt"
+     Looks like switching directories isn't updating the state? somehow it's keeping "AlleleLens" from the
+     wrong directory
+     To repro, open in a step 5 completed, switch to "4mix", hit next out of step 5.
+
+
+
+TODO: in the bar graph at the base of the scatter plots, each bar should be a sum of the number of total dots in its column,
+divided by the number of dots in the graph. Cut off bottom 10%.
+
+TODO: make trimmomatic optional
+
+TODO: Primer file doesn't accept lowercase letters (step 5, TSV file).
+
+
+

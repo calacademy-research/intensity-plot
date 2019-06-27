@@ -1,0 +1,599 @@
+
+/*TODO: Check these for usage after refactor*/
+html {
+    height: 100%;
+}
+
+body {
+    font-family: sans-serif;
+    /*
+    height: 100%;
+    width: 100%;
+    */
+}
+
+#version {
+    position: absolute;
+    right: 20px;
+    font-size: small;
+    font-weight: normal;
+}
+
+button {
+    padding-top: 2px; padding-bottom: 2px;
+    /*font-weight: bold;*/
+    /*border-radius: 12px;*/
+}
+
+.btn-right {
+    margin-right: 5px;
+}
+
+.watermark {
+    font-size: 18pt;
+    color: lightgray;
+    margin: 30px;
+}
+#plots_watermark {
+    margin-top: 14px;
+}
+
+.tab_hdr {
+    font-size: 12pt;
+    margin: 15px;
+}
+
+#tabs ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%; /*calc(100% - 13em);*/
+    float: right;
+    /* z-index: 100; position: fixed; /* 21May2016 */ /* worked in part but needs more support */
+}
+
+#tabs li {
+    float: left;
+    border: 1px solid;
+    border-bottom-width: 0;
+    margin: 0 0.5em 0 0;
+}
+
+.tab {
+    display: block;
+    padding: 0.24em;
+    color: #00c;
+    text-align: center;
+    cursor: default;
+}
+
+.selectedTab {
+    position: relative;
+    top: 1px;
+    background: white;
+}
+
+.page {
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border: 1px solid;
+    min-height: 620px;
+    overflow-y: auto;
+    overflow-x: auto;
+    /*clear: both;*/
+}
+
+#container, #primer_and_plots_container {
+    width: 100%;
+    display: inline-block;
+    padding-top: 0px;
+    overflow: auto;
+}
+#plots_container {
+    float: left;
+    display: inline-block;
+    padding-top: 16px;
+    padding-left: 5px;
+    width: calc(100% - 13em);
+    /*height: -webkit-calc(100% - 10px);*/
+}
+#primers_container {
+    float: left;
+    display: inline-block;
+    width: 12em;
+}
+#primers {
+    /* position: fixed; /* 21May2016 */
+    margin-top: 6px;
+    margin-left: 5px;
+    padding-top: 10px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+    background-color: #E7F5FE;
+    border: 1px solid black;
+}
+#primers table {
+    margin-left: 10px;
+}
+#primers_contents {
+    font-size: 9pt;
+}
+#graph_div {
+    /*overflow-y: scroll;*/
+}
+#plots {
+}
+
+.missingplot {
+    font-size: larger;
+    text-align: center;
+}
+
+#callOnLoad {
+    padding-top: 25px;
+}
+
+#primers_hdr, .primers_hdr {
+    font-size: 11pt;
+    font-weight: bold;
+}
+
+.primer { /* locus primer name in the table on left of both plot views*/
+    padding-top: 6px;
+    cursor: pointer;
+    min-width: 7em;
+}
+.calledCol {
+    padding-left: 6px;
+    padding-top: 4px;
+}
+
+.cur_primer {
+    color: blue;
+    font-weight: bold;
+}
+
+#gr_caption, #sample_caption, #sheet_caption, #locusFile_caption, #results_caption {
+    font-size: 11pt;
+    font-weight: bold;
+}
+
+#gr_switch_view {
+    font-size: 14px;
+    font-weight: normal;
+    margin-top: 5px;
+}
+
+.offset {
+    padding-top: 20px;
+    padding-left: 20px;
+}
+.left_offset {
+    padding-left: 20px;
+}
+.right-align {
+    text-align: right;
+}
+
+.caption {
+    font-size: larger;
+    font-weight: bold;
+}
+
+.mainMsg {
+    font-size: larger;
+    line-height: 150%;
+}
+
+#msg {
+    font-size: medium;
+    font-weight: normal;
+    padding-top: 5px;
+}
+
+.cmds {
+    font-size: medium;
+    font-weight: normal;
+}
+
+#pipeline {
+    padding-left: 25px;
+    padding-bottom: 25px;
+}
+
+#instructions {
+    color: gray;
+    padding-left: 10px;
+}
+
+#qualProcess, code {
+    line-height: 1.3;
+}
+
+.step {
+    padding-top: 30px;
+}
+
+.curstep {
+    color: blue !important;
+}
+
+.completed {
+    color: black;
+}
+
+.chart {
+}
+
+.style1 {
+    width: 99%; /*1200px;*/
+}
+
+.style2 {
+    float: left;
+    width: 45%;
+}
+
+.mono {
+    font-family: monospace;
+}
+
+.disable {
+    color: /*light*/gray;
+    cursor: default;
+}
+
+.Pop {
+    margin-top: 18px;
+    padding-top: 12px;
+}
+
+.PopTitle {
+    margin-left: 50px;
+    font-size: larger;
+    font-weight: bold;
+}
+
+.arrows {
+    font-size: small;
+    color: darkblue;
+    font-weight: lighter;
+}
+
+.popnav {
+    cursor: pointer;
+}
+
+.sampinfo {
+    margin-left: 50px;
+}
+
+.mrgd {
+    color: darkgray;
+    font-size: smaller;
+}
+
+.trimmed_pt {
+    color: darkgray;
+}
+
+.curfile {
+    color: blue;
+    font-weight: bold;
+}
+
+.processing {
+    color: red;
+    font-style: italic;
+}
+
+.chkmrk {
+    font-weight: bold;
+    color: #00cc00;
+}
+
+.delimHilight {
+    font-weight: bold;
+    /*color: blue;*/
+}
+
+.calledsamps {
+    font-weight: normal;
+    color: black;
+}
+
+.cellfocus {
+    background-color: #E7F5FE;
+}
+.process_complete {
+    color: gray;
+}
+
+#sample_tbl {
+    border-spacing: 5px;
+}
+
+#no_alleles_called {
+    font-size: 12pt;
+    margin-left: 20px;
+}
+#call_results {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.export {
+    text-align: center;
+    padding-top: 15px;
+}
+
+.textgray {
+    color: lightgray;
+}
+
+.textgreen {
+    color: green;
+}
+
+.sm {
+    font-size: small;
+}
+.tabchk {
+    font-size: small;
+    color: green;
+}
+
+.novis {
+    visibility: hidden;
+}
+
+.indent {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.margin {
+    margin: 20px;
+}
+
+#Step1 #ins1 {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.lf_tbl tr, .lf_tbl td, .lf_tbl th {
+    border: 1px solid black;
+}
+.lf_tbl {
+    border-collapse: collapse;
+}
+.lf_primer_info_col {
+    font-weight: bold;
+    background-color: #ebf5fa; /* #e6f7ff; */
+}
+#lf_locus_tbl, #results_tbl {
+    border-spacing: 5px;
+}
+#lf_locus_tbl, #results_tbl th {
+    background-color: #f2f2f2;
+}
+#results_tbl th.locus_name {
+    background-color: white;
+    padding: 5px;
+    /*border: 0;*/
+}
+#results_tbl th.locus_name button {
+    font-weight: bold;
+}
+
+#lf_locus_tbl td, #results_tbl td {
+    padding: 4px 5px;
+}
+#lf_locus_tbl td {
+    background-color: #ebf5fa;
+}
+#results_tbl th {
+    text-align: center;
+    padding-top: 4px;
+}
+#results_tbl, .margin_left_small {
+    margin-left: 10px;
+}
+
+.results_sample_exclude, .results_locus_exclude {
+    background-color: lightgray !important;
+    color: gray;
+}
+.report_sample_col {
+    cursor: pointer;
+}
+.report_exclude_locus_span {
+    cursor: pointer;
+}
+
+#results_pane {
+    margin-left: 10px;
+}
+
+#stat_rpt {
+    margin-top: 10px;
+}
+#stat_rpt pre {
+    background-image: linear-gradient(to bottom,#d9edf7 0,#b9def0 100%);
+}
+#stat_rpt .close:hover {
+    color: red;
+}
+
+
+
+#rs_msg_div {
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+.rs_locus_msg {
+    margin-left: 20px;
+}
+
+#project_name {
+    margin-left: 16px;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+/* these four are for background-color of report table */
+.even_col {
+    /* background-color: #ebf5fa; /* lightblue misty background */
+    /* background-color: #fbe8aa; /* same yellow as progress line */
+    background-color: #FAF3E1; /*#FAEDC8  /* slightly lighter version of above */
+    text-align: center;
+}
+.odd_col {
+    text-align: center;
+}
+.even_group {
+    /*  background-color: #ebfaf5; /* lightgreen misty background */
+    background-color: #ebf5fa; /* lightblue misty background */
+    /*background-color: #fbe8aa; /* same yellow as progress line */
+    /* background-color: #FAF3E1; /*#FAEDC8  /* slightly lighter version of above */
+}
+.odd_group {
+}
+.same_allele {
+    color: #808080; /* #999999; /* darker gray than darkgray */
+}
+
+#lf_locus_tbl td.lf_processed, th#blankcol {
+    background-color: #ffffff;
+}
+#lf_locus_tbl td.lf_processed {
+    text-align: right;
+}
+
+#options {
+    margin: 20px; /* default margin creates horiz scrollbar */
+    font-size: 9pt;
+}
+
+.choose_dir {
+    cursor: pointer;
+}
+#popup_musat_dir .jstree-leaf > .jstree-anchor { /* color files gray in directory browser */
+    cursor: not-allowed;
+    color: gray;
+}
+
+#popup_primer_file .jstree-closed > .jstree-anchor,
+#popup_primer_file .jstree-open   > .jstree-anchor { /* color directory gray in file-only browser */
+    color: gray;
+}
+#popup_primer_file li[id$='.tsv'].jstree-leaf > .jstree-anchor { /* color files ending in .tsv blue in file-only browser */
+    color: blue;
+}
+#popup_primer_file li[id$='.txt'].jstree-leaf > .jstree-anchor { /* color files ending in .txt blue in file-only browser */
+    color: blue;
+}
+#popup_primer_file li[id$='.csv'].jstree-leaf > .jstree-anchor { /* color files ending in .csv blue in file-only browser */
+    color: blue;
+}
+
+#popup_primer_file li[aria-level='1']:first-child > .jstree-anchor,
+#popup_musat_dir   li[aria-level='1']:first-child > .jstree-anchor{ /* first li' anchor is the .. it gets some special handling */
+    color: black;
+    min-width: 60px;
+    font-weight: bold;
+}
+
+#lf_create_btn, #rs_results_btns {
+    padding-top: 8px;
+}
+
+#primer_table_body > tr > td {
+    padding: 4px;
+}
+
+.mu_tooltip { /* class for simple minded tooltip */
+    position: absolute;
+    z-index: 1000; /* so above everything else */
+    left: -1000px; /* initially offscreen */
+    top: -1000px;
+    background: lightyellow;
+    border: 1px solid gray;
+    color: black;
+    padding: 8px;
+    box-shadow: 2px 2px 1px #888888;
+}
+
+#run_progress_content {
+    font-family: 'Consolas', 'Monaco', 'Bitstream Vera Sans Mono', monospace;
+    white-space: pre-wrap;
+}
+
+.pause_cancel_div {
+    top: 80px;
+    right: 40px;
+    position: fixed;
+    z-index: 1000;
+
+    border: 1px solid;
+    border-color: rgb(154, 207, 234);
+    border-radius: 5px;
+    padding: 15px;
+
+    background-image: linear-gradient(to bottom,#d9edf7 0,#b9def0 100%);
+}
+
+.step2_pause_cancel_btn {
+    color: rgb(49, 112, 143);
+}
+.step2_pause_cancel_btn:hover {
+    color: black;
+}
+#step2_auto_scroll {
+    /*margin-top: 20px;*/
+    margin-left: 10px;
+}
+#Step2 h2 {
+    margin-top: 0; /* the container around the h2 header already provides a margin */
+}
+#sample_name_hdr, #population_name_hdr {
+    font-weight: bold;
+}
+
+
+.sidebar-btn,.btn {
+    background: #3498db;
+    background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+    background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+    background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+    background-image: -o-linear-gradient(top, #3498db, #2980b9);
+    background-image: linear-gradient(to bottom, #3498db, #2980b9);
+    -webkit-border-radius: 6;
+    -moz-border-radius: 6;
+    border-radius: 6px;
+    -webkit-box-shadow: 0px 1px 3px #666666;
+    -moz-box-shadow: 0px 1px 3px #666666;
+    box-shadow: 0px 1px 3px #666666;
+    font-family: Arial;
+    color: #ffffff;
+    font-size: 10px;
+    padding: 8px 14px 8px 14px;
+    text-decoration: none;
+}
+
+.sidebar-btn,.btn:hover {
+    background: #3cb0fd;
+    background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+    text-decoration: none;
+}
+
+.sidebar-btn {
+    min-width: 140px;
+
+}

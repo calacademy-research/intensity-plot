@@ -1,0 +1,28 @@
+{
+   "program_arguments": {
+      "R1": "FullSampleRun_R1.fq", 
+      "R2": "FullSampleRun_R2.fq", 
+      "trimmomatic_adapter_file": "TruSeq3-PE-2.fa", 
+      "R2_trim": "FullSampleRun_trim_R2.fq", 
+      "R1_single": "R1_sngl.fq", 
+      "R1_trim": "FullSampleRun_trim_R1.fq", 
+      "merge_settings": "-p 0.001 -v 100 -m 412 -n 141 -q 30 -j 20 -t 90", 
+      "merge_prefix": "MergeFullRun", 
+      "trimmomatic_suffix": ":2:30:10", 
+      "R2_single": "R2_sngl.fq"
+   },
+   "dependency_paths": {
+      "merge_program": "pear", 
+      "java_bin_path": "/usr/bin/java", 
+      "trimmomatic_adapters_path": "/home/jrussack/Trimmomatic-0.36/adapters", 
+      "trimmomatic_jar_path": "/home/jrussack/Trimmomatic-0.36/trimmomatic-0.36.jar", 
+      "merge_path": "/usr/bin"
+   }, 
+   "program": {
+      "project_directory": "/home/jrussack/bathwater_data"
+   }, 
+   "program_argument_sets": {
+      "merge_custom_parameters": "-f FullSampleRun_trim_R1.fq -r FullSampleRun_trim_R2.fq -o MergeFullRun -p 0.001 -v 100 -m 412 -n 141 -q 30 -j 20 -t 90", 
+      "trimmomatic_custom_parameters": "PE FullSampleRun_R1.fq FullSampleRun_R2.fq FullSampleRun_trim_R1.fq R1_sngl.fq FullSampleRun_trim_R2.fq R2_sngl.fq ILLUMINACLIP:~/Trimmomatic-0.36/adapters/TruSeq3-PE-2.fa:2:30:10"
+   }
+}

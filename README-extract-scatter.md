@@ -11,6 +11,17 @@
   Document inputs, outputs, and usage.
   
 
+# Install/setup with virtualenv python2 (tested on mac):
+`which python2`
+
+`virtualenv -p /usr/local/bin/python2 venv`
+
+`source ./venv/bin/activate`
+
+`pip install -r requirements.txt`
+
+`python mSat_server.py`
+
 
 # Install
 pip install Flask
@@ -31,6 +42,10 @@ Run server:
 python mSat_server.py
 or just
 mSat_server.py
+
+
+
+
 
 Point your browser to http://localhost:5001/
 

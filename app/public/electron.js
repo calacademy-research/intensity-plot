@@ -18,9 +18,13 @@ function createWindow(){
     }
   })
   // and load the index.html of the app.
-  //mainWindow.loadFile('index.html')
+  // //mainWindow.loadFile('index.html')
 
-  mainWindow.loadURL(isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../build/index.html')}`);
+  // Hey, go grab my running React App and display that here.
+  // You can do this for any website, even a hosted project you already have.
+
+  mainWindow.loadURL(isDev ? 'http://localhost:3000' : 
+  `file://${path.join(__dirname, '../build/index.html')}`);
 
   if (isDev) {
  // Open the DevTools.
@@ -54,7 +58,7 @@ app.on('window-all-closed', () => {
     // On macOS it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
     if (mainWindow === null) {
-      createWindow()
+      createWindow();
     }
   })
   

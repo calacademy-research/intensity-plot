@@ -1,6 +1,9 @@
 const { app, BrowserWindow } = require('electron')
 const path = require('path');
 const isDev = require('electron-is-dev');
+const ejse = require('ejs-electron')
+    .data('username', 'Some Guy')
+    .options('debug', true)
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -23,9 +26,11 @@ function createWindow(){
   // Hey, go grab my running React App and display that here.
   // You can do this for any website, even a hosted project you already have.
 
-  mainWindow.loadURL(isDev ? 'http://localhost:3000' : 
-  `file://${path.join(__dirname, '../build/index.html')}`);
-
+  // mainWindow.loadURL(isDev ? 'http://localhost:3000' : 
+  // `file://${path.join(__dirname, '../build/index.html')}`);
+    
+    mainWindow.loadURL('file://' + __dirname + '/index.ejs')
+    
   if (isDev) {
  // Open the DevTools.
  mainWindow.webContents.openDevTools();

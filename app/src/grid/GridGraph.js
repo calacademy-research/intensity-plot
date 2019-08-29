@@ -2,248 +2,270 @@ import React, { Component } from "react";
 import "./grid.css"
 
 class GridGraph extends Component {
-    /*// sampleDataArray[sample_name]=[[musat length, number of reads]]
-// inputs are slightly redundant with hitArray and sampleNameArray.
-// SampleName array gives the sample ordering.
 
-//
-// function GridGraph(canvasId, // Integer denoting the 'group' on the page
-//                    sampleDataArray,
-//                    minColumn,
-//                    maxColumn,
-//                    sampleNameArray,
-//                    primerName) {
-//     "use strict";
-//
-//     var displayRow = {};
-//     // tracks vertical spacing, indexed by sample name. If we color code sample groups, this is where
-//     // it will be tracked
-//     // The "y" value is in the middle of the row.
-//     var xSize = 0;
-//     var ySize = 0;
-//     var ySpacingPx = 12;
-//     var xSpacingPx = 12;
-//     var sumBarHeight = 40;
-//     var doDrawColumnArray = []; // index 0 = minColumn. Is this column drawn or crunched into a skipColumn?
-//     var colPositions = [];  // index 0 = minColumn. x co-ord of rhs of column
-//     var drawColumnCount = 0;  // total number of regular drawn vertical columns
-//     var skipColumnCount = 0;  // total number of half-width "skip" columns.
-//
-//     var peakBuckets = {}; // indexed by sample length, contains total sample count.
-//     var bucketMapping = {}; // maps each populated bucket to a monitonically increasing index
-//
-//
-//     var canvasName = 'mainCanvas' + canvasId;
-//     var mainCanvas;
-//     var canvasRainbow;
-//     var bucketRainbow;
-//     var intensityArray;
-//     var that = this;
-//     var highlights = {};
-//
-//
-//     that.setup = function () {
-//         // try {
-//             sampleNameArray.sort(sortByPopThenSample); // sampleNameArray.sort(naturalSort);
-//
-//             intensityArray = calculateIntensityArray();
-//             var verticalSums = sumVerticals(intensityArray, sampleNameArray);
-//             calculateSkipColumns(verticalSums);
-//
-//             setGraphSizes();
-//            setupCanvas();       //
-//             setupVerticalSpacing();
-//             drawSampleNames();    //
-//             drawLengthLabels();    //
-//             drawHorizontalGrid();   //
-//             drawVerticalGrid();
-//             computePeakBuckets();    //
-//             drawPoints(intensityArray); //
-//             drawSumBars(verticalSums);   //
-//         // } catch (err) {
-//         //     alert("Setup error: " + err);
-//         //     return;
-//         // }
-//         // works of the background because it's the second html element,
-//         // which - when respositioned over the first - grabs the mouse action.
-//         // re-arrange here or in html/css; this is easier.
-//
-//         var background = $('#' + 'mainCanvasBackground' + canvasId);
-//
-//
-//         background.mousemove(function (e) {
-//             handleMouseMove(e);
-//         });
-//         background.mouseleave(function (e) {
-//             handleMouseLeave(e);
-//         });
-//         // document.getElementById("sample_names" + canvasId).addEventListener("click", function (e) {
-//         //     handleSampleClick(e);
-//         // });
-//         // document.getElementById("mainCanvasBackground" + canvasId).addEventListener("click", function (e) {
-//         //     handleCanvasClick(e);
-//         // });
-//
-//         canvasRainbow = new Rainbow();
-//         canvasRainbow.setSpectrum('red', 'yellow', 'green', 'blue', 'black');
-//         canvasRainbow.setNumberRange(1, 7);
-//         restoreHighlights();
-//     };
-//     that.setup();
-//
-//
-//     that.cleanupHighlights = function (currentlyHiglightedSampleNamesArray) {
-//         //  Remove all related highlights
-//         for (var unlightSampleNameIndex in currentlyHiglightedSampleNamesArray) {
-//             that.removeSampleHighlight(currentlyHiglightedSampleNamesArray[unlightSampleNameIndex]);
-//
-//         }
-//
-//
-//     };
-//
-//
-//     that.getRowFromCoords = function (rect, absY) {
-//         var relY = absY - rect.top;
-//
-//         for (var curRow in displayRow) {
-//             if (relY > displayRow[curRow].y && (relY <= displayRow[curRow].y + ySpacingPx)) {
-//                 break;
-//             }
-//         }
-//         return curRow;
-//     };
-//
-//     that.getColFromCoords = function (rect, absX) {
-//         var relX = absX - rect.left;
-//
-//
-//         // var length = Math.floor(relX / xSpacingPx) + minColumn;
-//         var col = 0;
-//         while (relX >= colPositions[col]) {
-//             col++;
-//         }
-//         while (doDrawColumnArray[col] === false)
-//             col--;
-//         return minColumn + col;
-//     };
-//
-//
-//     function handleMouseLeave(e) {
-//         var tipCanvas = document.getElementById("tip");
-//
-//         tipCanvas.style.left = (-20000) + "px";
-//         tipCanvas.style.top = (0) + "px";
-//     }
-//
-//     that.removeSampleHighlight = function (sampleName) {
-//         that.highlightSample(sampleName, 0, false);
-//     };
-//
-//
-// // can only highlight samples in screen 0
-//     that.highlightSample = function (sampleName, currentlySelectedGroup, doHighlight) {
-//         var c = document.getElementById("mainCanvasBackground0");
-//         var context = c.getContext("2d");
-//         var ulY = displayRow[sampleName].y;
-//         var hexColor;
-//         if (doHighlight) {
-//             hexColor = '#' + canvasRainbow.colourAt(currentlySelectedGroup);
-//
-//         } else {
-//             hexColor = 'white';
-//
-//         }
-//         context.beginPath();
-//         context.rect(0, ulY + 1, xSize, ySpacingPx);
-//         context.strokeStyle = hexColor;
-//         context.fillStyle = hexColor;
-//         context.lineWidth = 1;
-//         context.fill();
-//         if (doHighlight) {
-//             highlights[sampleName] = currentlySelectedGroup;
-//         } else {
-//             delete highlights[sampleName];
-//         }
-//     }
-//
-//     function restoreHighlights() {
-//
-//         for (var sampleName in highlights) {
-//             that.highlightSample(sampleName, highlights[sampleName], true);
-//         }
-//     }
-//
-//
-//     function handleMouseMove(e) {
-//         if (sampleDataArray === null)
-//             return;
-//         var rect = mainCanvas.getBoundingClientRect();
-//         var length = -1;
-//         var sampleName = -1;
-//         var x = parseInt(e.clientX);
-//         var y = parseInt(e.clientY);
-//
-//         var tipCanvas = document.getElementById("tip");
-//         var tipCtx = tipCanvas.getContext("2d");
-//         var relX = x - rect.left;
-//         var relY = y - rect.top;
-//
-//
-//         if (relX >= 0 && relX <= rect.width && relY > 0 && relY < rect.height) {
-//             tipCanvas.style.left = (x + 10) + "px";
-//             tipCanvas.style.top = (y + 10) + "px";
-//             tipCtx.clearRect(0, 0, tipCanvas.width, tipCanvas.height);
-//             length = that.getColFromCoords(rect, x);
-//             sampleName = that.getRowFromCoords(rect, y);
-//
-//             var sampleCount = 0;
-//
-//             for (var element in sampleDataArray[sampleName]) {
-//                 if (length === sampleDataArray[sampleName][element][0]) {
-//                     sampleCount = sampleDataArray[sampleName][element][1];
-//                 }
-//             }
-//
-//             if (isPeak(primerName, sampleName, length)) {
-//                 var hexColor = '#e6ffe6';
-//                 //var hexColor = '#ff0000';
-//                 tipCtx.beginPath();
-//                 tipCtx.rect(0, 0, tipCanvas.width, tipCanvas.height);
-//                 tipCtx.strokeStyle = hexColor;
-//                 tipCtx.fillStyle = hexColor;
-//                 tipCtx.lineWidth = 1;
-//                 tipCtx.fill();
-//                 tipCtx.stroke();
-//
-//             }
-//             tipCtx.fillStyle = 'black';
-//             if (sampleCount > 0)
-//                 tipCtx.fillText(sampleCount, 5, 13);
-//             tipCtx.fillText(length, 50, 13);
-//             tipCtx.fillText(sampleName, 85, 13);
-//         }
-//
-//     }
-//
-//     function calculateMeanValue() {
-//         var totalCount = 0;
-//         var sum = 0;
-//         for (var sampleName in sampleDataArray) {
-//             for (var i = 0; i < sampleDataArray[sampleName].length; i++) {
-//                 sum = sum + sampleDataArray[sampleName][i][1];
-//                 totalCount++;
-//
-//             }
-//         }
-//         return sum / totalCount;
-//     }
-//
-//     /*
-//      * returns 'intensity' from 0 to 100 of each populated
-//      * length in a sample (each valid column in a row)
-//      * indexed by sample name
-//      */
+    constructor(props){
+        super(props);
+        /*
+        props:
+        * canvas id: integer denoting the 'group' on the page
+        * sampleDataArray
+        * minColumn
+        * maxColumn
+        * sampleNameArray
+        * primerName
+        
+        
+        
+         */
+        this.state = {
+            
+            displayRow : {},
+            
+            // tracks vertical spacing, indexed by sample name. If we color code sample groups, this is where
+            // it will be tracked
+            // The "y" value is in the middle of the row.
+
+             xSize : 0,
+            ySize : 0,
+          ySpacingPx :12,
+         xSpacingPx : 12,
+        sumBarHeight : 40
+            
+        }
+    }
+    
+    GridGraph(canvasId, // Integer denoting the 'group' on the page
+                       sampleDataArray,
+                       minColumn,
+                       maxColumn,
+                       sampleNameArray,
+                        primerName) {
+            "use strict";
+            
+            var displayRow = {};
+               // tracks vertical spacing, indexed by sample name. If we color code sample groups, this is where
+                // it will be tracked
+               // The "y" value is in the middle of the row.
+               var xSize = 0;
+                 var ySize = 0;
+                var ySpacingPx = 12;
+                var xSpacingPx = 12;
+               var sumBarHeight = 40;
+              var doDrawColumnArray = []; // index 0 = minColumn. Is this column drawn or crunched into a skipColumn?
+              var colPositions = [];  // index 0 = minColumn. x co-ord of rhs of column
+               var drawColumnCount = 0;  // total number of regular drawn vertical columns
+               var skipColumnCount = 0;  // total number of half-width "skip" columns.
+             
+              var peakBuckets = {}; // indexed by sample length, contains total sample count.
+               var bucketMapping = {}; // maps each populated bucket to a monitonically increasing index
+              var canvasName = 'mainCanvas' + canvasId;
+              var mainCanvas;
+               var canvasRainbow;
+               var bucketRainbow;
+                 var intensityArray;
+              var that = this;
+              var highlights = {};
+             that.setup = function () {
+                  // try {
+               sampleNameArray.sort(sortByPopThenSample); // sampleNameArray.sort(naturalSort);
+              intensityArray = calculateIntensityArray();
+              var verticalSums = sumVerticals(intensityArray, sampleNameArray);
+               calculateSkipColumns(verticalSums);
+              setGraphSizes();
+                setupCanvas();      
+                setupVerticalSpacing();
+                drawSampleNames();    //
+                 drawLengthLabels();    //
+                   drawHorizontalGrid();   //
+                drawVerticalGrid();
+                  computePeakBuckets();    //
+                      drawPoints(intensityArray); //
+                     drawSumBars(verticalSums);   //
+                // } catch (err) {
+               alert("Setup error: " + err);
+                 return;
+                   // }
+                   // works of the background because it's the second html element,
+               // which - when respositioned over the first - grabs the mouse action.
+                   // re-arrange here or in html/css; this is easier.
+                 var background = $('#' + 'mainCanvasBackground' + canvasId);
+              
+               background.mousemove(function (e) {
+                  handleMouseMove(e);
+                   });
+                 background.mouseleave(function (e) {
+                    handleMouseLeave(e);
+                 });
+                    // document.getElementById("sample_names" + canvasId).addEventListener("click", function (e) {
+                       //     handleSampleClick(e);
+                      // });
+                       // document.getElementById("mainCanvasBackground" + canvasId).addEventListener("click", function (e) {
+                      //     handleCanvasClick(e);
+                      // });
+                       canvasRainbow = new Rainbow();
+                      canvasRainbow.setSpectrum('red', 'yellow', 'green', 'blue', 'black');
+                  canvasRainbow.setNumberRange(1, 7);
+                        restoreHighlights();
+                 };
+                  that.setup();
+               
+                         that.cleanupHighlights = function (currentlyHiglightedSampleNamesArray) {
+                          //  Remove all related highlights
+                              for (var unlightSampleNameIndex in currentlyHiglightedSampleNamesArray) {
+                                   that.removeSampleHighlight(currentlyHiglightedSampleNamesArray[unlightSampleNameIndex]);
+                       
+                               }
+                       
+                       
+                           };
+                       
+                       
+                            that.getRowFromCoords = function (rect, absY) {
+                                var relY = absY - rect.top;
+                       
+                               for (var curRow in displayRow) {if (relY > displayRow[curRow].y && (relY <= displayRow[curRow].y + ySpacingPx)) {
+                                       break;
+                                    }
+                               }
+                                return curRow;
+                           };
+                       
+                            that.getColFromCoords = function (rect, absX) {
+                                var relX = absX - rect.left;
+                       
+                       
+                                // var length = Math.floor(relX / xSpacingPx) + minColumn;
+                                var col = 0;
+                                while (relX >= colPositions[col]) {
+                                    col++;
+                                }
+                                while (doDrawColumnArray[col] === false)
+                                   col--;
+                               return minColumn + col;
+                            };
+                       
+
+
+                       /*// sampleDataArray[sample_name]=[[musat length, number of reads]]
+                   // inputs are slightly redundant with hitArray and sampleNameArray.
+                   // SampleName array gives the sample ordering.
+                   
+                   //
+                   //     function handleMouseLeave(e) {
+                   //         var tipCanvas = document.getElementById("tip");
+                   //
+                   //         tipCanvas.style.left = (-20000) + "px";
+                   //         tipCanvas.style.top = (0) + "px";
+                   //     }
+                   //
+                   //     that.removeSampleHighlight = function (sampleName) {
+                   //         that.highlightSample(sampleName, 0, false);
+                   //     };
+                   //
+                   //
+                   // // can only highlight samples in screen 0
+                   //     that.highlightSample = function (sampleName, currentlySelectedGroup, doHighlight) {
+                   //         var c = document.getElementById("mainCanvasBackground0");
+                   //         var context = c.getContext("2d");
+                   //         var ulY = displayRow[sampleName].y;
+                   //         var hexColor;
+                   //         if (doHighlight) {
+                   //             hexColor = '#' + canvasRainbow.colourAt(currentlySelectedGroup);
+                   //
+                   //         } else {
+                   //             hexColor = 'white';
+                   //
+                   //         }
+                   //         context.beginPath();
+                   //         context.rect(0, ulY + 1, xSize, ySpacingPx);
+                   //         context.strokeStyle = hexColor;
+                   //         context.fillStyle = hexColor;
+                   //         context.lineWidth = 1;
+                   //         context.fill();
+                   //         if (doHighlight) {
+                   //             highlights[sampleName] = currentlySelectedGroup;
+                   //         } else {
+                   //             delete highlights[sampleName];
+                   //         }
+                   //     }
+                   //
+                   //     function restoreHighlights() {
+                   //
+                   //         for (var sampleName in highlights) {
+                   //             that.highlightSample(sampleName, highlights[sampleName], true);
+                   //         }
+                   //     }
+                   //
+                   //
+                   //     function handleMouseMove(e) {
+                   //         if (sampleDataArray === null)
+                   //             return;
+                   //         var rect = mainCanvas.getBoundingClientRect();
+                   //         var length = -1;
+                   //         var sampleName = -1;
+                   //         var x = parseInt(e.clientX);
+                   //         var y = parseInt(e.clientY);
+                   //
+                   //         var tipCanvas = document.getElementById("tip");
+                   //         var tipCtx = tipCanvas.getContext("2d");
+                   //         var relX = x - rect.left;
+                   //         var relY = y - rect.top;
+                   //
+                   //
+                   //         if (relX >= 0 && relX <= rect.width && relY > 0 && relY < rect.height) {
+                   //             tipCanvas.style.left = (x + 10) + "px";
+                   //             tipCanvas.style.top = (y + 10) + "px";
+                   //             tipCtx.clearRect(0, 0, tipCanvas.width, tipCanvas.height);
+                   //             length = that.getColFromCoords(rect, x);
+                   //             sampleName = that.getRowFromCoords(rect, y);
+                   //
+                   //             var sampleCount = 0;
+                   //
+                   //             for (var element in sampleDataArray[sampleName]) {
+                   //                 if (length === sampleDataArray[sampleName][element][0]) {
+                   //                     sampleCount = sampleDataArray[sampleName][element][1];
+                   //                 }
+                   //             }
+                   //
+                   //             if (isPeak(primerName, sampleName, length)) {
+                   //                 var hexColor = '#e6ffe6';
+                   //                 //var hexColor = '#ff0000';
+                   //                 tipCtx.beginPath();
+                   //                 tipCtx.rect(0, 0, tipCanvas.width, tipCanvas.height);
+                   //                 tipCtx.strokeStyle = hexColor;
+                   //                 tipCtx.fillStyle = hexColor;
+                   //                 tipCtx.lineWidth = 1;
+                   //                 tipCtx.fill();
+                   //                 tipCtx.stroke();
+                   //
+                   //             }
+                   //             tipCtx.fillStyle = 'black';
+                   //             if (sampleCount > 0)
+                   //                 tipCtx.fillText(sampleCount, 5, 13);
+                   //             tipCtx.fillText(length, 50, 13);
+                   //             tipCtx.fillText(sampleName, 85, 13);
+                   //         }
+                   //
+                   //     }
+                   //
+                   //     function calculateMeanValue() {
+                   //         var totalCount = 0;
+                   //         var sum = 0;
+                   //         for (var sampleName in sampleDataArray) {
+                   //             for (var i = 0; i < sampleDataArray[sampleName].length; i++) {
+                   //                 sum = sum + sampleDataArray[sampleName][i][1];
+                   //                 totalCount++;
+                   //
+                   //             }
+                   //         }
+                   //         return sum / totalCount;
+                   //     }
+                   //
+                   //     /*
+                   //      * returns 'intensity' from 0 to 100 of each populated
+                   //      * length in a sample (each valid column in a row)
+                   //      * indexed by sample name
+                   //      */
 //     function calculateIntensityArray() {
 //         var mean = calculateMeanValue();
 //         var array = {};

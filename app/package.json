@@ -14,7 +14,7 @@
     "electron-build": "electron-builder",
     "release": "yarn react-build && electron-builder --publish=always",
     "build": "yarn react-build && yarn electron-build",
-    "start": "concurrently \"cross-env BROWSER=none yarn react-start\" \"wait-on http://localhost:3000 && electron .\""
+    "start": "electron ."
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -40,6 +40,8 @@
   "dependencies": {
     "bootstrap": "^4.3.1",
     "cross-env": "^5.2.0",
+    "ejs": "^2.6.2",
+    "ejs-electron": "^2.0.3",
     "electron-is-dev": "^1.1.0",
     "jqplot": "^1.0.9",
     "jquery": "^3.4.1",

@@ -21,6 +21,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 - src -> HTML/React application being hosted in electron
 - test -> tests
 
+
+
 ## Available Scripts
 
 In the project directory, you can run:

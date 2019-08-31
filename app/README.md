@@ -27,7 +27,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 * index.html - A web page to render. This is the app's renderer process.
 
 
-## ES6 Modules
+##  Modules
 
 * grid_graph
 
@@ -40,11 +40,18 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 
 
-## Getting Started
+Before you can run any of these scripts you need to install the required modules using:
 
-In the project directory, you can run:
+```js
+npm install -g yarn
+npm install
+```
+
+In the project directory (the **app** directory), you can run:
 
 ### `npm start`
+
+This runs the app in the development mode.<br>
 
 ### `npm test`
 

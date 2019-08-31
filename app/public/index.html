@@ -4,25 +4,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>μSat alleles</title>
-    <link 
-    href="data:image/x-icon;base64,AAABAAEAEBAQAAAAAAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA27yaAPLs5gC/dCIA6IETAPXo2gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARVVVVUERETAEVVVUERETAARVVVQRERMAAEVVQDERMAAARVVAMREwAABFVUADEwAAAgRUAAMTACAABFQAADAAAAAEVAAgAAAAAABAAAAAAgAAIEAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAIAAAAAAgAAAAAAIAAAAAAAAAAAAAAAAQAAgAMAAIADAADBBwAAwQcAAMGPAACjjQAA498AAON/AAD3+wAA1/8AAP//AAD//wAAu/4AAP/fAAD//wAA"
+    <link href="data:image/x-icon;base64,AAABAAEAEBAQAAAAAAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA27yaAPLs5gC/dCIA6IETAPXo2gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARVVVVUERETAEVVVUERETAARVVVQRERMAAEVVQDERMAAARVVAMREwAABFVUADEwAAAgRUAAMTACAABFQAADAAAAAEVAAgAAAAAABAAAAAAgAAIEAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAIAAAAAAgAAAAAAIAAAAAAAAAAAAAAAAQAAgAMAAIADAADBBwAAwQcAAMGPAACjjQAA498AAON/AAD3+wAA1/8AAP//AAD//wAAu/4AAP/fAAD//wAA"
     rel="icon" 
     type="image/x-icon"/>
-
-     <!--
+    <link href="../src/static/css/grid.css" type="text/css" rel="stylesheet" />
+    <!-- <link rel = "stylesheet" 
+    href = "/bootstrap/dist/css/bootstrap.min.css" /> 
+     -->
+    <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
-
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->    
+    <link rel="manifest" href="manifest.json" />
 </head>
   <body>
     <div id="root"></div>
@@ -37,5 +30,40 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->  
+     <!-- You can also require other files to run in this process -->
+
+     <h3 id = "click-counter"></h3>
+     <button class = "btn btn-success" id = "countbtn">Click here</button>
+
+     <div id="buttons">
+      <button id="addGroup" disabled onclick="addGridGraph()">Add group</button>
+      <button id="removeGroup" disabled onclick="removeGridGraph()">Remove group</button>
+      <div id="gridGraphSelector" style="white-space: nowrap; display: inline;">
+         
+      </div>
+  </div>
+  <div id="graph_wrapper" class="noselect">
+  
+      <div id="primers_grid_container">
+          <div id="primers_grid">
+              <span id="primers_grid_hdr">Locus&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Called</span>
+              <span id="primers_grid_contents"><br/></span>
+          </div>
+      </div>
+      <div id="all_graphs">                 
+      </div>
+  </div>
+  <canvas id="tip" width=170 height=20>
+  </canvas>
+
+
+     <script src="./renderer.js"></script>
+
+    <footer>
+     We are using Node.js <span id="node-version"></span>,
+     Chromium <span id="chrome-version"></span>,
+     and Electron <span id="electron-version"></span>.
+    </footer>
+   
   </body>
 </html>

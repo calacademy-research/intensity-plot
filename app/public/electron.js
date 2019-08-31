@@ -1,13 +1,13 @@
+// Modules to control application life and create native browser window
 const { app, BrowserWindow } = require('electron')
 const path = require('path');
 const isDev = require('electron-is-dev');
-
+    
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
 
 function createWindow(){
-
  // Create the browser window.
   mainWindow = new BrowserWindow({
     width: 800,
@@ -17,20 +17,16 @@ function createWindow(){
     preload: path.join(__dirname, 'preload.js')
     }
   })
+  
   // and load the index.html of the app.
-  // //mainWindow.loadFile('index.html')
+  //mainWindow.loadFile('index.html')
+  mainWindow.loadURL('file://' + __dirname + '/index.html')
 
-  // Hey, go grab my running React App and display that here.
-  // You can do this for any website, even a hosted project you already have.
-
-  mainWindow.loadURL(isDev ? 'http://localhost:3000' : 
-  `file://${path.join(__dirname, '../build/index.html')}`);
-
-  if (isDev) {
+ if (isDev) {
  // Open the DevTools.
  mainWindow.webContents.openDevTools();
-  }
-
+}
+  
  // Emitted when the window is closed.
  mainWindow.on('closed', () => {
    // Dereference the window object, usually you would store windows
@@ -62,3 +58,5 @@ app.on('window-all-closed', () => {
     }
   })
   
+// In this file you can include the rest of your app's specific main process
+// code. You can also put them in separate files and require them here.

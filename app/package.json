@@ -7,29 +7,10 @@
   },
   "main": "public/electron.js",
   "scripts": {
-    "react-start": "react-scripts start",
-    "react-build": "react-scripts build",
-    "react-test": "react-scripts test --env=jsdom",
-    "react-eject": "react-scripts eject",
     "electron-build": "electron-builder",
-    "release": "yarn react-build && electron-builder --publish=always",
-    "build": "yarn react-build && yarn electron-build",
-    "start": "concurrently \"cross-env BROWSER=none yarn react-start\" \"wait-on http://localhost:3000 && electron .\""
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "release": "yarn electron-builder --publish=always",
+    "build": "yarn electron-build",
+    "start": "electron --inspect=5858 ."
   },
   "devDependencies": {
     "concurrently": "^4.1.1",
@@ -39,16 +20,15 @@
   },
   "dependencies": {
     "bootstrap": "^4.3.1",
+    "cjs": "0.0.11",
     "cross-env": "^5.2.0",
     "electron-is-dev": "^1.1.0",
+    "jQuery": "^1.7.4",
     "jqplot": "^1.0.9",
     "jquery": "^3.4.1",
     "jstree": "^3.3.8",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-router-dom": "^5.0.1",
-    "react-scripts": "3.0.1",
-    "spin": "^0.0.1",
-    "typescript": "^3.5.3"
+    "popover.js": "^0.2.40",
+    "popper.js": "^1.15.0",
+    "spin": "^0.0.1"
   }
 }

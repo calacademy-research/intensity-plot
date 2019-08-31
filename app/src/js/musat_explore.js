@@ -1,4 +1,4 @@
-function Explore(workingDirectory) {
+module.exports = function Explore(workingDirectory) {
     var javascripts = [];
     var selectedDirectory;
 

@@ -1,3 +1,14 @@
+
+const mu = require('../src/js/musat_grid_graph.js');
+
+//        $(document).ready(function () {
+    var main = new mu(); // this creates mu, so var main is not redundant            
+
+//        $('html,body').scrollTop(0); // Show Documentation page from the top
+//      });
+
+
+<!-- TODO use grid.css-->
 <style>
     #primers_grid_contents {
         display: table-cell;
@@ -69,7 +80,9 @@
     }
 </style>
 
+
 <body>
+
 <div id="buttons">
     <button id="addGroup" disabled onclick="addGridGraph()">Add group</button>
     <button id="removeGroup" disabled onclick="removeGridGraph()">Remove group</button>
@@ -87,13 +100,9 @@
             <span id="primers_grid_contents"><br/></span>
         </div>
     </div>
-    <div id="all_graphs">
-        <!--todo - this should be in JS and the JS should be rendering out of server query that renders -->
-        <!--from a template-->
+    <div id="all_graphs">       
         <!--it should do this on demand. Right now, this is wasteful and can crash with more than-->
         <!--50 total creates-->
-<!--        {% for i in range(0,49) %}-->
-
         <% for(var i=0; i<50; i++) {%>
             <div id="graph_and_labels<%=i%> " style="  vertical-align: top; padding-top: 6px; ">
               <div id="graph_container<%=i%>">

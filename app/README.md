@@ -4,36 +4,47 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## The Stack
 
-* HTML
-* JavaScript
-
-## The Frameworks
-
+* Electron 
+    * [Quick Start](https://github.com/electron/electron-quick-start)
+    * An open-source framework designed to build desktop GUI applications using HTML, CSS and JavaScript.
+    * Runs using Node.js runtime for the back-end part and Chromium for the front-end. 
+    * Electron exposes full access to Node.js both in the main and the renderer process. 
+* [ES6 Modules](https://ponyfoo.com/articles/es6-modules-in-depth)
+    * Each module is a small unit of independent, reusable code. 
+    * Each module is a piece of code that is executed once a JavaScript file is loaded
+    * Everything inside an ES6 module is private by default, and runs in strict mode (there’s no need for 'use strict').
+    * Public variables, functions and classes are exposed using export.
+    * Exposed modules are called into other modules using import.
+    * Modules must be included in your HTML with type="module", which can be an inline or external script tag.
+    * Modules are deferred, and only run after a document is loaded
 * npm (yarn)
 * GraphViz
-* React
-* Electron
-* TypeScript (light/experimental usage)
 
-## The Structure
+## Application Architecture
 
-- public ->  electron app 
-- src -> HTML/React application being hosted in electron
-- test -> tests
+* package.json - Points to the app's main file and lists its details and dependencies.
+* electron.js - Starts the app and creates a browser window to render HTML. This is the app's main process.
+* index.html - A web page to render. This is the app's renderer process.
 
 
+## ES6 Modules
 
-## Available Scripts
+* grid_graph
+
+
+## Debugging
+
+### Electron process
+
+### Render process
+
+
+
+## Getting Started
 
 In the project directory, you can run:
 
 ### `npm start`
-
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
 
 ### `npm test`
 
@@ -52,6 +63,4 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 ## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Contributing

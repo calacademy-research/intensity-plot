@@ -4,10 +4,8 @@
 // inputs are slightly redundant with hitArray and sampleNameArray.
 // SampleName array gives the sample ordering.
 
-let $ = require('jquery')  // jQuery now loaded and assigned to $
-
 //var rainbow = require('rainbow-code');
-exports.grid = function GridGraph(canvasId, // Integer denoting the 'group' on the page
+function GridGraph(canvasId, // Integer denoting the 'group' on the page
                    sampleDataArray,
                    minColumn,
                    maxColumn,
@@ -57,7 +55,7 @@ exports.grid = function GridGraph(canvasId, // Integer denoting the 'group' on t
             drawLengthLabels();    //
             drawHorizontalGrid();   //
             drawVerticalGrid();
-            computePeakBuckets();    //
+            //computePeakBuckets();    //
             drawPoints(intensityArray); //
             drawSumBars(verticalSums);   //
         // } catch (err) {
@@ -140,11 +138,10 @@ exports.grid = function GridGraph(canvasId, // Integer denoting the 'group' on t
         that.highlightSample(sampleName, 0, false);
     };
 
-
 // can only highlight samples in screen 0
     that.highlightSample = function (sampleName, currentlySelectedGroup, doHighlight) {
         var c = document.getElementById("mainCanvasBackground0");
-        //var context = c.getContext("2d");
+        var context = c.getContext("2d");
         var ulY = displayRow[sampleName].y;
         var hexColor;
         if (doHighlight) {
@@ -154,12 +151,12 @@ exports.grid = function GridGraph(canvasId, // Integer denoting the 'group' on t
             hexColor = 'white';
 
         }
-        // context.beginPath();
-        // context.rect(0, ulY + 1, xSize, ySpacingPx);
-        // context.strokeStyle = hexColor;
-        // context.fillStyle = hexColor;
-        // context.lineWidth = 1;
-        // context.fill();
+        context.beginPath();
+        context.rect(0, ulY + 1, xSize, ySpacingPx);
+        context.strokeStyle = hexColor;
+        context.fillStyle = hexColor;
+        context.lineWidth = 1;
+        context.fill();
         if (doHighlight) {
             highlights[sampleName] = currentlySelectedGroup;
         } else {
@@ -185,7 +182,7 @@ exports.grid = function GridGraph(canvasId, // Integer denoting the 'group' on t
         var y = parseInt(e.clientY);
 
         var tipCanvas = document.getElementById("tip");
-      //  var tipCtx = tipCanvas.getContext("2d");
+        var tipCtx = tipCanvas.getContext("2d");
         var relX = x - rect.left;
         var relY = y - rect.top;
 
@@ -193,7 +190,7 @@ exports.grid = function GridGraph(canvasId, // Integer denoting the 'group' on t
         if (relX >= 0 && relX <= rect.width && relY > 0 && relY < rect.height) {
             tipCanvas.style.left = (x + 10) + "px";
             tipCanvas.style.top = (y + 10) + "px";
-          //  tipCtx.clearRect(0, 0, tipCanvas.width, tipCanvas.height);
+            tipCtx.clearRect(0, 0, tipCanvas.width, tipCanvas.height);
             length = that.getColFromCoords(rect, x);
             sampleName = that.getRowFromCoords(rect, y);
 
@@ -208,20 +205,20 @@ exports.grid = function GridGraph(canvasId, // Integer denoting the 'group' on t
             if (isPeak(primerName, sampleName, length)) {
                 var hexColor = '#e6ffe6';
                 //var hexColor = '#ff0000';
-                // tipCtx.beginPath();
-                // tipCtx.rect(0, 0, tipCanvas.width, tipCanvas.height);
-                // tipCtx.strokeStyle = hexColor;
-                // tipCtx.fillStyle = hexColor;
-                // tipCtx.lineWidth = 1;
-                // tipCtx.fill();
-                // tipCtx.stroke();
+                tipCtx.beginPath();
+                tipCtx.rect(0, 0, tipCanvas.width, tipCanvas.height);
+                tipCtx.strokeStyle = hexColor;
+                tipCtx.fillStyle = hexColor;
+                tipCtx.lineWidth = 1;
+                tipCtx.fill();
+                tipCtx.stroke();
 
             }
-            // tipCtx.fillStyle = 'black';
-            // if (sampleCount > 0)
-            //     tipCtx.fillText(sampleCount, 5, 13);
-            // tipCtx.fillText(length, 50, 13);
-            // tipCtx.fillText(sampleName, 85, 13);
+            tipCtx.fillStyle = 'black';
+            if (sampleCount > 0)
+                tipCtx.fillText(sampleCount, 5, 13);
+            tipCtx.fillText(length, 50, 13);
+            tipCtx.fillText(sampleName, 85, 13);
         }
 
     }
@@ -494,8 +491,8 @@ exports.grid = function GridGraph(canvasId, // Integer denoting the 'group' on t
         if (sampleNameArray == null) {
             return;
         }
-       // var context = document.getElementById("sample_names" + canvasId).getContext("2d");
-       // context.fillStyle = 'black';
+        var context = document.getElementById("sample_names" + canvasId).getContext("2d");
+        context.fillStyle = 'black';
 
 
         for (var i = 0; i < sampleNameArray.length; i++) {
@@ -508,44 +505,44 @@ exports.grid = function GridGraph(canvasId, // Integer denoting the 'group' on t
     }
 
     function drawLengthLabels() {
-        // var context = document.getElementById("length_labels" + canvasId).getContext("2d");
-        // context.fillStyle = 'black';
-        // context.rotate(90 * Math.PI / 180);
+        var context = document.getElementById("length_labels" + canvasId).getContext("2d");
+        context.fillStyle = 'black';
+        context.rotate(90 * Math.PI / 180);
         var lengthCount = Math.abs(minColumn - maxColumn);
 
         for (var i = 0; i <= lengthCount; i++) {
             if (doDrawColumnArray[i]) {
-                // context.font = "10px Arial";
-                // context.fillStyle = '#0000ff';
+                context.font = "10px Arial";
+                context.fillStyle = '#0000ff';
                 var x = 0;
                 var xPos = colPositions[i] - xSpacingPx;
                 var y = -1 * xPos - xSpacingPx / 5;
-                //context.fillText(minColumn + i, x, y);
+                context.fillText(minColumn + i, x, y);
             }
         }
     }
 
     function drawHorizontalGrid() {
-       // var context = document.getElementById(canvasName).getContext("2d");
+        var context = document.getElementById(canvasName).getContext("2d");
 
         for (var sampleName in displayRow) {
             var y = displayRow[sampleName].yMiddle;
             y = y + ySpacingPx / 2;
-            // context.beginPath();
-            // context.moveTo(0, y);
-            // context.lineTo(xSize, y);
-            // context.lineWidth = 1;
+            context.beginPath();
+            context.moveTo(0, y);
+            context.lineTo(xSize, y);
+            context.lineWidth = 1;
 
-            // // set line color
-            // context.strokeStyle = '#d3d3d3';
-            // context.stroke();
+            // set line color
+            context.strokeStyle = '#d3d3d3';
+            context.stroke();
         }
     }
 
     function drawVerticalGrid() {
         var gridLineCount = Math.abs(minColumn - maxColumn);
 
-      //  var context = document.getElementById(canvasName).getContext("2d");
+        var context = document.getElementById(canvasName).getContext("2d");
 
         for (var i = 0; i <= gridLineCount; i++) {
             // var startX = i * xSpacingPx;
@@ -554,14 +551,14 @@ exports.grid = function GridGraph(canvasId, // Integer denoting the 'group' on t
             var endX = startX;
             var endY = ySize;
 
-            // context.beginPath();
-            // context.moveTo(startX, startY);
-            // context.lineTo(endX, endY);
-            // context.lineWidth = 1;
+            context.beginPath();
+            context.moveTo(startX, startY);
+            context.lineTo(endX, endY);
+            context.lineWidth = 1;
 
-            // // set line color
-            // context.strokeStyle = '#d3d3d3';
-            // context.stroke();
+            // set line color
+            context.strokeStyle = '#d3d3d3';
+            context.stroke();
         }
     }
 
@@ -611,27 +608,27 @@ exports.grid = function GridGraph(canvasId, // Integer denoting the 'group' on t
         var scale = sumBarHeight / maxVertical;
 
         var extrema = getExtrema(verticalSums);
-      //  var context = document.getElementById("hit_bars" + canvasId).getContext("2d");
-     //   context.fillStyle = 'black';
+        var context = document.getElementById("hit_bars" + canvasId).getContext("2d");
+        context.fillStyle = 'black';
         var barLineCount = Math.abs(minColumn - maxColumn);
 
         for (var i = 0; i <= barLineCount; i++) {
             var x = colPositions[i] - xSpacingPx;
 
-       //     context.beginPath();
+            context.beginPath();
             //[x and y are defined by upper left] x,y,width,height
             var barHeight = verticalSums[i + minColumn] * scale;
-            // context.rect(x, sumBarHeight - barHeight, xSpacingPx - 2, barHeight);
-            // if ($.inArray(verticalSums[i + minColumn], extrema) == -1) {
-            //     context.fillStyle = 'green';
-            // }
-            // else {
-            //     context.fillStyle = 'red';
-            // }
-            // context.fill();
-            // context.lineWidth = 1;
-            // context.strokeStyle = 'black';
-            // context.stroke();
+            context.rect(x, sumBarHeight - barHeight, xSpacingPx - 2, barHeight);
+            if ($.inArray(verticalSums[i + minColumn], extrema) == -1) {
+                context.fillStyle = 'green';
+            }
+            else {
+                context.fillStyle = 'red';
+            }
+            context.fill();
+            context.lineWidth = 1;
+            context.strokeStyle = 'black';
+            context.stroke();
         }
     }
 
@@ -652,36 +649,36 @@ exports.grid = function GridGraph(canvasId, // Integer denoting the 'group' on t
         var labelWidth = 100;
 
         var c = document.getElementById(canvasName);
-        // var context = c.getContext("2d");
-        // context.canvas.width = x;
-        // context.canvas.height = y;
+        var context = c.getContext("2d");
+        context.canvas.width = x;
+        context.canvas.height = y;
         $('#mainCanvas' + canvasId).css({width: x, height: y});
 
 
         c = document.getElementById("mainCanvasBackground" + canvasId);
-        // context = c.getContext("2d");
-        // context.canvas.width = x;
-        // context.canvas.height = y;
+        context = c.getContext("2d");
+        context.canvas.width = x;
+        context.canvas.height = y;
         // fudge factor because I can't seem to squeeze the margin out of this thing.
         // thanks, css!
         $('#mainCanvasBackground' + canvasId).css({left: x * -1 - 2, top: -1, width: x, height: y});
 
         c = document.getElementById("sample_names" + canvasId);
-        // context = c.getContext("2d");
-        // context.canvas.width = labelWidth;
-        // context.canvas.height = y;
+        context = c.getContext("2d");
+        context.canvas.width = labelWidth;
+        context.canvas.height = y;
         $('#sample_names' + canvasId).css({left: x * -1 - 2, up: -10, width: labelWidth, height: y});
 
         c = document.getElementById("length_labels" + canvasId);
-        // context = c.getContext("2d");
-        // context.canvas.width = x;
-        // context.canvas.height = 30;
+        context = c.getContext("2d");
+        context.canvas.width = x;
+        context.canvas.height = 30;
         $('#length_labels' + canvasId).css({width: x, height: 30});
 
         c = document.getElementById("hit_bars" + canvasId);
-        // context = c.getContext("2d");
-        // context.canvas.width = x;
-        // context.canvas.height = sumBarHeight;
+        context = c.getContext("2d");
+        context.canvas.width = x;
+        context.canvas.height = sumBarHeight;
         $('#graph_container' + canvasId).css({width: x + labelWidth});
 
         $('#hit_bars' + (canvasId)).width(x);

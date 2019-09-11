@@ -16,6 +16,76 @@
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
     <link rel="manifest" href="manifest.json" />
+    <style>
+    #primers_grid_contents {
+        display: table-cell;
+        vertical-align: top;
+
+    }
+
+    #primers_grid_hdr {
+        font-weight: bold;
+    }
+
+    #primers_grid {
+        width: 12em;
+        /*float: left;*/
+        margin-top: 6px;
+        padding-top: 10px;
+        padding-bottom: 5px;
+        padding-left: 5px;
+        background-color: #E7F5FE;
+        border: 1px solid black;
+    }
+
+    #primers_grid_container {
+        display: table-cell;
+        vertical-align: top;
+        /*width: 100px;*/
+        padding-right: 10px;
+
+    }
+
+    #all_graphs {
+        display: table-cell;
+    }
+
+    [id^="graph_and_labels"] {
+        display: table-cell;
+    }
+
+    #graph_wrapper {
+        display: table;
+        white-space: nowrap;
+    }
+
+    #tip {
+        background-color: white;
+        border: 1px solid blue;
+        position: fixed;
+        left: -200px;
+        top: 100px;
+    }
+
+    [id^="radioGridSelector"] {
+        display: inline;
+    }
+
+    [id^="mainCanvasBackground"] {
+        opacity: 0.2;
+    }
+
+    .noselect {
+        -webkit-touch-callout: none; /* iOS Safari */
+        -webkit-user-select: none; /* Chrome/Safari/Opera */
+        -khtml-user-select: none; /* Konqueror */
+        -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+        user-select: none;
+        /* Non-prefixed version, currently
+                               not supported by any browser */
+    }
+</style>
 </head>
   <body>
     <div id="root"></div>
@@ -43,22 +113,48 @@
       </div>
   </div>
   <div id="graph_wrapper" class="noselect">
-  
       <div id="primers_grid_container">
           <div id="primers_grid">
               <span id="primers_grid_hdr">Locus&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Called</span>
               <span id="primers_grid_contents"><br/></span>
           </div>
       </div>
-      <div id="all_graphs">                 
-      </div>
-  </div>
-  <canvas id="tip" width=170 height=20>
-  </canvas>
-
-
-     <script src="./renderer.js"></script>
-
+      <div id="all_graphs">    
+        <div id="graph_and_labels0" style="  vertical-align: top; padding-top: 6px; ">
+          <div id="graph_container0">
+            <div id="mainCanvasContainer0" style="display: inline-flex; ">
+              <canvas id="mainCanvas0" class="canvas0" style="position:relative; "></canvas>
+              <canvas id="mainCanvasBackground0" style="position:relative;"></canvas>
+            </div> <!--mainCanvasContainer0-->
+            <canvas id="sample_names0" class="canvas0" style="position:relative;"></canvas>
+          </div> <!--graph_container0-->
+          <canvas id="length_labels0" class="canvas0"></canvas>
+          <br>
+        <canvas id="hit_bars0" class="canvas0"></canvas>
+      </div> <!--graph_and_labels0-->
+    </div> <!--all_graphs-->
+  </div> <!--graph_wrapper-->
+  <canvas id="tip" width=170 height=20></canvas>
+    <script src="./renderer.js"></script>
+	<script src="./TG_MS1_AllelCall.txt"></script>
+	<script src="../src/js/musat_process_graph_data.js"></script>
+	<script src="../src/js/musat_graphing.js"></script>
+	<script src="../src/js/musat_utils.js"></script>
+	<script src="../src/js/musat_grid_locus.js"></script>
+	<script src="../src/js/musat_grid_graph.js"></script>
+	<script>
+	  var ary = text.split("\n");
+	  hits = {};
+	  orig_hits = {};
+	  pop_info = {};
+	  names = [];
+	  pts_merged = {};
+	  num_pops = 0;
+	  initPrimerMinMax(); // 10May2016
+	  sample_pts_trimmed = {}; // 10May2016 each sample has .left and .right arrays to show any pt trimmed when having too few reads to 
+	  processData(ary);
+	  new GridLocus("TG_MS1", hits, primer_min, primer_max, names, "TG_MS1");
+	</script>
     <footer>
      We are using Node.js <span id="node-version"></span>,
      Chromium <span id="chrome-version"></span>,

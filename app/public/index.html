@@ -102,9 +102,6 @@
     -->  
      <!-- You can also require other files to run in this process -->
 
-     <h3 id = "click-counter"></h3>
-     <button class = "btn btn-success" id = "countbtn">Click here</button>
-
      <div id="buttons">
       <button id="addGroup" disabled onclick="addGridGraph()">Add group</button>
       <button id="removeGroup" disabled onclick="removeGridGraph()">Remove group</button>
@@ -129,30 +126,14 @@
     </div> <!--all_graphs-->
   </div> <!--graph_wrapper-->
   <canvas id="tip" width=170 height=20></canvas>
-    <script src="./renderer.js"></script>
-	<script src="./TG_MS1_AllelCall.txt"></script>
-    <script src="./muinfo.json"></script>
-	<script src="../src/js/musat_process_graph_data.js"></script>
-	<script src="../src/js/musat_graphing.js"></script>
-	<script src="../src/js/musat_utils.js"></script>
-	<script src="../src/js/musat_grid_locus.js"></script>
-	<script src="../src/js/musat_grid_graph.js"></script>
-	<script>
-	  var ary = text.split("\n");
-      var muFullData = JSON.parse(data);
-      mu = {};
-      mu.oLocusCalls = muFullData["oLocusCalls"];
-	  hits = {};
-	  orig_hits = {};
-	  pop_info = {};
-	  names = [];
-	  pts_merged = {};
-	  num_pops = 0;
-	  initPrimerMinMax(); // 10May2016
-	  sample_pts_trimmed = {}; // 10May2016 each sample has .left and .right arrays to show any pt trimmed when having too few reads to 
-	  processData(ary);
-	  new GridLocus("TG_MS1", hits, primer_min, primer_max, names, "TG_MS1");
-	</script>
+  <script src="./TG_MS1_AllelCall.txt"></script>
+  <script src="./muinfo.json"></script>
+  <script src="../src/js/musat_process_graph_data.js"></script>
+  <script src="../src/js/musat_graphing.js"></script>
+  <script src="../src/js/musat_utils.js"></script>
+  <script src="../src/js/musat_grid_locus.js"></script>
+  <script src="../src/js/musat_grid_graph.js"></script>
+  <script src="./renderer.js"></script>
     <footer>
      We are using Node.js <span id="node-version"></span>,
      Chromium <span id="chrome-version"></span>,

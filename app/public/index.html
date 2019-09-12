@@ -113,12 +113,6 @@
       </div>
   </div>
   <div id="graph_wrapper" class="noselect">
-      <div id="primers_grid_container">
-          <div id="primers_grid">
-              <span id="primers_grid_hdr">Locus&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Called</span>
-              <span id="primers_grid_contents"><br/></span>
-          </div>
-      </div>
       <div id="all_graphs">    
         <div id="graph_and_labels0" style="  vertical-align: top; padding-top: 6px; ">
           <div id="graph_container0">
@@ -137,6 +131,7 @@
   <canvas id="tip" width=170 height=20></canvas>
     <script src="./renderer.js"></script>
 	<script src="./TG_MS1_AllelCall.txt"></script>
+    <script src="./muinfo.json"></script>
 	<script src="../src/js/musat_process_graph_data.js"></script>
 	<script src="../src/js/musat_graphing.js"></script>
 	<script src="../src/js/musat_utils.js"></script>
@@ -144,6 +139,9 @@
 	<script src="../src/js/musat_grid_graph.js"></script>
 	<script>
 	  var ary = text.split("\n");
+      var muFullData = JSON.parse(data);
+      mu = {};
+      mu.oLocusCalls = muFullData["oLocusCalls"];
 	  hits = {};
 	  orig_hits = {};
 	  pop_info = {};

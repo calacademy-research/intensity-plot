@@ -22,7 +22,6 @@ function saveAsFile(filename, filecontents, donefunc) { // creates file of filen
 }
 
 function isPeak(primerName,sampleName, alleleLength) {
-    /*
     var curSamplePeaks = mu.oLocusCalls[primerName][sampleName];
     if (!curSamplePeaks)
         return false;
@@ -30,7 +29,6 @@ function isPeak(primerName,sampleName, alleleLength) {
         if (curSamplePeaks[i][0] === alleleLength)
             return true;
     }
-    */
 
     return false;
 }

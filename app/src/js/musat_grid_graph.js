@@ -3,8 +3,7 @@
 // sampleDataArray[sample_name]=[[musat length, number of reads]]
 // inputs are slightly redundant with hitArray and sampleNameArray.
 // SampleName array gives the sample ordering.
-
-//var rainbow = require('rainbow-code');
+var Rainbow = require('rainbowvis.js');
 function GridGraph(canvasId, // Integer denoting the 'group' on the page
                    sampleDataArray,
                    minColumn,
@@ -55,7 +54,7 @@ function GridGraph(canvasId, // Integer denoting the 'group' on the page
             drawLengthLabels();    //
             drawHorizontalGrid();   //
             drawVerticalGrid();
-            //computePeakBuckets();    //
+            computePeakBuckets();    //
             drawPoints(intensityArray); //
             drawSumBars(verticalSums);   //
         // } catch (err) {
@@ -82,9 +81,9 @@ function GridGraph(canvasId, // Integer denoting the 'group' on the page
         //     handleCanvasClick(e);
         // });
 
-        //canvasRainbow = new Rainbow();
-        //rainbow.setSpectrum('red', 'yellow', 'green', 'blue', 'black');
-        //rainbow.setNumberRange(1, 7);
+        canvasRainbow = new Rainbow();
+        canvasRainbow.setSpectrum('red', 'yellow', 'green', 'blue', 'black');
+        canvasRainbow.setNumberRange(1, 7);
         restoreHighlights();
     };
     that.setup();
@@ -410,9 +409,9 @@ function GridGraph(canvasId, // Integer denoting the 'group' on the page
         //
         // x is sat length
         // y is sample name
-        // var rainbow = new Rainbow();
-        // rainbow.setSpectrum("black", "violet", "indigo", "blue", "green", "yellow", "orange", "red");
-        // rainbow.setNumberRange(0, 100);
+        var rainbow = new Rainbow();
+        rainbow.setSpectrum("black", "violet", "indigo", "blue", "green", "yellow", "orange", "red");
+        rainbow.setNumberRange(0, 100);
         mainCanvas = document.getElementById(canvasName);
 
         for (var sampleName in sampleDataArray) {

@@ -1,8 +1,49 @@
-# The App
+# Intensity Plot
+
+This project is a visualization tool for organizing microsatellite data.  It allows you to select and group allele samples that are related.
+
+The visualization component itself is a written in javascript, using react components.  The visualization is hosted in an Electron application shell, but could be re-used in a different application.
+
+## Getting Started
+
+These instructions will get the project up and running on your machine for use, development, or testing.
+
+### Prerequisites
+
+Before you can run any of these scripts you need to install the required modules using:
+
+```js
+npm install -g yarn
+npm install
+```
+
+### Runing
+
+In the project directory (the **app** directory), you can run:
+
+### `npm start`
+
+This runs the app in the development mode.<br>
+
+### `npm test`
+
+Launches the test runner in the interactive watch mode.<br>
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+### `npm run build`
+
+Builds the app for production to the `build` folder.<br>
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.<br>
+Your app is ready to be deployed!
+
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+
+## Built With
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## The Stack
 
 * Electron 
     * [Quick Start](https://github.com/electron/electron-quick-start)
@@ -26,11 +67,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 * electron.js - Starts the app and creates a browser window to render HTML. This is the app's main process.
 * index.html - A web page to render. This is the app's renderer process.
 
-
-##  Modules
+## Modules
 
 * grid_graph
-
 
 ## Debugging
 
@@ -38,36 +77,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ### Render process
 
-
-
-Before you can run any of these scripts you need to install the required modules using:
-
-```js
-npm install -g yarn
-npm install
-```
-
-In the project directory (the **app** directory), you can run:
-
-### `npm start`
-
-This runs the app in the development mode.<br>
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
 ## Learn More
 
 ## Contributing
+
+Thank you for your interest in contributing to this project.  For contribution guidelines and our Code of Conduct, see [CONTRIBUTING.MD](CONTRIBUTING.MD)

@@ -4,8 +4,6 @@
 
 //import sumAll from '../src/js/musat_grid_graph.js';
 
-let $ = require('jquery');
-
 var ary = text.split("\n");
 var muFullData = JSON.parse(data);
 mu = {};
@@ -21,9 +19,9 @@ sample_pts_trimmed = {}; // 10May2016 each sample has .left and .right arrays to
 processData(ary);
 new GridLocus("TG_MS1", hits, primer_min, primer_max, names, "TG_MS1");
 
-/*let count = 0
+let count = 0
 $('#click-counter').text(count.toString())
 $('#countbtn').on('click', () => {
    count ++ 
    $('#click-counter').text(count)
-}) */
+})

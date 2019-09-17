@@ -1,5 +1,6 @@
 {
   "name": "intensity-plot",
+  "description": "Electron + Create React App + Electron Builder",
   "version": "0.1.0",
   "private": true,
   "build": {
@@ -10,9 +11,18 @@
     "electron-build": "electron-builder",
     "release": "yarn electron-builder --publish=always",
     "build": "yarn electron-build",
-    "start": "electron --inspect=5858 ."
+    "test": "react-scripts test",
+    "start-electron": "electron --inspect=5858 .",
+    "start-both": "concurrently \"BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron --inspect=5858 .\"",
+    "start": "react-scripts start",
+    "build-react": "react-scripts build",
+    "eject-react": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
   },
   "devDependencies": {
+    "@types/jquery": "^3.3.31",
     "concurrently": "^4.1.1",
     "electron": "^6.0.1",
     "electron-builder": "^21.2.0",
@@ -23,13 +33,31 @@
     "cjs": "0.0.11",
     "cross-env": "^5.2.0",
     "electron-is-dev": "^1.1.0",
-    "jQuery": "^1.7.4",
+    "es6-shim": "^0.35.5",
+    "fsevents": "^2.0.7",
     "jqplot": "^1.0.9",
     "jquery": "^3.4.1",
+    "js-yaml": "^3.13.1",
     "jstree": "^3.3.8",
-    "popover.js": "^0.2.40",
     "popper.js": "^1.15.0",
     "rainbowvis.js": "^1.0.1",
-    "spin": "^0.0.1"
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-router-dom": "^5.0.1",
+    "react-scripts": "3.0.1",
+    "spin": "^0.0.1",
+    "typescript": "^3.5.3"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

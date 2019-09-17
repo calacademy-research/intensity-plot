@@ -3,7 +3,7 @@
 // sampleDataArray[sample_name]=[[musat length, number of reads]]
 // inputs are slightly redundant with hitArray and sampleNameArray.
 // SampleName array gives the sample ordering.
-var Rainbow = require('rainbowvis.js');
+//var Rainbow = require('rainbowvis.js');
 function GridGraph(canvasId, // Integer denoting the 'group' on the page
                    sampleDataArray,
                    minColumn,

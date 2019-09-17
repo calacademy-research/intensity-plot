@@ -55,7 +55,7 @@ def load_user_data(filename, processing_function):
 
     except IOError as e:
         errmsg = "err: {1} ({0})".format(e.errno, e.strerror)
-        print errmsg
+        print (errmsg)
         return errmsg
 
     return return_map
@@ -303,7 +303,7 @@ def save_calls(allele_calls_json, working_directory, filename):
         allele_calls = json.loads(allele_calls_json)
     except Exception as e:
         errmsg = "JSON parse error from server: {1}".format(e)
-        print errmsg
+        print (errmsg)
         return errmsg
 
     allele_data = loadAllelesFromDirectory(working_directory)
@@ -366,7 +366,7 @@ def save_calls(allele_calls_json, working_directory, filename):
 
     except IOError as e:
         errmsg = "err: {1} ({0})".format(e.errno, e.strerror)
-        print errmsg
+        print (errmsg)
         return errmsg
     return json.dumps(True)
 

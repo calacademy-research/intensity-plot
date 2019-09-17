@@ -23,7 +23,15 @@ In the project directory (the **app** directory), you can run:
 
 ### `npm start`
 
-This runs the app in the development mode.<br>
+This runs the app as an React generated single page in a browser. The URL is "http://localhost:3000".
+
+### `npm run start-both`
+
+This runs the React client page inside an Electron brwoser window.
+
+### `npm run satrt-electron`
+
+This runs the Electron app but does not trigger the React code generation.
 
 ### `npm test`
 

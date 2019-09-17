@@ -13,7 +13,7 @@ import './static/css/overlay.css';
 //import './static/bootstrap/js/bootstrap.min.js'
 // import './static/lib/jquery/js/jquery.js'
 // import './static/lib/jstree/js/jstree.js'
-import './static/lib/rainbowvis/js/rainbowvis.js'
+import '../static/lib/rainbowvis/js/rainbowvis.js'
 //import './static/lib/jquery.jqplot/js/jquery.jqplot.js'
 // import './static/lib/jqplot/js/jqplot.barRenderer.js'
 // import './static/lib/jqplot/js/jqplot.canvasTextRenderer.js'

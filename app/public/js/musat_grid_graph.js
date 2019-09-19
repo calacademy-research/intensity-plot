@@ -88,18 +88,6 @@ function GridGraph(canvasId, // Integer denoting the 'group' on the page
     };
     that.setup();
 
-
-    that.cleanupHighlights = function (currentlyHiglightedSampleNamesArray) {
-        //  Remove all related highlights
-        for (var unlightSampleNameIndex in currentlyHiglightedSampleNamesArray) {
-            that.removeSampleHighlight(currentlyHiglightedSampleNamesArray[unlightSampleNameIndex]);
-
-        }
-
-
-    };
-
-
     that.getRowFromCoords = function (rect, absY) {
         var relY = absY - rect.top;
 

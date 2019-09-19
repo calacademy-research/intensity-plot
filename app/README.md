@@ -15,6 +15,7 @@ Before you can run any of these scripts you need to install the required modules
 ```js
 npm install -g yarn
 npm install
+npm install react-scripts
 ```
 
 ### Runing

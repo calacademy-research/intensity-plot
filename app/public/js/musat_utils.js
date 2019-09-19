@@ -1,24 +1,44 @@
-function getfile(fileName, successfunc, failfunc) {
-    alert ("Delete this");
-    runpgm("/bin/readfile.sh?args=" + fileName, successfunc, failfunc)
+// lookup population name in data structure, if not there, use guessPopName()
+function popName(sample) {
+    var pop = "";
+    var oSamp = sampleObj(sample);
+
+    pop = (oSamp) ? oSamp.population : guessPopName(pop);
+    pop = (pop === "") ? "GenPop" : pop;
+
+    return pop;
 }
 
 
 
-function saveInProject(filename, filecontents, donefunc) {
-    saveAsFile(projectDirectory + "/" + filename, filecontents, donefunc)
+function updatePopInfo(pop, mulen) {
+    if (pop && pop !== "") {
+        if (!(pop in pop_info)) { // remember min and max musat lengths for a population
+            pop_info[pop] = {min_len: mulen, max_len: mulen}
+            num_pops++
+        } else {
+            if (mulen < pop_info[pop].min_len)
+                pop_info[pop].min_len = mulen
+            if (mulen > pop_info[pop].max_len)
+                pop_info[pop].max_len = mulen
+        }
+    }
 }
 
-function saveAsFile(filename, filecontents, donefunc) { // creates file of filename on serve
-    var saveurl = "/saveas/" + filename
-    var posting = $.post(saveurl, {contents: filecontents}) // Send the data using post
-    posting.done(function (data) {
-            if (donefunc)
-                donefunc(data) // data is "saved" on success, error message otherwise
-        })
-        .fail(function (jqXHR, textStatus, errorThrown) {
-            alert(textStatus + "\n" + errorThrown)
-        })
+// updates the number of called samples in the DOM
+function setCalledIndicators(parent, numCalled, curPrimerName) {
+    // var numCalledStr = (numCalled > 0) ? numCalled.toString() : ""; // don't show zero 08Nov2017 JBH
+    var numCalledStr = numCalled.toString();
+
+    var colContents = "<span class='chkmrk'>&#10003;</span> &nbsp;<span class='calledsamps'>" + numCalledStr + "</span>";
+
+    var $callCol = $(parent).find("#" + curPrimerName + " .calledCol");
+    if ($callCol.length === 0) // we might have changed to table format
+        $callCol = $(parent).find("#" + curPrimerName).siblings(".calledCol");
+
+    $callCol.html(colContents);
+    $(parent).find("#" + curPrimerName).removeClass("processing")
+
 }
 
 function isPeak(primerName,sampleName, alleleLength) {
@@ -45,242 +65,6 @@ function getReadCount(primerName, sampleName, alleleLength) {
         }
     }
     return reads;
-}
-
-function handleAjaxError  (jqXHR, textStatus, errorThrown) {
-    payloadText = jqXHR["responseText"];
-    payloadCode = jqXHR["status"];
-    alert ("Server returned error: \n" + errorThrown +"\nError code: " + payloadCode);
-}
-
-function checkIsDirectory(check_directory) {
-
-    var isValidDirectory = false;
-    if (check_directory === "") // quicker for this case and /is_directory returns true for empty string
-        return false;
-
-    $.ajax({
-        type: "GET",
-        url: '/is_directory',
-        data: {
-            "directory": check_directory
-        },
-        dataType: "text",
-        error: function(data) {
-            isValidDirectory = data;
-        },
-        success: function (data) {
-            isValidDirectory = data;
-        },
-        async: false
-    });
-    return  isValidDirectory === "true";
-
-}
-
-function checkIsFile(check_file) {
-    var isValidFile = false;
-    $.ajax({
-        type: "GET",
-        url: '/is_file',
-        data: {
-            "file": check_file
-        },
-        dataType: "text",
-        error: function(data) {
-            isValidFile = data;
-        },
-        success: function (data) {
-            isValidFile = data;
-        },
-        async: false
-    });
-    return  isValidFile === "true";
-}
-
-
-function getDirectoryListing() {
-    var files = {};
-    $.ajax({
-        type: "GET",
-        url: '/directory_listing',
-        data: {
-            "directory": mu.projectDirectory
-        },
-        dataType: "text",
-        error: handleAjaxError,
-        success: function (data) {
-            files = data;
-        },
-        async: false
-    });
-    return JSON.parse(files);
-}
-
-function getFastqFileListing(dir) {
-    dir = (dir) ? dir : mu.projectDirectory;
-    var files = {};
-    $.ajax({
-        type: "GET",
-        url: '/fastq_directory',
-        data: {
-            "directory": dir
-        },
-        dataType: "text",
-        error: handleAjaxError,
-        success: function (data) {
-            files = data;
-        },
-        async: false
-    });
-    return JSON.parse(files);
-}
-
-function tsvJSON(tsv){
-    var lines=tsv.trim().split("\n");
-    var result = [];
-    var headers=lines[0].split("\t");
-    for(var i=0;i<headers.length;i++){
-        headers[i]=headers[i].trim();
-    }
-
-    for(var i=1;i<lines.length;i++){
-        var obj = {};
-        var currentline=lines[i].split("\t");
-
-        for(var j=0;j<headers.length;j++){
-            obj[headers[j]] = currentline[j];
-        }
-
-        result.push(obj);
-    }
-
-    return result;
-}
-
-// left as top-level function in case we want to call it other than from musat_results.js,
-// however we should transition away from using the 'names' var and use mu.aSampleName instead.
-// in that case the main use of this is to do the natural sort of the array
-// (our test data is already so sorted but that might not always be so)
-function prepSampleNames() {
-    // if the mu.aSampleName array has not been created, create it, and/or if it is empty, fill it with names and sort it
-    var ferryFromNames = false;
-
-    if ( (!mu.aSampleName || mu.aSampleName.length === 0) && (names && names.length > 0) )
-        ferryFromNames = true;
-    if ((mu.aSampleName && name) && (mu.aSampleName.length < names.length)) // used scatter and added even more samples
-        ferryFromNames = true;
-
-    if (ferryFromNames) {
-        mu.aSampleName = [];
-        for (var n=0; n < names.length; n++) {
-            mu.aSampleName[n] = names[n];
-        }
-    }
-    mu.aSampleName.sort(sortByPopThenSample); // new sort technique sorts by Population name then Sample name
-}
-
-function getAlleleLenFilename(curLocus) {
-    // windows compatability - slash. Do a debug stop; this might be present already and this doubles it
-    // it's ok, no slash ending mu.projectDirectory
-
-    return mu.projectDirectory + "/" + getAlleleLenNamePart(curLocus);
-}
-function getAlleleLenNamePart(curLocus) {
-    return curLocus + '_AlleleLens.txt';
-}
-
-function getAlleleLenFile(curLocus) {
-    // TODO hardcoded "AlleleLens.txt"
-    var dataFile;
-    $.ajax({
-        type: "GET",
-        url: '/get_file',
-        data: {
-            "file": getAlleleLenFilename(curLocus)
-        },
-        dataType: "text",
-        error: handleAjaxError,
-        success: function (data) {
-            dataFile = data.trim();
-        },
-        async: false
-    });
-    return dataFile;
-}
-
-// copied here from musat_results.js since it is of general use
-function copyTextToClipboard(el) {
-    var range = document.createRange(); // create new range object
-    range.selectNodeContents(el); // set range to encompass desired element text
-    var selection = window.getSelection(); // get Selection object from currently user selected text
-    selection.removeAllRanges(); // unselect any user selected text (if any)
-    selection.addRange(range); // add range to Selection object to select it
-
-    var copysuccess; // var to check whether execCommand successfully executed
-    try {
-        copysuccess = document.execCommand("copy") // run command to copy selected text to clipboard
-    } catch (e) {
-        copysuccess = false
-    }
-    if (copysuccess) { // leave highlighted if unsuccessfully copied
-        selection.removeAllRanges()
-    }
-    return copysuccess
-}
-
-// hide names of object where these are found
-function getLocusName(index) {
-    if (index < 0 || index >= mu.primerJSON.length)
-        return "";
-
-    return mu.primerJSON[index]["Locus Name"];
-}
-function numLocusNames() {
-    return (mu && mu.primerJSON) ? mu.primerJSON.length : 0;
-}
-
-function getLocusObj(locusNm) {
-    if (mu.locusFileResults && mu.locusFileResults.primerJSON) {
-        var len = mu.locusFileResults.primerJSON.length;
-        for (var ix=0; ix < len; ix++) {
-            if (mu.locusFileResults.primerJSON[ix]["Locus Name"] === locusNm)
-                return mu.locusFileResults.primerJSON[ix];
-        }
-    }
-    return undefined;
-}
-
-function numLociCalled() {
-    var called = 0;
-    if (mu.oLocusCalls) {
-        for (var ob in mu.oLocusCalls)
-            if (mu.oLocusCalls.hasOwnProperty(ob))
-                called++
-    }
-    return called;
-}
-function allLociCalled() {
-    return numLocusNames() > 0 && (numLocusNames() === numLociCalled());
-}
-
-// trim last part of path if fullpath is not a dir. this may still not be valid so should be checked again
-function getDirFromPath(filepath) {
-    var directory = filepath.trim();
-    if ( directory !== "" && ! checkIsDirectory(directory) )
-        directory = filepath.substring(0, filepath.lastIndexOf("/"));
-
-    return directory;
-}
-
-function elementInViewport( $ele ) {
-    var elementTop = $ele.offset().top;
-    var elementBottom = elementTop + $ele.outerHeight();
-
-    var viewportTop = $(window).scrollTop();
-    var viewportBottom = viewportTop + $(window).height();
-
-    return elementBottom > viewportTop && elementTop < viewportBottom;
 }
 
 function guessPopName(sample) { // presume each sample has number at name's end and prefix prior to that identifies a Population
@@ -330,17 +114,6 @@ mutooltip = {
         styl.top  = y + 'px';
     }
 };
-
-function fmtMSS(s){return(s-(s%=60))/60+(9<s ?'m ' : 'm 0')+s+'s'}
-
-// using ugly javascript confirm now but this is the one place to change it when desired;
-// can pass in a msg, if not we'll use a generic msg
-function confirmFileRemoval(msg) {
-    if (!msg || msg === "")
-        msg = "Are you sure you want to Remove these Files?";
-
-    return confirm(msg);
-}
 
 function sampleObj(sample) { // return reference to sampleObj that has population name and other sample items
     return undefined;
@@ -418,4 +191,150 @@ function naturalSort(a, b) {
         }
     }
     return 0;
+}
+
+//
+// Data only operations; creates graph info - used to be in musat_process_graph_data.js
+//
+
+function initPrimerMinMax() { // 10May2016 JBH set min max vars so any read count updates 'em
+    primer_max = 0; primer_min = Number.MAX_SAFE_INTEGER; // 02May2016 JBH
+}
+
+//Extracts an array of sample names (into global "Names") and
+
+// Maintains a running minimum and maximum value
+// calls out to further refine data extents
+
+function processData(ary) {
+    for (var s = 0; s < ary.length; s++) {
+        var ln = ary[s].split("\t");
+        if (ln.length === 3) {
+            var sample = ln[1];
+            if (sample[0] === ">" || sample[0] == "@") sample = sample.substr(1);
+            if (!(sample in hits)) {
+                hits[sample] = [];
+                names.push(sample);
+            }
+            var mulen = parseInt(ln[2], 10), rdcount = parseInt(ln[0], 10);
+            updatePopInfo(popName(sample), mulen);
+            hits[sample].push([mulen, rdcount]); // each entry is a musat len and number of reads
+
+            primer_min = Math.min(mulen, primer_min); // 02May2016 JBH keep per file min/max
+            primer_max = Math.max(mulen, primer_max);
+        }
+    }
+
+    // sort the sample names from the Allele Calls file by their Population if we have that set
+    // otherwise sort by Sample name itself and everything is in one big GenPop
+    names.sort(sortByPopThenSample);
+
+
+    gr_refineXAxis(); // 10May2016 JBH trim low count reads from sample allele len extrema
+}
+
+
+function gr_refineXAxis() { // 10May2016 JBH new method to size x-axis for all the plots created for this primer file
+    // sample hits assumed to have been collected in hits[sample] array
+    // We make 2 passes through each sample: 1st pass sets allele lens for min and for max where the
+    // count for the len is > 2% of the len with the greatest number of reads for this sample.
+    // As we go through this 1st pass we set the global primer_min and primer_max if this sample's min or max pts extend them.
+    // 2nd pass uses this global min and max to trim each sample's left points and right points that don't fit
+
+    initPrimerMinMax()
+
+    // 1st pass: set primer_min and primer_max based on each sample's local min and max (currently 2% of sample's highest peak aka read count)
+    for (var s=0; s < names.length; s++) {
+        var sample = names[s]
+        var local_extrema = getPtsExtrema(hits[sample])
+
+        if (local_extrema) { // adjust global settings if this sample had high enough min or max to make x-axis wider
+            if (local_extrema.min < primer_min)
+                primer_min = local_extrema.min
+            if (local_extrema.max > primer_max)
+                primer_max = local_extrema.max
+        }
+    }
+
+    // 2nd pass: go through the hits and remove points in hits[sample] that are outside global primer_min and primer_max allele lens
+    for (var s=0; s < names.length; s++) {
+        var sample = names[s]
+        if (sample.endsWith("C02")) {
+            var tst = hits[sample]
+            var l = tst.length // stoping point for debugger
+        }
+        trimLowConfHits(sample, primer_min, primer_max)
+    }
+
+    // utility funcs for this procedure
+    function getPtsExtrema(pts) { // pts array: each entry consisting of musat length and #reads they represent
+        pts.sort() // pts sorted by allele len
+        var peak = getPeak(pts) // get largest read count in pts
+        if (peak >= 10) {
+            var trim_count = getTrimCount(peak) // e.g. peak==1000 we would trim pts on left <=20 reads and on right <= 20 reads
+            // find highest read count looking left to right that is greater than trim_count
+            var local_min = peak, local_max = peak
+            for (var l=0; l < pts.length; l++) {
+                var rd_count = pts[l][1] // [1] is read count [0] is allele len
+                if (rd_count > trim_count) {
+                    local_min = pts[l][0] // first pt whose read count is > trim_count (we will need to plot it)
+                    break
+                }
+            }
+            // find highest read count looking right to left that is greater than trim_count
+            for (var r=(pts.length)-1; r >= 0; r--) {
+                var rd_count = pts[r][1] // [1] is read count [0] is allele len
+                if (rd_count > trim_count) {
+                    local_max = pts[r][0] // first pt reading from end that we will need to plot
+                    break
+                }
+            }
+        }
+        else { // 15May2016 JBH don't let this sample's pts participate in extending the graph width
+            return null
+        }
+
+        return { min: local_min, max: local_max }
+    }
+
+    function trimLowConfHits(sample, primer_min, primer_max) {
+        // remove low_conf hits for this sample and store them in sample_pts_trimmed[sample].left[]  and sample_pts_trimmed[sample].right[]
+        sample_pts_trimmed[sample] = {left: [], right: []}
+        var del_pt
+        var left_edge  = primer_min -1 // we provide a 1 len pad so we'' let pts here survive cut
+        var right_edge = primer_max +1 // we provide a 1 len pad so we'' let pts here survive cut
+        var pts = hits[sample] // pts array: each entry consisting of musat length and #reads they represent (presumed sorted by length)
+        for (var r=(pts.length)-1; r >= 0; r--) { // remove pts at end of array whose lens are < primer_max
+            if (pts[r][0] > right_edge) {  // len outside of rightmost plot line, read count < what fits on plot, delete this point
+                del_pt = pts[r].slice(0)
+                pts.splice(r, 1)
+                sample_pts_trimmed[sample].right.push(del_pt)
+            }
+            else // stop at first point that needs to be plotted on graph
+                break
+        }
+        while (pts.length > 0) { // remove pts at start of array whose lens are < primer_min
+            if (pts[0][0] < left_edge) { // len outside of leftmost plot line, read count < what fits on plot, delete this point
+                del_pt = pts[0].slice(0)
+                pts.splice(0, 1)
+                sample_pts_trimmed[sample].left.push(del_pt)
+            }
+            else // stop at first point that needs to be ploteed
+                break
+        }
+    }
+
+    function getPeak(info) {
+        var peak = 0 // highest read count in pts defined in info
+        for (var p=0; p < info.length; p++) {
+            var rd_count = info[p][1] // [1] is read count [0] is allele len
+            if (rd_count > peak)
+                peak = rd_count
+        }
+        return peak
+    }
+    function getTrimCount(max_reads) {
+        var trim_at = Math.round((max_reads+49) / 50) // get rid of anything <= 2%
+        return Math.min(trim_at, max_reads-1) // max_reads must always be plotted
+    }
 }

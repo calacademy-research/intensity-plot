@@ -1,0 +1,11 @@
+.app-plot {
+    background-color:aliceblue;
+    border: 1px black solid;
+    height: 300px;
+    width: 300px;
+    border: 1px solid black;
+    margin: 5px;
+    padding: 2px;
+    float: left;
+    position: relative;
+}

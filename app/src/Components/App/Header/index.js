@@ -1,7 +1,7 @@
 import React from 'react'
 import './index.css'
-import Title from "../Title"
-import Menu from "../Menu"
+import Title from "./Title"
+import Menu from "./Menu"
 
 function Header(props) {
     return (

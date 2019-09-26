@@ -29,7 +29,6 @@
     "concurrently": "^4.1.1",
     "electron": "^6.0.1",
     "electron-builder": "^21.2.0",
-    "fsevents": "^2.0.7",
     "react-scripts": "3.0.1",
     "wait-on": "^3.3.0"
   },

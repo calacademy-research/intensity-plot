@@ -13,7 +13,48 @@ function initPrimerMinMax() { // 10May2016 JBH set min max vars so any read coun
 // Maintains a running minimum and maximum value
 // calls out to further refine data extents
 
+nSQL('samples')
+.model([
+    {key: 'id', type: 'uuid', props:['pk']},
+    {key:'name',type:'string', default:"None"},
+    {key:'intensity',type:'int', props: ["idx"]}, // secondary index
+    {key: "occurence", type: "int", props:["trie"]}, // Index as trie
+])
+.config({
+    mode: "PERM", // With this enabled, the best storage engine will be auttomatically selected and all changes saved to it.  Works in browser AND nodeJS automatically.
+    history: true // allow the database to undo/redo changes on the fly. 
+}) 
+.actions([ // Optional
+    {
+        name:'add_sample',
+        args:['sample:map'],
+        call:function(args, db) {
+            return db.query('upsert',args.sample).exec();
+        }
+    }
+])
+.views([ // Optional
+    {
+        name: 'group_by',
+        args: ['name:string'],
+        call: function(args, db) {
+            return db.query('select').where(['name','=',args.name]).exec();
+        }
+    },
+    {
+        name: 'list_all_users',
+        args: ['page:int'],
+        call: function(args, db) {
+            return db.query('select',['id','name']).exec();
+        }
+    }         
+])
+
+
 function processData(ary) {
+    // Initializes the db.
+nSQL().connect().then(function(result) {
+
     for (var s = 0; s < ary.length; s++) {
         var ln = ary[s].split("\t");
         if (ln.length === 3) {
@@ -30,6 +71,23 @@ function processData(ary) {
             primer_min = Math.min(mulen, primer_min); // 02May2016 JBH keep per file min/max
             primer_max = Math.max(mulen, primer_max);
         }
+     // DB ready to use.
+     nSQL().doAction('add_new_user',{user:{
+        id:null,
+        name:'jim',
+        age:30,
+        balance:25.02,
+        postIDs:[0,20,5],
+        meta:{
+            favorteColor:'blue'
+        }
+    }}).then(function(result) {
+        console.log(result) //  <- "1 Row(s) upserted"
+        return nSQL().getView('list_all_users');
+    }).then(function(result) {
+        console.log(result) //  <- single object array containing the row we inserted.
+    });
+    
     }
 
     // sort the sample names from the Allele Calls file by their Population if we have that set

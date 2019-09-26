@@ -1,0 +1,9 @@
+.plot-grid-selector {
+    white-space: nowrap; 
+    display: inline;
+}
+
+.buttons {
+    margin: 5px;
+    padding: 3px;
+}

@@ -1,0 +1,6 @@
+.graph-wrapper {
+    display: block;
+    overflow: scroll;
+    height: 200px;
+    position: relative;
+}

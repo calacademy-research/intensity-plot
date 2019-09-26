@@ -1,29 +1,29 @@
 import React from 'react'
-import './index.css'
 import Legend from "./Legend"
 import Instructions from "./Instructions"
-import Plots from "./Plots"
+import Graph from "./Graph"
 import Groups from "./Groups"
+import './index.css'
 
 function Body(props) {
     return (
         <div className="app-body">
             <div className="clear-both">
                 <Legend
-                    legend={props.plotData.legend}
+                    legend={props.graphData.legend}
                 />
                 <Instructions
-                    instructions={props.plotData.currentInstruction}
+                    instructions={props.graphData.currentInstruction}
                 />
             </div>
             <div className="clear-both">
-                <Plots
-                    plotData={props.plotData}
-                    plotActions={props.plotActions}
+                <Graph
+                    graphData={props.graphData}
+                    graphActions={props.graphActions}
                 />
                 <Groups
-                    plotData={props.plotData}
-                    plotActions={props.plotActions}
+                    graphData={props.graphData}
+                    graphActions={props.graphActions}
                     groups={["Bashful", "Doc", "Dopey", "Grumpy", "Happy", "Sleepy", "Sneezy"]}
                 />
             </div>

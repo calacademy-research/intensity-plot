@@ -1,11 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Graph from '.'
+import HitBar from '.'
 
 it('renders without crashing', () => {
   const div = document.createElement('div')
-  let graphData = { fileName: "Test" }
-  let graphActions = {}
-  ReactDOM.render(<Graph graphData={graphData} graphActions={graphActions} />, div)
+  ReactDOM.render(<HitBar />, div)
   ReactDOM.unmountComponentAtNode(div)
 })

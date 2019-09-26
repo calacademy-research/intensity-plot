@@ -638,7 +638,6 @@ function GridGraph(canvasId, // Integer denoting the 'group' on the page
         xSize = x;
         ySize = y;
         var labelWidth = 100;
-
         var c = document.getElementById(canvasName);
         var context = c.getContext("2d");
         context.canvas.width = x;

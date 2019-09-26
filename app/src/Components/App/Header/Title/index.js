@@ -6,7 +6,7 @@ function Title(props) {
     return (
         <div className="app-title">
             <img src={logo} className="title-logo" alt="logo"/>
-            {props.title}
+            <span className="title-text">{props.title}</span>
         </div>
     )
 }

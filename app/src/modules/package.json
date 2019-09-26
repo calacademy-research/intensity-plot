@@ -1,0 +1,29 @@
+{
+    "name": "musat-intensity-plot",
+    "version": "1.0.0",
+    "description": "musat intensity plot",
+    "keywords": [
+        "musat",
+        "intensity plot",
+        "allel",
+        "react",
+        "electron"
+    ],
+    "homepage": "http://your-url.org",
+    "bugs": {
+        "url": "https:/github.com/owner/project/issues",
+        "email": "project@hostname.com"
+    },
+    "license": "BSD-3-Clause",
+    "author": {
+        "name": "Joe Russack",
+        "email": "name@email-address.com",
+        "url": "http://your-url.org"
+    },
+    "main": "musat-process-graph-data",
+    "man": ["./doc/README.md", "./doc/developer-README.md"],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/cas/musata-intensity-plot.git"
+    }
+}

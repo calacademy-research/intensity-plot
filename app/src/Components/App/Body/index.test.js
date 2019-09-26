@@ -4,10 +4,11 @@ import Body from '.'
 
 it('renders without crashing', () => {
   const div = document.createElement('div')
-  const plotData = {
+  const graphData = {
+    fileName: "test file",
     legend: "test legend",
     currentInstructions: "test instructions"
   }
-  ReactDOM.render(<Body plotData={plotData}/>, div)
+  ReactDOM.render(<Body graphData={graphData}/>, div)
   ReactDOM.unmountComponentAtNode(div)
 })

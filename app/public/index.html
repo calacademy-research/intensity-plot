@@ -7,74 +7,11 @@
     <link href="data:image/x-icon;base64,AAABAAEAEBAQAAAAAAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA27yaAPLs5gC/dCIA6IETAPXo2gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARVVVVUERETAEVVVUERETAARVVVQRERMAAEVVQDERMAAARVVAMREwAABFVUADEwAAAgRUAAMTACAABFQAADAAAAAEVAAgAAAAAABAAAAAAgAAIEAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAIAAAAAAgAAAAAAIAAAAAAAAAAAAAAAAQAAgAMAAIADAADBBwAAwQcAAMGPAACjjQAA498AAON/AAD3+wAA1/8AAP//AAD//wAAu/4AAP/fAAD//wAA"
     rel="icon" 
     type="image/x-icon"/>
-    <link href="../src/static/css/grid.css" type="text/css" rel="stylesheet" />
-    <!-- <link rel = "stylesheet" 
-    href = "/bootstrap/dist/css/bootstrap.min.css" /> 
-     -->
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
+    <link href="../src/static/css/grid.css" rel="stylesheet" />
     <link rel="manifest" href="manifest.json" />
-    <!-- These scripts are used to bring browser javascript to ES6 level -->
-    <script src="js/es5-shim.js"></script>
-    <script src="js/es6-shim.js"></script>
-    <script src="js/jquery-3.4.1.min.js"></script>
-    <script src="js/rainbowvis.js"></script>
-    <link href="index.css" type="text/css" rel="stylesheet" />
 </head>
   <body>
     <div id="root"></div>
-    <div id="game"></div>
     <noscript>You need to enable JavaScript to run this app.</noscript>   
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->  
-     <!-- You can also require other files to run in this process -->
-
-     <div id="buttons">
-      <button id="addGroup" disabled onclick="addGridGraph()">Add group</button>
-      <button id="removeGroup" disabled onclick="removeGridGraph()">Remove group</button>
-      <div id="gridGraphSelector" style="white-space: nowrap; display: inline;">
-         
-      </div>
-  </div>
-  <div id="graph_wrapper" class="noselect">
-      <div id="all_graphs">    
-        <div id="graph_and_labels0" style="  vertical-align: top; padding-top: 6px; ">
-          <div id="graph_container0">
-            <div id="mainCanvasContainer0" style="display: inline-flex; ">
-              <canvas id="mainCanvas0" class="canvas0" style="position:relative; "></canvas>
-              <canvas id="mainCanvasBackground0" style="position:relative;"></canvas>
-            </div> <!--mainCanvasContainer0-->
-            <canvas id="sample_names0" class="canvas0" style="position:relative;"></canvas>
-          </div> <!--graph_container0-->
-          <canvas id="length_labels0" class="canvas0"></canvas>
-          <br>
-        <canvas id="hit_bars0" class="canvas0"></canvas>
-      </div> <!--graph_and_labels0-->
-    </div> <!--all_graphs-->
-  </div> <!--graph_wrapper-->
-  <canvas id="tip" width=170 height=20></canvas>
-  <script src="./TG_MS1_AllelCall.txt"></script>
-  <script src="./muinfo.json"></script>
-  <script src="./js/musat_utils.js"></script>
-  <script src="./js/musat_grid_locus.js"></script>
-  <script src="./js/musat_grid_graph.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/nano-sql@1.8.3/dist/nano-sql.min.js"></script>
-  <script src="./renderer.js"></script>
-    <footer>
-     We are using Node.js <span id="node-version"></span>,
-     Chromium <span id="chrome-version"></span>,
-     and Electron <span id="electron-version"></span>.
-    </footer>
-   
   </body>
 </html>

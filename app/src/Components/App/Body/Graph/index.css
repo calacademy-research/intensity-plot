@@ -1,0 +1,39 @@
+.app-plot {
+    background-color:aliceblue;
+    border: 1px black solid;
+    height: 300px;
+    width: 460px;
+    border: 1px solid black;
+    margin: 5px;
+    padding: 2px;
+    float: left;
+    position: relative;
+    overflow: scroll;
+}
+
+.main-canvas-container {
+    display: inline-flex;
+}
+
+.main-canvas {
+    position:relative;
+}
+
+.main-canvas-background {
+    position:relative;   
+}
+
+.sample-names {
+    position:relative;   
+}
+
+.tip-canvas {
+    width: 170px; 
+    height: 20px;
+}
+
+.graph-and-labels {
+    vertical-align: top; 
+    padding-top: 6px;
+}
+

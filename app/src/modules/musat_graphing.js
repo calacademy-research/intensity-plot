@@ -1,5 +1,5 @@
 import $ from "jquery"
-import {global as g, names, pts_merged, sample_pts_trimmed, mu, hits, orig_hits, pop_info } from "./musat_global"
+import {g, names, pts_merged, sample_pts_trimmed, mu, hits, orig_hits, pop_info } from "./musat_global"
 import {sortByPopThenSample, guessPopName, sampleObj} from "./musat_utils"
 import {updateAlleleCountsDisplay} from "./musat_grid_locus"
 

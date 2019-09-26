@@ -91,7 +91,6 @@ ol, ul {
 }
 
 #graph_wrapper {
-    display: table;
     white-space: nowrap;
 }
 

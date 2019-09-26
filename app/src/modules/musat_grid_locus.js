@@ -241,7 +241,7 @@ function GridLocus(primerName, sampleDataArray, minColumn, maxColumn, sampleName
         var dataArraySubset;
         var sampleNameArraySubset;
         var foundGroup = -1;
-        for (var i = 1; i < gridGraphNextVal; i++) {
+        for (let i = 1; i < gridGraphNextVal; i++) {
             if (gridObjects[i] !== undefined && gridObjects[i] !== null) {
                 dataArraySubset = gridObjects[i].getSampleDataArray();
                 if (dataArraySubset[sampleName] !== undefined) {
@@ -278,7 +278,7 @@ function GridLocus(primerName, sampleDataArray, minColumn, maxColumn, sampleName
 
             // Remove it from currentlySelectedGroup
             delete dataArraySubset[sampleName];
-            for (var i = 0; i < sampleNameArraySubset.length; i++) {
+            for (let i = 0; i < sampleNameArraySubset.length; i++) {
                 if (sampleNameArraySubset[i] === sampleName) {
                     sampleNameArraySubset.splice(i, 1);
 

@@ -1,6 +1,6 @@
 import { sortByPopThenSample, popName, updatePopInfo } from "./musat_utils"
 import { initPrimerMinMax } from "./musat_global"
-import { global as g, hits, names, sample_pts_trimmed } from "./musat_global"
+import { g, hits, names, sample_pts_trimmed } from "./musat_global"
 
 //
 // Data only operations; creates graph info

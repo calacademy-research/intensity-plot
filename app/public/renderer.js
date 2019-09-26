@@ -18,10 +18,3 @@ initPrimerMinMax(); // 10May2016
 sample_pts_trimmed = {}; // 10May2016 each sample has .left and .right arrays to show any pt trimmed when having too few reads to 
 processData(ary);
 new GridLocus("TG_MS1", hits, primer_min, primer_max, names, "TG_MS1");
-
-let count = 0
-$('#click-counter').text(count.toString())
-$('#countbtn').on('click', () => {
-   count ++ 
-   $('#click-counter').text(count)
-})

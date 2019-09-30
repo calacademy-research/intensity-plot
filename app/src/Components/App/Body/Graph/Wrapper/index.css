@@ -1,6 +1,10 @@
 .graph-wrapper {
     display: block;
     overflow: scroll;
-    height: 200px;
+    max-height: 500px;
     position: relative;
+}
+
+.group-graph {
+    height: auto;
 }

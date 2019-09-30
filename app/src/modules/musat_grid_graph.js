@@ -69,7 +69,7 @@ function GridGraph(canvasId, // Integer denoting the 'group' on the page
         // which - when respositioned over the first - grabs the mouse action.
         // re-arrange here or in html/css; this is easier.
 
-        var background = $('#' + 'mainCanvasBackground' + canvasId);
+        var background = $('#mainCanvasBackground' + canvasId);
 
 
         background.mousemove(function (e) {
@@ -450,7 +450,7 @@ function GridGraph(canvasId, // Integer denoting the 'group' on the page
             'border-color': '#000000'
         })
 
-        $('#' + 'hit_bars' + canvasId).css({
+        $('#hit_bars' + canvasId).css({
             'border-width': '1px',
             'border-style': 'solid',
             'border-color': '#000000'

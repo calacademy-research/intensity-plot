@@ -2,7 +2,11 @@
 
 A JavaScript tool to visualize and discover patterns across sample sets.  
 
-The analysis employed is three dimensional, evaluating a behavior (x-axis) against its occurrence (y-axis), samples
+The analysis employed is three dimensional, evaluating a population by region (row/y-axis), behavior, such as allele length, each column/x-axis,  against its occurrence (color/z-axis).
+
+The visualization presents a grid to capture row (sample / region), column (allele length), occurence as the cell value presented by color. 
+The desire is to capture the overlaps between the samples. In effect, using aggregation functions to analyze and deduce relationships. 
+Futher, employing curve fitting techniques give stastical parameters.
 
 (TODO:  add visual)
 
@@ -11,7 +15,7 @@ Atomic unit of data to be evaluated, e.g. a single spider's DNA
 
 #### Attributes
 * Unique identifer, eg. `HiBiKi15-02`
-* Additional metadata describing the sample. e.g. sample instance number, `02`
+* Additional metadata describing the sample. e.g. region/area of sample retrieval, sample instance number, `02`
 
 ## Sample Set
 A collection of samples that function as inputs to the tool

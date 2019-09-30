@@ -22,6 +22,7 @@ class Graph extends React.Component {
             graphData: props.graphData,
             graphActions: props.graphActions,
             menuActions: props.menuActions,
+            groupId: 0,
         }
     }
 
@@ -42,8 +43,8 @@ class Graph extends React.Component {
                     {this.state.graphData.fileName}
                 </div>
                 <Buttons />
-                <Wrapper />
-                <HitBar />
+                <Wrapper groupId={this.state.groupId} />
+                <HitBar groupId={this.state.groupId} />
                 <canvas id="tip" className="tip-canvas" height="20" width="170"></canvas>
             </div>
         )

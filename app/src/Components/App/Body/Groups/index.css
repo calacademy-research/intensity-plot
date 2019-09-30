@@ -1,11 +1,16 @@
 .app-plot-groups {
     background-color:aliceblue;
     border: 1px black solid;
-    height: 300px;
-    width: 300px;
+    max-height: 600px;
+    width: 360px;
     border: 1px solid black;
     margin: 5px;
     padding: 2px;
     float: right;
     overflow-y: scroll;
+}
+
+.groups-ul {
+    list-style-type: none;
+    padding-left: 0px;
 }

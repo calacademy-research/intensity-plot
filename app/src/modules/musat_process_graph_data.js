@@ -47,9 +47,9 @@ function gr_refineXAxis() { // 10May2016 JBH new method to size x-axis for all t
     initPrimerMinMax()
 
     // 1st pass: set primer_min and primer_max based on each sample's local min and max (currently 2% of sample's highest peak aka read count)
-    for (var s = 0; s < names.length; s++) {
-        var sample = names[s]
-        var local_extrema = getPtsExtrema(hits[sample])
+    for (let s = 0; s < names.length; s++) {
+        let sample = names[s]
+        let local_extrema = getPtsExtrema(hits[sample])
 
         if (local_extrema) { // adjust global settings if this sample had high enough min or max to make x-axis wider
             if (local_extrema.min < g.primer_min)
@@ -60,8 +60,8 @@ function gr_refineXAxis() { // 10May2016 JBH new method to size x-axis for all t
     }
 
     // 2nd pass: go through the hits and remove points in hits[sample] that are outside global primer_min and primer_max allele lens
-    for (var s = 0; s < names.length; s++) {
-        var sample = names[s]
+    for (let s = 0; s < names.length; s++) {
+        let sample = names[s]
         if (sample.endsWith("C02")) {
             var tst = hits[sample]
             var l = tst.length // stoping point for debugger
@@ -73,20 +73,22 @@ function gr_refineXAxis() { // 10May2016 JBH new method to size x-axis for all t
     function getPtsExtrema(pts) { // pts array: each entry consisting of musat length and #reads they represent
         pts.sort() // pts sorted by allele len
         var peak = getPeak(pts) // get largest read count in pts
+        let local_min
+        let local_max
         if (peak >= 10) {
-            var trim_count = getTrimCount(peak) // e.g. peak==1000 we would trim pts on left <=20 reads and on right <= 20 reads
+            let trim_count = getTrimCount(peak) // e.g. peak==1000 we would trim pts on left <=20 reads and on right <= 20 reads
             // find highest read count looking left to right that is greater than trim_count
-            var local_min = peak, local_max = peak
-            for (var l = 0; l < pts.length; l++) {
-                var rd_count = pts[l][1] // [1] is read count [0] is allele len
+            local_min = local_max = peak
+            for (let l = 0; l < pts.length; l++) {
+                let rd_count = pts[l][1] // [1] is read count [0] is allele len
                 if (rd_count > trim_count) {
                     local_min = pts[l][0] // first pt whose read count is > trim_count (we will need to plot it)
                     break
                 }
             }
             // find highest read count looking right to left that is greater than trim_count
-            for (var r = (pts.length) - 1; r >= 0; r--) {
-                var rd_count = pts[r][1] // [1] is read count [0] is allele len
+            for (let r = (pts.length) - 1; r >= 0; r--) {
+                let rd_count = pts[r][1] // [1] is read count [0] is allele len
                 if (rd_count > trim_count) {
                     local_max = pts[r][0] // first pt reading from end that we will need to plot
                     break

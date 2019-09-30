@@ -1,9 +1,9 @@
 import React from 'react'
 import './index.css'
 
-let HitBar = () => (
+let HitBar = (props) => (
     <div id="hit-bar" className="hit-bar">
-        <canvas id="hit_bars0"></canvas>
+        <canvas id={"hit_bars" + props.groupId}></canvas>
     </div>
 )
 

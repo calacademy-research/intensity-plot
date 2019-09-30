@@ -4,15 +4,15 @@ import Group from "./Group"
 
 function Groups(props) {
     let groups = props.groups
-    let groupList = groups.map((group) => {
-        return <li key={group} ><Group index={group} /></li>
+    let groupList = groups.map((group, index) => {
+        return <li key={group} ><Group groupId={index+1} /></li>
     })
     return (
         <div className="app-plot-groups">
                 <div className="clear-both">
                 Custom Groups
                </div>
-               <ul>{groupList}</ul>
+               <ul className="groups-ul">{groupList}</ul>
         </div>
     )
 }

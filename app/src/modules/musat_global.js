@@ -1,7 +1,7 @@
 import $ from "jquery"
 
 // primer_nm is the name of the current primer file, aka allele locus name.
-let global = {
+let g = {
     curfile: null, 
     primer_nm: 0, 
     primer_min: 0, 
@@ -25,8 +25,8 @@ let sample_pts_trimmed = {}; // 10May2016 JBH each sample has .left and .right a
 
 
 function initPrimerMinMax() { // 10May2016 JBH set min max vars so any read count updates 'em
-    global.primer_max = 0
-    global.primer_min = Number.MAX_SAFE_INTEGER; // 02May2016 JBH
+    g.primer_max = 0
+    g.primer_min = Number.MAX_SAFE_INTEGER; // 02May2016 JBH
 }
 
 
@@ -106,7 +106,7 @@ function reset_globals() {
     pop_info = {};
     names = [];
     pts_merged = {};
-    global.num_pops = 0;
+    g.num_pops = 0;
     sample_pts_trimmed = {}; // 10May2016 each sample has .left and .right arrays to show any pt trimmed when having too few reads to support it
     initPrimerMinMax(); // 10May2016
 }
@@ -145,13 +145,13 @@ function muSaveData() {
         }
     }
     muStr = JSON.stringify(muData);
-    filename = mu.projectDirectory + global.muInfoFile;
+    filename = mu.projectDirectory + g.muInfoFile;
     saveServer(filename, muStr);
 }
 
 function muLoadData() {
     var fullMu = {};
-    var muinfoFile = mu.projectDirectory + "/" + global.muInfoFile;
+    var muinfoFile = mu.projectDirectory + "/" + g.muInfoFile;
     reset_mu_data();
 
     if (!checkIsFile(muinfoFile)) // don't bother loading non-existent it just creates errors
@@ -216,7 +216,7 @@ function muCopyDataObjects(fullMu) {
 }
 
 // export variables which become const when imported
-export {global, hits, orig_hits, names, mu, sample_pts_trimmed, pop_info, pts_merged}
+export {g, hits, orig_hits, names, mu, sample_pts_trimmed, pop_info, pts_merged}
 
 // export functions
 export {initPrimerMinMax}

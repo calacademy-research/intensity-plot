@@ -42,7 +42,7 @@ class Graph extends React.Component {
                 <div className="clear-both">
                     {this.state.graphData.fileName}
                 </div>
-                <Buttons />
+                <Buttons graphActions={this.state.graphActions}/>
                 <Wrapper groupId={this.state.groupId} />
                 <HitBar groupId={this.state.groupId} />
                 <canvas id="tip" className="tip-canvas" height="20" width="170"></canvas>

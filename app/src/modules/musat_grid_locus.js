@@ -2,32 +2,8 @@ import $ from "jquery"
 import {mu } from "./musat_global"
 import GridGraph from "./musat_grid_graph"
 import {isPeak, getReadCount} from "./musat_utils"
-import {clearCalledIndicator, setCalledIndicators} from "./musat_graphing"
 
-function updateAlleleCountsDisplay(parent, curPrimerName, updateIfZero) {
 
-    var sampleCount = 0;
-    var globalPrimersSample = mu.oLocusCalls[curPrimerName];
-    var hasBeenCalled=false;
-    for (var curSample in globalPrimersSample) {
-        var peakArray = globalPrimersSample[curSample];
-        if (peakArray != null) {
-            hasBeenCalled=true;
-            if (peakArray.length > 0) {
-                sampleCount = sampleCount + 1; //peakArray.length;
-            }
-        }
-    }
-    if (!hasBeenCalled)  {
-        clearCalledIndicator(parent,curPrimerName);
-        return;
-    }
-
-    if (!updateIfZero && sampleCount === 0) {
-        return;
-    }
-    setCalledIndicators(parent, sampleCount, curPrimerName);
-};
 
 function GridLocus(primerName, sampleDataArray, minColumn, maxColumn, sampleNameArray) {
     var MAX_GROUPS = 50;
@@ -35,7 +11,6 @@ function GridLocus(primerName, sampleDataArray, minColumn, maxColumn, sampleName
     var gridGraphNextVal = 0;
     var gridObjects = [];
     var currentlySelectedGroup = 0;
-
     var that = this;
 
 
@@ -350,7 +325,6 @@ function GridLocus(primerName, sampleDataArray, minColumn, maxColumn, sampleName
             gridObjects[curGridGraph].updatePoint(true, sampleName, alleleLength);
         }
 
-        updateAlleleCountsDisplay('#explore_scatter', primerName, true);
 
 
     }
@@ -370,8 +344,6 @@ function GridLocus(primerName, sampleDataArray, minColumn, maxColumn, sampleName
         for (let curGridGraph in gridObjects) {
             gridObjects[curGridGraph].updatePoint(false, sampleName, alleleLength);
         }
-
-        updateAlleleCountsDisplay('#explore_scatter', primerName, true);
     }
 
     function isPoint(sampleName, alleleLength) {
@@ -395,4 +367,3 @@ function GridLocus(primerName, sampleDataArray, minColumn, maxColumn, sampleName
 }
 
 export default GridLocus
-export {updateAlleleCountsDisplay}

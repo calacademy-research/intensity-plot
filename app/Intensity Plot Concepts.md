@@ -25,7 +25,7 @@ The goal of the data format is to describe each sample along with the informatio
 
 * `Newline` deliminated rows
 * `Tab` deliminated vaules for 
-`number of observations,  identifier, variable observed` 
+`intensity,  identifier, variable observed` 
 
 ## Grouping
 A set of samples, where samples can originate from multiple *sample sets*.

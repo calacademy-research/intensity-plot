@@ -1,13 +1,18 @@
 .app-title {
-    background-color:gold;
-    border: 1px black solid;
     float: left;
 }
 
 .title-logo {
-    height: 40px;
+	float: left;
+    height: 45px;
 }
 
 .title-text {
     padding: 3px;
+    padding-left: 	20px;
+    font-family: "Helvetica Neue",Helvetica,"Segoe UI",Tahoma,Arial,sans-serif;
+    font-weight: 600;
+    font-size: 2rem;
+    margin-bottom: 1rem
 }
+

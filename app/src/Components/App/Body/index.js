@@ -24,7 +24,7 @@ function Body(props) {
                 <Groups
                     graphData={props.graphData}
                     graphActions={props.graphActions}
-                    groups={["Bashful", "Doc", "Dopey", "Grumpy", "Happy", "Sleepy", "Sneezy"]}
+                    groups={["group1"]}
                 />
             </div>
         </div>

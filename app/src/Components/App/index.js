@@ -4,9 +4,6 @@ import Header from "./Header"
 import Body from "./Body"
 import './index.css'
 
-import SampleText from "./TG_MS1_AllelCall.js"
-import * as data from "./muinfo.json"
-
 class App extends React.Component {
     constructor(props) {
         super(props)
@@ -71,8 +68,6 @@ let buildGraphData = () => ({
         fileName: "TG_MS1",
         legend: "||XXX||XXX||XXX||XXX||",
         currentInstruction: "The quick brown fox jumps over the lazy dog.",
-        text: SampleText,
-        data: data
     })
 
 export default App

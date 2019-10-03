@@ -1,14 +1,9 @@
 .app-plot {
-    background-color:aliceblue;
-    border: 1px black solid;
-    height: 600px;
-    width: 460px;
-    border: 1px solid black;
-    margin: 5px;
     padding: 2px;
     float: left;
     position: relative;
-    overflow: scroll;
+    margin: auto;
+    width: 50%;
 }
 
 .main-canvas-container {
@@ -37,3 +32,8 @@
     padding-top: 6px;
 }
 
+.app-file-name {
+    height: 40px;
+    padding-left:   5px;
+    font-weight:    bold;   
+}

@@ -1,6 +1,20 @@
 .app-menu {
-    background-color: antiquewhite;
-    border: 1px black solid;
     float: right;
     margin: 5px;
+}
+
+.app-menu-list {
+	list-style: none;	
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.app-menu-item {
+	float: 	left;
+	display: block;
+    text-align: center;
+    padding: 16px;
+    text-decoration: none;
+    cursor: pointer;	
 }

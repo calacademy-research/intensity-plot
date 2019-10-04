@@ -66,8 +66,8 @@ let buildGraphActions = () => ({
 
 let buildGraphData = () => ({
         fileName: "TG_MS1",
-        legend: "||XXX||XXX||XXX||XXX||",
-        currentInstruction: "The quick brown fox jumps over the lazy dog.",
+        legend: " : Red square = ? | Black circle = ? | Green circle = ? | Yellow Circle = ?",
+        currentInstruction: "Put some sensible documentation here.",
     })
 
 export default App

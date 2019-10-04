@@ -4,7 +4,7 @@ import './index.css'
 function Legend(props) {
     return (
         <div className="app-legend">
-            Lengend {props.legend}
+            Legend {props.legend}
         </div>
     )
 }

@@ -31,7 +31,7 @@ class Graph extends React.Component {
     }
 
     componentDidMount() {
-        window.alert("begin componentDidMount")
+        // window.alert("begin componentDidMount")
         const fileName = this.state.graphData.fileName
         console.log("fileName", fileName)
         console.log("hits", hits)
@@ -49,7 +49,7 @@ class Graph extends React.Component {
     render() {
         return (
             <div className="app-plot">
-                <div className="clear-both">
+                <div className="app-file-name">
                     {this.state.graphData.fileName}
                 </div>
                 <Buttons graphActions={this.state.graphActions}/>

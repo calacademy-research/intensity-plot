@@ -1,7 +1,6 @@
 .app-plot-group {
-    background-color:chartreuse;
-    border: 1px black solid;
     height: auto;
+    width: 100%;
     margin: 5px;
     padding: 2px;
 }

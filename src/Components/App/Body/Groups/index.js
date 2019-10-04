@@ -9,9 +9,7 @@ function Groups(props) {
     })
     return (
         <div className="app-plot-groups">
-                <div className="clear-both">
-                Custom Groups
-               </div>
+               <div className="custom-group-title">Custom Groups</div>
                <ul className="groups-ul">{groupList}</ul>
         </div>
     )

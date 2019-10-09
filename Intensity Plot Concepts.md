@@ -4,12 +4,12 @@ A JavaScript tool to visualize and discover patterns across sample sets.
 
 The analysis employed evaluates samples against behavior observed and its occurrence (intensity)
 
-The intensity grid captures a row for each sample, a column for the each distinct behavior, and  intensity as the cell value presented by color.  
+The intensity grid captures a row for each entity, a column for the each distinct behavior, and  intensity as the cell value presented by color.  
 
 The desire is to capture the overlaps between the samples. In effect, using aggregation functions to analyze and deduce relationships.  Groupings isolate sets.
 Futher, employing curve fitting techniques solve for stastical parameters.
 
-(TODO:  add visual) 
+ [Data Model](docs\IntensityPlot-DataModel.png)
 
 ## Entity
 The source of data obtained, e.g. a single spider's DNA

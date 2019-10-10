@@ -25,6 +25,7 @@
 .tip-canvas {
     width: 170px; 
     height: 20px;
+    z-index: 10;
 }
 
 .graph-and-labels {

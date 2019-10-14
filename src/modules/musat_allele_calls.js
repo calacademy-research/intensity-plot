@@ -1,4 +1,5 @@
 import $ from "jquery"
+import {muLoadData} from "./musat_global"
 
 //    Example: oLocusCalls
 //  'TG_MS1':

@@ -63,8 +63,8 @@ function gr_refineXAxis() { // 10May2016 JBH new method to size x-axis for all t
     for (let s = 0; s < names.length; s++) {
         let sample = names[s]
         if (sample.endsWith("C02")) {
-            var tst = hits[sample]
-            var l = tst.length // stoping point for debugger
+            let tst = hits[sample]
+            let l = tst.length // stoping point for debugger
         }
         trimLowConfHits(sample, g.primer_min, g.primer_max)
     }
@@ -156,4 +156,4 @@ function isInt(int_candidate) {
     return !isNaN(val)
 }
 
-export { processData } 
+export { processData, ValidFile } 

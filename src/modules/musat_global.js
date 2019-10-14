@@ -184,7 +184,7 @@ function muLoadData() {
 function isSaveObject(obj_name, object) {
     var exclude = ["STEPS", "projectDirectory", "flow", "explore", "main"];
 
-    if (exclude.indexOf(obj_name) != -1)
+    if (exclude.indexOf(obj_name) !== -1)
         return false;
 
     return !isFunctionObject(object);

@@ -31,13 +31,7 @@ class Graph extends React.Component {
     }
 
     componentDidMount() {
-        // window.alert("begin componentDidMount")
         const fileName = this.state.graphData.fileName
-        console.log("fileName", fileName)
-        console.log("hits", hits)
-        console.log("g", g)
-        console.log("names", names)
-        console.log("mu", mu)
         new GridLocus(
             fileName,
             hits,

@@ -325,7 +325,7 @@ function GridGraph(canvasId, // Integer denoting the 'group' on the page
         bucketRainbow.setSpectrum("violet", "indigo", "blue", "green", "yellow", "orange", "red");
 
         //bucketRainbow.setSpectrum('red', 'yellow', 'green', 'blue');
-        if (j != 0) {
+        if (j !== 0) {
             // Got a graph with no peaks.
             bucketRainbow.setNumberRange(0, j);
         }
@@ -582,7 +582,7 @@ function GridGraph(canvasId, // Integer denoting the 'group' on the page
             for (var j = start; j <= end; j++)
                 if (normalizedArray[j] > biggest)
                     biggest = normalizedArray[j];
-            if (biggest == normalizedArray[i]) {
+            if (biggest === normalizedArray[i]) {
                 //local max!
                 localMaxArray.push(biggest);
                 i = i + 2;
@@ -610,7 +610,7 @@ function GridGraph(canvasId, // Integer denoting the 'group' on the page
             //[x and y are defined by upper left] x,y,width,height
             var barHeight = verticalSums[i + minColumn] * scale;
             context.rect(x, sumBarHeight - barHeight, xSpacingPx - 2, barHeight);
-            if ($.inArray(verticalSums[i + minColumn], extrema) == -1) {
+            if ($.inArray(verticalSums[i + minColumn], extrema) === -1) {
                 context.fillStyle = 'green';
             }
             else {
@@ -716,7 +716,7 @@ function GridGraph(canvasId, // Integer denoting the 'group' on the page
             if (verticalSums[i] == null) {
                 doDrawColumnArray[i - minColumn] = false;
                 skipCount++;
-                if (skipCount == 3) {
+                if (skipCount === 3) {
                     skipColumnCount++;
                     curX = curX + (xSpacingPx / 2);
                 }
@@ -730,7 +730,7 @@ function GridGraph(canvasId, // Integer denoting the 'group' on the page
                     drawColumnCount++;
                     var lastKnownCol = (i - minColumn) - 2;
                     doDrawColumnArray[lastKnownCol + 1] = true;
-                    if (skipCount == 2) {
+                    if (skipCount === 2) {
                         drawColumnCount++;
                         doDrawColumnArray[lastKnownCol] = true;
                         if (lastKnownCol > 1) {

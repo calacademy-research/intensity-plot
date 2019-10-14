@@ -10,8 +10,9 @@ class App extends React.Component {
         this.state = {
             title: "muSat Intensity Plots",
             graphData: buildGraphData(),
-            graphActions: buildGraphActions(),
+            graphActions: buildGraphActions(this),
             menuActions: buildMenuActions(),
+            gridLocus: null,
         }
     }
 
@@ -25,6 +26,7 @@ class App extends React.Component {
                 <Body className="app-body"
                     graphData={this.state.graphData}
                     graphActions={this.state.graphActions}
+                    gridLocus={this.state.gridLocus}
                 />
                 <Footer className="app-footer"
                     reactVersion={React.version}
@@ -57,9 +59,8 @@ function buildMenuActions() {
     }
 }
 
-let buildGraphActions = () => ({
-    one: () => { console.log("graphActionOne") },
-    two: () => { console.log("graphActionTwo") },
+let buildGraphActions = (that) => ({
+    setGridLocus: (gridLocus) => {that.setState({gridLocus: gridLocus})},
     addGroup: (event) => { console.log("action addGroup", event) },
     removeGroup: (event) => { console.log("action removeGroup", event) },
 })

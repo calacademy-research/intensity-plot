@@ -27,17 +27,19 @@ class Graph extends React.Component {
             graphActions: props.graphActions,
             menuActions: props.menuActions,
             groupId: 0,
+            gridLocus: props.gridLocus,
         }
     }
 
     componentDidMount() {
         const fileName = this.state.graphData.fileName
-        new GridLocus(
+        let gridLocus = new GridLocus(
             fileName,
             hits,
             g.primer_min, g.primer_max,
             names,
             fileName);
+        this.state.graphActions.setGridLocus(gridLocus)
     }
 
     render() {
@@ -46,7 +48,7 @@ class Graph extends React.Component {
                 <div className="app-file-name">
                     {this.state.graphData.fileName}
                 </div>
-                <Buttons graphActions={this.state.graphActions}/>
+                <Buttons graphActions={this.state.graphActions} />
                 <Wrapper groupId={this.state.groupId} />
                 <HitBar groupId={this.state.groupId} />
                 <canvas id="tip" className="tip-canvas" height="20" width="170"></canvas>

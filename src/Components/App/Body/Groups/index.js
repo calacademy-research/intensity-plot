@@ -4,6 +4,7 @@ import Group from "./Group"
 
 function Groups(props) {
     let groups = props.groups
+    let gridLocus = props.gridLocus
     let groupList = groups.map((group, index) => {
         return <li key={group} ><Group groupId={index+1} /></li>
     })

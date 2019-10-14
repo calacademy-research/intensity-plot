@@ -205,4 +205,5 @@ export {
     getReadCount, 
     guessPopName,
     sampleObj,
+    setCalledIndicators,
 }

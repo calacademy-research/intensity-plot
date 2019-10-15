@@ -26,7 +26,6 @@ function Body(props) {
                     graphData={props.graphData}
                     graphActions={props.graphActions}
                     gridLocus={props.gridLocus}
-                    groups={["group1"]}
                 />
             </div>
         </div>

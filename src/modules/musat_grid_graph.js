@@ -42,6 +42,11 @@ function GridGraph(canvasId, // Integer denoting the 'group' on the page
     var that = this;
     var highlights = {};
 
+    // reset sample data and names
+    that.resetSamples = () => {
+        sampleNameArray = []
+        sampleDataArray = {}
+    }
 
     that.setup = function () {
         // try {
@@ -123,6 +128,12 @@ function GridGraph(canvasId, // Integer denoting the 'group' on the page
 
         tipCanvas.style.left = (-20000) + "px";
         tipCanvas.style.top = (0) + "px";
+    }
+
+    that.cleanupHighlights = (names) => {
+        for (const name of names) {
+            that.highlightSample(name, 0, false)
+        }
     }
 
     that.removeSampleHighlight = function (sampleName) {

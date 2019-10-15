@@ -3,19 +3,19 @@ import {mu } from "./musat_global"
 import GridGraph from "./musat_grid_graph"
 import {isPeak, getReadCount} from "./musat_utils"
 
-
+const MAX_GROUPS = 50
 
 function GridLocus(primerName, sampleDataArray, minColumn, maxColumn, sampleNameArray) {
-    var MAX_GROUPS = 50;
     var gridGraphCount = 0;
     var gridGraphNextVal = 0;
     var gridObjects = [];
     var currentlySelectedGroup = 0;
     var that = this;
 
-
     that.addGridGraph = function (overrideDataSet, overrideSampleNames) {
-
+        if (gridGraphCount >= MAX_GROUPS) {
+            return
+        }
         currentlySelectedGroup = gridGraphNextVal;
         if (gridGraphNextVal > 0) {
             addGroupSelectorRadio(gridGraphNextVal);
@@ -191,8 +191,6 @@ function GridLocus(primerName, sampleDataArray, minColumn, maxColumn, sampleName
         for (var i = 0; i < MAX_GROUPS; i++) {
             clearCanvases(i);
         }
-
-
     };
 
     function toggleGroup(clickedInGroupId, sampleName) {
@@ -367,3 +365,4 @@ function GridLocus(primerName, sampleDataArray, minColumn, maxColumn, sampleName
 }
 
 export default GridLocus
+export {MAX_GROUPS}

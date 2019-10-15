@@ -1,7 +1,7 @@
 import $ from "jquery"
 import Rainbow from "rainbowvis.js"
-import {mu } from "./musat_global"
-import {isPeak} from "./musat_utils"
+import { mu } from "./musat_global"
+import { isPeak } from "./musat_utils"
 
 //ES6 module for the grid graph display and logic 
 
@@ -9,13 +9,13 @@ import {isPeak} from "./musat_utils"
 // inputs are slightly redundant with hitArray and sampleNameArray.
 // SampleName array gives the sample ordering.
 function GridGraph(canvasId, // Integer denoting the 'group' on the page
-                   sampleDataArray,
-                   minColumn,
-                   maxColumn,
-                   sampleNameArray,
-                   primerName) {    
+    sampleDataArray,
+    minColumn,
+    maxColumn,
+    sampleNameArray,
+    primerName) {
 
-    sampleNameArray = sampleNameArray || [];                  
+    sampleNameArray = sampleNameArray || [];
     var displayRow = {};
     // tracks vertical spacing, indexed by sample name. If we color code sample groups, this is where
     // it will be tracked
@@ -42,25 +42,30 @@ function GridGraph(canvasId, // Integer denoting the 'group' on the page
     var that = this;
     var highlights = {};
 
+    // reset sample data and names
+    that.resetSamples = () => {
+        sampleNameArray = []
+        sampleDataArray = {}
+    }
 
     that.setup = function () {
         // try {
-         //   sampleNameArray.sort(sortByPopThenSample); // sampleNameArray.sort(naturalSort);
+        //   sampleNameArray.sort(sortByPopThenSample); // sampleNameArray.sort(naturalSort);
 
-            intensityArray = calculateIntensityArray();
-            var verticalSums = sumVerticals(intensityArray, sampleNameArray);
-            calculateSkipColumns(verticalSums);
+        intensityArray = calculateIntensityArray();
+        var verticalSums = sumVerticals(intensityArray, sampleNameArray);
+        calculateSkipColumns(verticalSums);
 
-            setGraphSizes();
-           setupCanvas();       //
-            setupVerticalSpacing();
-            drawSampleNames();    //
-            drawLengthLabels();    //
-            drawHorizontalGrid();   //
-            drawVerticalGrid();
-            computePeakBuckets();    //
-            drawPoints(intensityArray); //
-            drawSumBars(verticalSums);   //
+        setGraphSizes();
+        setupCanvas();       //
+        setupVerticalSpacing();
+        drawSampleNames();    //
+        drawLengthLabels();    //
+        drawHorizontalGrid();   //
+        drawVerticalGrid();
+        computePeakBuckets();    //
+        drawPoints(intensityArray); //
+        drawSumBars(verticalSums);   //
         // } catch (err) {
         //     alert("Setup error: " + err);
         //     return;
@@ -125,11 +130,17 @@ function GridGraph(canvasId, // Integer denoting the 'group' on the page
         tipCanvas.style.top = (0) + "px";
     }
 
+    that.cleanupHighlights = (names) => {
+        for (const name of names) {
+            that.highlightSample(name, 0, false)
+        }
+    }
+
     that.removeSampleHighlight = function (sampleName) {
         that.highlightSample(sampleName, 0, false);
     };
 
-// can only highlight samples in screen 0
+    // can only highlight samples in screen 0
     that.highlightSample = function (sampleName, currentlySelectedGroup, doHighlight) {
         var c = document.getElementById("mainCanvasBackground0");
         var context = c.getContext("2d");
@@ -290,7 +301,7 @@ function GridGraph(canvasId, // Integer denoting the 'group' on the page
             // [[length,hitcount],[length,hitcount]]
 
             for (var dataPointIndex in sampleDataArray[sample]) {
-                var dataPoint=sampleDataArray[sample][dataPointIndex];
+                var dataPoint = sampleDataArray[sample][dataPointIndex];
                 var curColumn = dataPoint[0];
                 var curValue = dataPoint[1];
                 if (peakBuckets[curColumn] === undefined) {
@@ -325,7 +336,7 @@ function GridGraph(canvasId, // Integer denoting the 'group' on the page
         bucketRainbow.setSpectrum("violet", "indigo", "blue", "green", "yellow", "orange", "red");
 
         //bucketRainbow.setSpectrum('red', 'yellow', 'green', 'blue');
-        if (j != 0) {
+        if (j !== 0) {
             // Got a graph with no peaks.
             bucketRainbow.setNumberRange(0, j);
         }
@@ -553,14 +564,14 @@ function GridGraph(canvasId, // Integer denoting the 'group' on the page
         }
     }
 
-// Iterate over array. If self > two lower neighbors && > two upper neighbors
-// and delta between self and either immediate neighbor is less than
-// 10% of our value range, then call a local maxima.
-// If we call a local maxima (exclusing the pixel percentage check) then skip evaluating
-// the next two elements.
+    // Iterate over array. If self > two lower neighbors && > two upper neighbors
+    // and delta between self and either immediate neighbor is less than
+    // 10% of our value range, then call a local maxima.
+    // If we call a local maxima (exclusing the pixel percentage check) then skip evaluating
+    // the next two elements.
 
-// verticalsums: length index: float
-// output: array of floats
+    // verticalsums: length index: float
+    // output: array of floats
     function getExtrema(verticalSums) {
         var normalizedArray = [];
         var i;
@@ -582,7 +593,7 @@ function GridGraph(canvasId, // Integer denoting the 'group' on the page
             for (var j = start; j <= end; j++)
                 if (normalizedArray[j] > biggest)
                     biggest = normalizedArray[j];
-            if (biggest == normalizedArray[i]) {
+            if (biggest === normalizedArray[i]) {
                 //local max!
                 localMaxArray.push(biggest);
                 i = i + 2;
@@ -610,7 +621,7 @@ function GridGraph(canvasId, // Integer denoting the 'group' on the page
             //[x and y are defined by upper left] x,y,width,height
             var barHeight = verticalSums[i + minColumn] * scale;
             context.rect(x, sumBarHeight - barHeight, xSpacingPx - 2, barHeight);
-            if ($.inArray(verticalSums[i + minColumn], extrema) == -1) {
+            if ($.inArray(verticalSums[i + minColumn], extrema) === -1) {
                 context.fillStyle = 'green';
             }
             else {
@@ -642,7 +653,7 @@ function GridGraph(canvasId, // Integer denoting the 'group' on the page
         var context = c.getContext("2d");
         context.canvas.width = x;
         context.canvas.height = y;
-        $('#mainCanvas' + canvasId).css({width: x, height: y});
+        $('#mainCanvas' + canvasId).css({ width: x, height: y });
 
 
         c = document.getElementById("mainCanvasBackground" + canvasId);
@@ -651,25 +662,25 @@ function GridGraph(canvasId, // Integer denoting the 'group' on the page
         context.canvas.height = y;
         // fudge factor because I can't seem to squeeze the margin out of this thing.
         // thanks, css!
-        $('#mainCanvasBackground' + canvasId).css({left: x * -1 - 2, top: -1, width: x, height: y});
+        $('#mainCanvasBackground' + canvasId).css({ left: x * -1 - 2, top: -1, width: x, height: y });
 
         c = document.getElementById("sample_names" + canvasId);
         context = c.getContext("2d");
         context.canvas.width = labelWidth;
         context.canvas.height = y;
-        $('#sample_names' + canvasId).css({left: x * -1 - 2, up: -10, width: labelWidth, height: y});
+        $('#sample_names' + canvasId).css({ left: x * -1 - 2, up: -10, width: labelWidth, height: y });
 
         c = document.getElementById("length_labels" + canvasId);
         context = c.getContext("2d");
         context.canvas.width = x;
         context.canvas.height = 30;
-        $('#length_labels' + canvasId).css({width: x, height: 30});
+        $('#length_labels' + canvasId).css({ width: x, height: 30 });
 
         c = document.getElementById("hit_bars" + canvasId);
         context = c.getContext("2d");
         context.canvas.width = x;
         context.canvas.height = sumBarHeight;
-        $('#graph_container' + canvasId).css({width: x + labelWidth});
+        $('#graph_container' + canvasId).css({ width: x + labelWidth });
 
         $('#hit_bars' + (canvasId)).width(x);
     }
@@ -693,8 +704,8 @@ function GridGraph(canvasId, // Integer denoting the 'group' on the page
         return verticalSums;
     }
 
-// when a column has two empty neighbors, it can be 'skipped', compressing it visually.
-// multiple skip columns in a row will be consolidated into a single skip column
+    // when a column has two empty neighbors, it can be 'skipped', compressing it visually.
+    // multiple skip columns in a row will be consolidated into a single skip column
     function calculateSkipColumns(verticalSums) {
         // doDrawColumnArray - which columns to not draw. Array index 0=minColumn
         // drawColumnCount - number of columns to draw
@@ -716,7 +727,7 @@ function GridGraph(canvasId, // Integer denoting the 'group' on the page
             if (verticalSums[i] == null) {
                 doDrawColumnArray[i - minColumn] = false;
                 skipCount++;
-                if (skipCount == 3) {
+                if (skipCount === 3) {
                     skipColumnCount++;
                     curX = curX + (xSpacingPx / 2);
                 }
@@ -730,7 +741,7 @@ function GridGraph(canvasId, // Integer denoting the 'group' on the page
                     drawColumnCount++;
                     var lastKnownCol = (i - minColumn) - 2;
                     doDrawColumnArray[lastKnownCol + 1] = true;
-                    if (skipCount == 2) {
+                    if (skipCount === 2) {
                         drawColumnCount++;
                         doDrawColumnArray[lastKnownCol] = true;
                         if (lastKnownCol > 1) {
@@ -741,8 +752,8 @@ function GridGraph(canvasId, // Integer denoting the 'group' on the page
                         }
                         colPositions[lastKnownCol] = curX;
                     }
-                    curX =  xSpacingPx;
-                    if(lastKnownCol > 0) { // If we're at the first column, there's no previous to reference..
+                    curX = xSpacingPx;
+                    if (lastKnownCol > 0) { // If we're at the first column, there's no previous to reference..
                         curX = colPositions[lastKnownCol] + curX;
                     }
                     colPositions[lastKnownCol + 1] = curX;
@@ -765,8 +776,8 @@ function GridGraph(canvasId, // Integer denoting the 'group' on the page
         return biggest;
     }
 
-// return a point diamater of size 0 to 10 based on the the
-// maximum number of hits in the data set
+    // return a point diamater of size 0 to 10 based on the the
+    // maximum number of hits in the data set
     function mapDiameter(num) {
         return (num / 17)
     }

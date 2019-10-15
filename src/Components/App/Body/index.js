@@ -20,11 +20,12 @@ function Body(props) {
                 <Graph
                     graphData={props.graphData}
                     graphActions={props.graphActions}
+                    gridLocus={props.gridLocus}
                 />
                 <Groups
                     graphData={props.graphData}
                     graphActions={props.graphActions}
-                    groups={["group1"]}
+                    gridLocus={props.gridLocus}
                 />
             </div>
         </div>

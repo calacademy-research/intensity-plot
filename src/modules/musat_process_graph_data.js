@@ -16,7 +16,7 @@ function processData(ary) {
         var ln = ary[s].split("\t");
         if (ln.length === 3) {
             var sample = ln[1];
-            if (sample[0] === ">" || sample[0] == "@") sample = sample.substr(1);
+            if (sample[0] === ">" || sample[0] === "@") sample = sample.substr(1);
             if (!(sample in hits)) {
                 hits[sample] = [];
                 names.push(sample);
@@ -63,8 +63,8 @@ function gr_refineXAxis() { // 10May2016 JBH new method to size x-axis for all t
     for (let s = 0; s < names.length; s++) {
         let sample = names[s]
         if (sample.endsWith("C02")) {
-            var tst = hits[sample]
-            var l = tst.length // stoping point for debugger
+            let tst = hits[sample]
+            let l = tst.length // stoping point for debugger
         }
         trimLowConfHits(sample, g.primer_min, g.primer_max)
     }
@@ -149,11 +149,11 @@ function ValidFile(ln1, ln2) { // current validity check just verifies first 2 l
 }
 function isValidLine(ln) { // each line should have 3 or 4 tab delimited fields, first and third of which are integers
     var flds = ln.split("\t")
-    return (flds.length == 3 || flds.length == 4) && isInt(flds[0]) && isInt(flds[2])
+    return (flds.length === 3 || flds.length === 4) && isInt(flds[0]) && isInt(flds[2])
 }
 function isInt(int_candidate) {
     var val = parseInt(int_candidate, 10)
     return !isNaN(val)
 }
 
-export { processData } 
+export { processData, ValidFile } 

@@ -7,7 +7,7 @@ let Buttons = (props) => (
             <li  className="graph-menu-item" id="addGroup" onClick={props.graphActions.addGroup}>Add group</li>
             <li  className="graph-menu-item" id="removeGroup" onClick={props.graphActions.removeGroup}>Remove group</li>
             <li  className="graph-menu-item">
-                <div id="gridGraphSelector" className="plot-grid-selector" />
+                <ul id="gridGraphSelector" />
             </li>
         </ul>
         

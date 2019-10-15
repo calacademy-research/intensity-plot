@@ -3,4 +3,14 @@
     width: 100%;
     margin: 5px;
     padding: 2px;
+    position: relative;
+    left:0px
+}
+
+.hidden-group {
+    display: none;
+}
+
+.visible-group {
+    display: block;
 }

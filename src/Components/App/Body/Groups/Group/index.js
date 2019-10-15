@@ -5,7 +5,7 @@ import Wrapper from "../../Graph/Wrapper"
 
 function Group(props) {
     return (
-        <div className="app-plot-group">
+        <div id={"group" + props.groupId} className="app-plot-group hidden-group">
             <Wrapper groupId={props.groupId} className="group-graph"/>
             <HitBar groupId={props.groupId} />
         </div>

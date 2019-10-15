@@ -1,16 +1,12 @@
 import $ from "jquery"
-
-// rainbow
-//https://github.com/anomal/RainbowVis-JS/blob/master/example.html
-
-
-var gridsByLocus = {};
-
+import {processData, ValidFile} from "./musat_process_graph_data"
+import {reset_globals} from "./musat_global"
 
 // TODO: add stub for "grouping" and pre-break grid graphs out
 
+let gridsByLocus = {};
+let gridGraphCurLocus;
 
-var gridGraphCurLocus;
 function setupGridGraph(primerName) {
     reset_globals();
     // curLocus = null;

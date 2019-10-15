@@ -2,10 +2,10 @@ import $ from "jquery"
 
 // primer_nm is the name of the current primer file, aka allele locus name.
 let g = {
-    curfile: null, 
-    primer_nm: 0, 
-    primer_min: 0, 
-    primer_max: 0, 
+    curfile: null,
+    primer_nm: 0,
+    primer_min: 0,
+    primer_max: 0,
     primer_suffix: "_AllelCall.txt", //02May2016 JBH add min max
     num_pops: 0, // number of populations
 }
@@ -124,9 +124,9 @@ function muServerVersion() {
     return version;
 }
 
-let saveServer = () => {} // place holder function
+let saveServer = () => { } // place holder function
 let checkIsFile = () => (true) // always return true
-let handleAjaxError = () => {} // no op function
+let handleAjaxError = () => { } // no op function
 
 // 30Jun2017 begin loading just data for mu and not function objects
 // just save data objects, not function objects
@@ -184,7 +184,7 @@ function muLoadData() {
 function isSaveObject(obj_name, object) {
     var exclude = ["STEPS", "projectDirectory", "flow", "explore", "main"];
 
-    if (exclude.indexOf(obj_name) != -1)
+    if (exclude.indexOf(obj_name) !== -1)
         return false;
 
     return !isFunctionObject(object);
@@ -216,7 +216,24 @@ function muCopyDataObjects(fullMu) {
 }
 
 // export variables which become const when imported
-export {g, hits, orig_hits, names, mu, sample_pts_trimmed, pop_info, pts_merged}
+export {
+    g, 
+    hits, 
+    orig_hits, 
+    names, 
+    mu,
+    sample_pts_trimmed, 
+    pop_info, 
+    pts_merged,
+    options, 
+    htmlOptions, 
+    muServerVersion
+}
 
 // export functions
-export {initPrimerMinMax}
+export {
+    initPrimerMinMax, 
+    muLoadData,
+    muSaveData, 
+    reset_globals
+}

@@ -1,15 +1,23 @@
 .app-plot-groups {
-    max-height: 500px;
+    max-height: 700px;
     margin: 5px;
     padding: 2px;
+    position: relative;
+    left: 550px;
 }
 
-.groups-ul {
-    list-style-type: none;
+.groups-container {
     padding-left: 0px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: 700px;
+    top: 40px;
+    position: absolute;
+    min-width: 500px;
 }
 
 .custom-group-title {
 	font-weight: bold;
-	height: 60px;
+    height: 60px;
+    position: absolute;
 }

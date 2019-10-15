@@ -60,15 +60,20 @@ function buildMenuActions() {
 }
 
 let buildGraphActions = (that) => ({
-    setGridLocus: (gridLocus) => {that.setState({gridLocus: gridLocus})},
-    addGroup: (event) => { console.log("action addGroup", event) },
-    removeGroup: (event) => { console.log("action removeGroup", event) },
+    setGridLocus: (gridLocus) => {
+        that.setState({ gridLocus: gridLocus }) },
+    addGroup: () => {
+        that.state.gridLocus.addGridGraph()
+    },
+    removeGroup: () => {
+        that.state.gridLocus.removeGridGraph()
+    },
 })
 
 let buildGraphData = () => ({
-        fileName: "TG_MS1",
-        legend: " : Red square = ? | Black circle = ? | Green circle = ? | Yellow Circle = ?",
-        currentInstruction: "Put some sensible documentation here.",
-    })
+    fileName: "TG_MS1",
+    legend: " : Red square = ? | Black circle = ? | Green circle = ? | Yellow Circle = ?",
+    currentInstruction: "Put some sensible documentation here.",
+})
 
 export default App

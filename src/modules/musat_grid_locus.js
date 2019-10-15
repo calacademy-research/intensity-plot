@@ -1,9 +1,17 @@
 import $ from "jquery"
-import {mu } from "./musat_global"
+import { mu } from "./musat_global"
 import GridGraph from "./musat_grid_graph"
-import {isPeak, getReadCount} from "./musat_utils"
+import { isPeak, getReadCount } from "./musat_utils"
 
 const MAX_GROUPS = 50
+
+let showGroup = (groupId, showing = true) => {
+    if (showing) {
+        $("#group" + groupId).show()
+    } else {
+        $("#group" + groupId).hide()
+    }
+}
 
 function GridLocus(primerName, sampleDataArray, minColumn, maxColumn, sampleNameArray) {
     var gridGraphCount = 0;
@@ -27,9 +35,14 @@ function GridLocus(primerName, sampleDataArray, minColumn, maxColumn, sampleName
             (overrideSampleNames === undefined) ? [] : overrideSampleNames,
             primerName);
         enableHandlers(gridGraphNextVal);
+        showGroup(gridGraphNextVal, groupHasSamples(gridGraphNextVal))
         gridGraphCount++;
         gridGraphNextVal++;
     };
+
+    function groupHasSamples(groupId) {
+        return gridObjects[currentlySelectedGroup].getSampleNameArray().length > 0
+    }
 
     that.disableLocus = function () {
         currentlySelectedGroup = parseInt($('input[name=selectGroup]:checked', '#gridGraphSelector').val());
@@ -84,6 +97,7 @@ function GridLocus(primerName, sampleDataArray, minColumn, maxColumn, sampleName
     function removeGridGraphGroup(doomedGroup) {
 
         clearCanvases(doomedGroup);
+        showGroup(doomedGroup, false)
         gridGraphCount--;
         removeGroupSelectorRadio(doomedGroup);
         // redundant if we're sending original a click, but we might change the behaviour
@@ -243,8 +257,6 @@ function GridLocus(primerName, sampleDataArray, minColumn, maxColumn, sampleName
                 maxColumn,
                 sampleNameArraySubset,
                 primerName);
-
-
         } else {
             dataArraySubset = gridObjects[foundGroup].getSampleDataArray();
             sampleNameArraySubset = gridObjects[foundGroup].getSampleNameArray();
@@ -254,7 +266,6 @@ function GridLocus(primerName, sampleDataArray, minColumn, maxColumn, sampleName
             for (let i = 0; i < sampleNameArraySubset.length; i++) {
                 if (sampleNameArraySubset[i] === sampleName) {
                     sampleNameArraySubset.splice(i, 1);
-
                 }
             }
             //  mu.oLocusCalls[primerName][sampleName].splice(i, 1);
@@ -267,11 +278,14 @@ function GridLocus(primerName, sampleDataArray, minColumn, maxColumn, sampleName
                 sampleNameArraySubset,
                 primerName);
             gridObjects[0].highlightSample(sampleName, foundGroup, false);
-
         }
-
+        // show/hide group div if group is not/empty
+        if (groupHasSamples(currentlySelectedGroup)) {
+            $("#group" + currentlySelectedGroup).show()
+        } else {
+            $("#group" + currentlySelectedGroup).hide()
+        }
     }
-    ;
 
     function clearCanvases(id) {
         $('#mainCanvas' + (id)).replaceWith("<canvas id='mainCanvas" + (id) + "' class='canvas" + (id) + "' style='position:relative; '></canvas>");
@@ -365,4 +379,4 @@ function GridLocus(primerName, sampleDataArray, minColumn, maxColumn, sampleName
 }
 
 export default GridLocus
-export {MAX_GROUPS}
+export { MAX_GROUPS }

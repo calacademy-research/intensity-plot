@@ -136,15 +136,15 @@ function GridLocus(primerName, sampleDataArray, minColumn, maxColumn, sampleName
     }
 
     function addGroupSelectorRadio(groupId) {
-        $('#gridGraphSelector').append("<div id='radioGridSelector" +
+        $('#gridGraphSelector').append("<li id='radioGridSelector" +
             groupId + "'>" +
             "<input  id='radioCheckBox" +
             groupId +
             "' type='radio' name='selectGroup' value= " +
             groupId +
-            " > g" +
+            " >&nbsp;g" +
             groupId +
-            "</input></div>");
+            "</input></li>");
 
         $('#radioCheckBox' + groupId).click(function () {
             $('#removeGroup').prop("disabled", false);

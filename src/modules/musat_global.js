@@ -30,33 +30,6 @@ function initPrimerMinMax() { // 10May2016 JBH set min max vars so any read coun
 }
 
 
-// Globals to track called Alleles:
-//
-// * mu.oLocusCalls object has properties named for each locus file's name (prefix of filename usually)
-//    each of which is an object containing properties named for the samples found in the locusfile
-//    these sample properties contain an array of pts (pts are arrays with just 2 entries --
-//    [0] for musat length, [1] for #reads)
-//  primerName (locus):
-//     sampleName:
-//        
-//    Example: oLocusCalls
-//  'TG_MS1':
-//
-//    'HiBiK15-01':Array[0] // no called alleles for HiBiK15-01
-//    'HiBiK15-02':Array[2] // alleles at 145 and 159
-//     0:Array[2]
-//         0:145
-//         1:359
-//     1:Array[2]
-//         0:159
-//         1:511
-//  'TG_MS2': ...
-
-
-
-
-
-
 // aSampleName is the set of all the sample names found in locus files (many are found in all files but not necessarily all)
 
 // These objects are in mu. The 2 arrays should be kept in natural sort order [ e.g. mu.aSampleName.sort(naturalSort) ]

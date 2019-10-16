@@ -1,0 +1,7 @@
+Intensity plot:  Generalization of Microsatelites (mu)
+
+* Allele  ->  Trait 
+
+* Primer -> ?
+
+* 

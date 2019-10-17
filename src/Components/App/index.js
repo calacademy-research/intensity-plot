@@ -53,7 +53,8 @@ function buildMenuActions() {
         about: {
             text: "About",
             onClick: (event) => {
-                window.alert(`Menu item ${event.target.innerText} clicked`)
+                var txt = 'The Microsatellite Intensity Plot visualization tool is an open source project developed by the California Academy of Sciences, Institute for Biodiversity Science & Sustainability.  Source and documentation is available on github: https://github.com/calacademy-research/intensity-plot.';
+                window.alert(txt);
             },
         }
     }
@@ -61,7 +62,8 @@ function buildMenuActions() {
 
 let buildGraphActions = (that) => ({
     setGridLocus: (gridLocus) => {
-        that.setState({ gridLocus: gridLocus }) },
+        that.setState({ gridLocus: gridLocus })
+    },
     addGroup: () => {
         that.state.gridLocus.addGridGraph()
     },

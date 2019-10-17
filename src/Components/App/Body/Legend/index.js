@@ -8,6 +8,7 @@ class Legend extends Component {
   constructor(props) {
     super(props)
     this.state = {
+        hasData: false,
         colorRange: ["rgb(46, 73, 123)", "rgb(71, 187, 94)"],
         colorDomain: [0,10]
     }
@@ -15,14 +16,14 @@ class Legend extends Component {
     this.buildLegendData();
   }
 
-  // componentDidUpdate(){
-  //   this.draw();
-  // }
-    componentDidMount() {
+  componentDidMount() {
         this.draw();
       }
 
       draw() {
+        if (!this.state.hasData) return;
+
+        //https://observablehq.com/@d3/d3-scalelinear
         var linear = d3.scaleLinear()
         .domain(this.state.colorDomain)
         .range(this.state.colorRange);
@@ -58,28 +59,42 @@ class Legend extends Component {
           }
 
       buildLegendData() {
-        var setState = this.setState;
+        var setState = this.setState.bind(this);
+        var draw = this.draw.bind(this);
 
         mu.legend.promise.then( () =>{
           //colors for range
           console.log("we have the legend values")
           console.log(mu.legend.colors)
           console.log(mu.legend.circles)
-          console.log(Object.keys(mu.legend.colors).length)
-          setState({
-            colorDomain: [1, Object.keys(mu.legend.colors.length)],
-            colorRange: mu.legend.colors
-          })
+          var colorKeys =Object.keys(mu.legend.colors);
+          var colorValues=Object.values(mu.legend.colors).map((v)=> hexToRgb(v));
           
-        })
-      
-      
-      }
+          setState({
+            colorDomain: colorKeys,
+            colorRange: colorValues,
+            hasData: true
 
+          })
+
+          draw();
+        })            
+      }
     }
 
 
-
-
+    function hexToRgb(hex) {
+      // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
+      var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+      hex = hex.replace(shorthandRegex, function(m, r, g, b) {
+        return r + r + g + g + b + b;
+      });
+    
+      var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+      return result ? 
+       "rgb(" + parseInt(result[1], 16) + "," + parseInt(result[2], 16) + "," + parseInt(result[3], 16) + ")"      
+      : null;
+    }
+    
 
 export default Legend

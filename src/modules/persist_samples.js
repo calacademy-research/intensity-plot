@@ -1,5 +1,4 @@
 import $ from "jquery"
-import {muLoadData} from "./musat_global"
 
 //    Example: oLocusCalls
 //  'TG_MS1':
@@ -12,7 +11,7 @@ import {muLoadData} from "./musat_global"
 //     1:Array[2]
 //         0:159
 //         1:511
-function muExportAlleleCalls() {
+function exportSavedSamples() {
     var json_payload = {};
     // needs to be in the project_directory
 
@@ -155,4 +154,4 @@ function clearShowingAlleles() {
 
 }
 
-export default muExportAlleleCalls
+export default exportSavedSamples

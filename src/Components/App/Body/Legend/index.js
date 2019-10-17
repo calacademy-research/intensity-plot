@@ -15,9 +15,9 @@ class Legend extends Component {
     this.buildLegendData();
   }
 
-  componentDidUpdate(){
-    this.draw();
-  }
+  // componentDidUpdate(){
+  //   this.draw();
+  // }
     componentDidMount() {
         this.draw();
       }

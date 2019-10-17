@@ -1,1 +1,0 @@
-/Users/joe/bathwater/bin/trim_adapters.sh: line 17: trimmomatic: command not found

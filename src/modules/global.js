@@ -4,8 +4,8 @@ import $ from "jquery"
 let g = {
     curfile: null,
     primer_nm: 0,
-    primer_min: 0,
-    primer_max: 0,
+    trait_min: 0,
+    trait_max: 0,
     primer_suffix: "_AllelCall.txt", //02May2016 JBH add min max
     num_pops: 0, // number of populations
 }
@@ -25,8 +25,8 @@ let sample_pts_trimmed = {}; // 10May2016 JBH each sample has .left and .right a
 
 
 function initPrimerMinMax() { // 10May2016 JBH set min max vars so any read count updates 'em
-    g.primer_max = 0
-    g.primer_min = Number.MAX_SAFE_INTEGER; // 02May2016 JBH
+    g.trait_max = 0
+    g.trait_min = Number.MAX_SAFE_INTEGER; // 02May2016 JBH
 }
 
 

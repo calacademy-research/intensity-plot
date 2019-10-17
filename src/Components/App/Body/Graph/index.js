@@ -2,9 +2,9 @@ import React from 'react'
 import Buttons from "./Buttons"
 import Wrapper from './Wrapper'
 import HitBar from "./HitBar"
-import { g, hits, names, mu } from "../../../../modules/musat_global"
-import { initPrimerMinMax } from "../../../../modules/musat_global"
-import { processData } from "../../../../modules/musat_process_graph_data"
+import { g, hits, names, mu } from "../../../../modules/global"
+import { initPrimerMinMax } from "../../../../modules/global"
+import { processData } from "../../../../modules/data"
 import GridLocus from "../../../../modules/musat_grid_locus"
 
 import text from "../../../../sampleData/TG_MS1_AllelCall"
@@ -36,7 +36,7 @@ class Graph extends React.Component {
         let gridLocus = new GridLocus(
             fileName,
             hits,
-            g.primer_min, g.primer_max,
+            g.trait_min, g.trait_max,
             names,
             fileName);
         this.state.graphActions.setGridLocus(gridLocus)

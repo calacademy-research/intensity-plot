@@ -1,7 +1,7 @@
 import $ from "jquery"
 import Rainbow from "rainbowvis.js"
-import { mu } from "./musat_global"
-import { isPeak } from "./musat_utils"
+import { mu } from "./global"
+import { isPeak } from "./utils"
 
 //ES6 module for the grid graph display and logic 
 

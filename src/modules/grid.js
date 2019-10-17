@@ -1,6 +1,6 @@
 import $ from "jquery"
-import {processData, ValidFile} from "./musat_process_graph_data"
-import {reset_globals} from "./musat_global"
+import {processData, ValidFile} from "./data"
+import {reset_globals} from "./global"
 
 // TODO: add stub for "grouping" and pre-break grid graphs out
 
@@ -55,7 +55,7 @@ function finalizeGridGraph(primerName) {
         gridsByLocus[gridGraphCurLocus].disableLocus();
     }
     if (!gridsByLocus[primerName]) {
-        gridsByLocus[primerName] = new GridLocus(primerName, hits, primer_min, primer_max, names, primerName);
+        gridsByLocus[primerName] = new GridLocus(primerName, hits, trait_min, trait_max, names, primerName);
     }
     gridGraphCurLocus = primerName;
     updateAlleleCountsDisplay('#explore_scatter',primerName,true);

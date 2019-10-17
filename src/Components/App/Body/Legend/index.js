@@ -18,9 +18,7 @@ class Legend extends Component {
         .append("svg")
         .attr("width", 700)
         .attr("height", 300);
-        //.style("margin-left", 100);
-        //var svg = d3.select("svg");
-      
+                
       svg.append("g")
         .attr("class", "legendLinear")
         .attr("transform", "translate(20,20)");

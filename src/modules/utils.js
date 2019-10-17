@@ -1,5 +1,5 @@
 import $ from "jquery"
-import { g, pop_info, mu } from "./musat_global"
+import { g, pop_info, mu } from "./global"
 
 // lookup population name in data structure, if not there, use guessPopName()
 function popName(sample) {

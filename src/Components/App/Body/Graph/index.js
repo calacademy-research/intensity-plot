@@ -3,9 +3,9 @@ import Buttons from "./Buttons"
 import Wrapper from './Wrapper'
 import HitBar from "./HitBar"
 import { g, hits, names, mu } from "../../../../modules/global"
-import { initPrimerMinMax } from "../../../../modules/global"
+import { initTraitMinMax } from "../../../../modules/global"
 import { processData } from "../../../../modules/data"
-import GridLocus from "../../../../modules/musat_grid_locus"
+import GridLocus from "../../../../modules/groups"
 
 import text from "../../../../sampleData/TG_MS1_AllelCall"
 import * as data from "../../../../sampleData/muinfo.json"
@@ -18,7 +18,7 @@ class Graph extends React.Component {
     constructor(props) {
         super(props)
         mu.oLocusCalls = data.oLocusCalls
-        initPrimerMinMax(); // 10May2016
+        initTraitMinMax(); // 10May2016
         processData(text.split("\n"));
 
         this.state = {

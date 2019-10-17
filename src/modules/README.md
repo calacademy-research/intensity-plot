@@ -1,4 +1,4 @@
-# Steps to publish musat modules as an npm package
+# Steps to publish intensity plot modules as an npm package
 
 1. [Create an npm account](https://www.npmjs.com/signup)
 

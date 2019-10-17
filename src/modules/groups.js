@@ -1,6 +1,6 @@
 import $ from "jquery"
 import { mu } from "./global"
-import GridGraph from "./graph"
+import GridGraph from "./grid_graph"
 import { isPeak, getReadCount } from "./utils"
 
 const MAX_GROUPS = 50

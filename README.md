@@ -68,7 +68,6 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
     * Modules must be included in your HTML with type="module", which can be an inline or external script tag.
     * Modules are deferred, and only run after a document is loaded
 * npm (yarn)
-* GraphViz
 
 ## Application Architecture
 
@@ -76,17 +75,16 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 * electron.js - Starts the app and creates a browser window to render HTML. This is the app's main process.
 * index.html - A web page to render. This is the app's renderer process.
 
-## Modules
+## Modules  (src/modules)
 
-* grid_graph
-
-## Debugging
-
-### Electron process
-
-### Render process
+* global.js
+* data.js
+* graph.js
+* grid.js
 
 ## Learn More
+[Concepts](CONCEPTS.md)
+
 
 ## Contributing
 

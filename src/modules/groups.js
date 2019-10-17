@@ -1,7 +1,7 @@
 import $ from "jquery"
-import { mu } from "./musat_global"
-import GridGraph from "./musat_grid_graph"
-import { isPeak, getReadCount } from "./musat_utils"
+import { mu } from "./global"
+import GridGraph from "./grid_graph"
+import { isPeak, getReadCount } from "./utils"
 
 const MAX_GROUPS = 50
 

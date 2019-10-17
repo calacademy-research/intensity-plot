@@ -1,11 +1,9 @@
 {
-    "name": "musat-intensity-plot",
+    "name": "intensity-plot",
     "version": "1.0.0",
-    "description": "musat intensity plot",
+    "description": "intensity plot",
     "keywords": [
-        "musat",
         "intensity plot",
-        "allel",
         "react",
         "electron"
     ],

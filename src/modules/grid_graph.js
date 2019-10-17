@@ -1,13 +1,14 @@
 import $ from "jquery"
 import Rainbow from "rainbowvis.js"
-import { mu } from "./musat_global"
-import { isPeak } from "./musat_utils"
+import { mu } from "./global"
+import { isPeak } from "./utils"
 
 //ES6 module for the grid graph display and logic 
 
 // sampleDataArray[sample_name]=[[musat length, number of reads]]
 // inputs are slightly redundant with hitArray and sampleNameArray.
 // SampleName array gives the sample ordering.
+
 function GridGraph(canvasId, // Integer denoting the 'group' on the page
     sampleDataArray,
     minColumn,
@@ -49,6 +50,7 @@ function GridGraph(canvasId, // Integer denoting the 'group' on the page
     }
 
     that.setup = function () {
+
         // try {
         //   sampleNameArray.sort(sortByPopThenSample); // sampleNameArray.sort(naturalSort);
 
@@ -94,6 +96,8 @@ function GridGraph(canvasId, // Integer denoting the 'group' on the page
         canvasRainbow.setSpectrum('red', 'yellow', 'green', 'blue', 'black');
         canvasRainbow.setNumberRange(1, 7);
         restoreHighlights();
+
+        mu.legend.promise.resolve();
     };
     that.setup();
 
@@ -368,7 +372,7 @@ function GridGraph(canvasId, // Integer denoting the 'group' on the page
         context.fillStyle = hexColor;
         var y = displayRow[sampleName].yMiddle;
 
-
+        mu.legend.circles[intensity] = mapDiameter(intensity) + 1;
         context.arc(x, y, mapDiameter(intensity) + 1, 0, 2 * Math.PI);
         context.stroke();
         context.fill();
@@ -427,6 +431,7 @@ function GridGraph(canvasId, // Integer denoting the 'group' on the page
                 var isPeakPoint = isPeak(primerName, sampleName, sampleLength);
                 if (isPeakPoint) {
                     hexColor = colorAtLength(sampleLength);
+                    mu.legend.colors[sampleLength] = hexColor;
                     //hexColor = "red";
                 } else {
                     hexColor = '#000000';

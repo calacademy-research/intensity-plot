@@ -4,8 +4,8 @@ import $ from "jquery"
 let g = {
     curfile: null,
     primer_nm: 0,
-    primer_min: 0,
-    primer_max: 0,
+    trait_min: 0,
+    trait_max: 0,
     primer_suffix: "_AllelCall.txt", //02May2016 JBH add min max
     num_pops: 0, // number of populations
 }
@@ -24,37 +24,10 @@ let names = [] // each sample name in this array is also in the hits object abov
 let sample_pts_trimmed = {}; // 10May2016 JBH each sample has .left and .right arrays to show any pts trimmed when having too few reads for distal support
 
 
-function initPrimerMinMax() { // 10May2016 JBH set min max vars so any read count updates 'em
-    g.primer_max = 0
-    g.primer_min = Number.MAX_SAFE_INTEGER; // 02May2016 JBH
+function initTraitMinMax() { // 10May2016 JBH set min max vars so any read count updates 'em
+    g.trait_max = 0
+    g.trait_min = Number.MAX_SAFE_INTEGER; // 02May2016 JBH
 }
-
-
-// Globals to track called Alleles:
-//
-// * mu.oLocusCalls object has properties named for each locus file's name (prefix of filename usually)
-//    each of which is an object containing properties named for the samples found in the locusfile
-//    these sample properties contain an array of pts (pts are arrays with just 2 entries --
-//    [0] for musat length, [1] for #reads)
-//  primerName (locus):
-//     sampleName:
-//        
-//    Example: oLocusCalls
-//  'TG_MS1':
-//
-//    'HiBiK15-01':Array[0] // no called alleles for HiBiK15-01
-//    'HiBiK15-02':Array[2] // alleles at 145 and 159
-//     0:Array[2]
-//         0:145
-//         1:359
-//     1:Array[2]
-//         0:159
-//         1:511
-//  'TG_MS2': ...
-
-
-
-
 
 
 // aSampleName is the set of all the sample names found in locus files (many are found in all files but not necessarily all)
@@ -63,6 +36,12 @@ function initPrimerMinMax() { // 10May2016 JBH set min max vars so any read coun
 // mu data is persisted in muinfo.json in the projectDirectory so that it can be read back in when Project revisited
 let mu = {
     muInfoFile: "muinfo.json",
+    legend: {
+        colors: {},
+        circles: {},
+        promise: $.Deferred()
+     }  //diameter and color spectrum for showing the legend
+    
 }
 
 let options;
@@ -108,7 +87,7 @@ function reset_globals() {
     pts_merged = {};
     g.num_pops = 0;
     sample_pts_trimmed = {}; // 10May2016 each sample has .left and .right arrays to show any pt trimmed when having too few reads to support it
-    initPrimerMinMax(); // 10May2016
+    initTraitMinMax(); // 10May2016
 }
 
 function muServerVersion() {
@@ -232,7 +211,7 @@ export {
 
 // export functions
 export {
-    initPrimerMinMax, 
+    initTraitMinMax, 
     muLoadData,
     muSaveData, 
     reset_globals

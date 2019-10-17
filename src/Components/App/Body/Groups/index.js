@@ -1,7 +1,7 @@
 import React from 'react'
 import './index.css'
 import Group from "./Group"
-import { MAX_GROUPS } from "../../../../modules/musat_grid_locus"
+import { MAX_GROUPS } from "../../../../modules/groups"
 
 function Groups() {
     let groups = []

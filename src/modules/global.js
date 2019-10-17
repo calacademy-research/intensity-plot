@@ -24,7 +24,7 @@ let names = [] // each sample name in this array is also in the hits object abov
 let sample_pts_trimmed = {}; // 10May2016 JBH each sample has .left and .right arrays to show any pts trimmed when having too few reads for distal support
 
 
-function initPrimerMinMax() { // 10May2016 JBH set min max vars so any read count updates 'em
+function initTraitMinMax() { // 10May2016 JBH set min max vars so any read count updates 'em
     g.trait_max = 0
     g.trait_min = Number.MAX_SAFE_INTEGER; // 02May2016 JBH
 }
@@ -36,6 +36,12 @@ function initPrimerMinMax() { // 10May2016 JBH set min max vars so any read coun
 // mu data is persisted in muinfo.json in the projectDirectory so that it can be read back in when Project revisited
 let mu = {
     muInfoFile: "muinfo.json",
+    legend: {
+        colors: {},
+        circles: {},
+        promise: $.Deferred()
+     }  //diameter and color spectrum for showing the legend
+    
 }
 
 let options;
@@ -81,7 +87,7 @@ function reset_globals() {
     pts_merged = {};
     g.num_pops = 0;
     sample_pts_trimmed = {}; // 10May2016 each sample has .left and .right arrays to show any pt trimmed when having too few reads to support it
-    initPrimerMinMax(); // 10May2016
+    initTraitMinMax(); // 10May2016
 }
 
 function muServerVersion() {
@@ -205,7 +211,7 @@ export {
 
 // export functions
 export {
-    initPrimerMinMax, 
+    initTraitMinMax, 
     muLoadData,
     muSaveData, 
     reset_globals

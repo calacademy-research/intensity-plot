@@ -1,8 +1,6 @@
 ﻿# Intensity Plot Concepts
 
-A JavaScript tool to visualize and discover patterns across sample sets.  
-
-The analysis employed evaluates samples against behavior observed and its occurrence (intensity)
+The analysis employed evaluates samples against behavior observed (trait) and its occurrence (intensity)
 
 The intensity grid captures a row for each entity, a column for the each distinct behavior, and  intensity as the cell value presented by color.  
 
@@ -14,19 +12,24 @@ Further, employing curve fitting techniques solve for statistical parameters.
 ## Entity
 The source of data obtained, e.g. a single spider's DNA
 
-#### Attributes
-* Unique identifier, eg. `HiBiKi15-02`
+* Name, eg. `HiBiKi15-02`
 * Additional metadata describing the sample. e.g. region/area of sample retrieval, sample instance number, `02`
 
-##  Trait
-Atomic unit of data to be evaluated, e.g. (behavior, intensity).  These serve as inputs to visualization tool.
+##  Sample
+Atomic unit of data to be evaluated, e.g. (allele length, occurrence).  These serve as inputs to visualization tool.
+
+## Trait
+Numerical description of a behavior we are observing, such as the length of an allele or deviation of temperature normals.
+
+## Intensity
+Numerical description of the occurence of the trait captured with the sample.
 
 ### Data Format
 The goal of the data format is to describe each sample along with the information necessary to define the behavior and occurrence. 
 
 * `Newline` delineated rows
 * `Tab` delineated values for 
-`identifier, variable observed, occurence` 
+`identifier, trait, intensity` 
 
 ## Grouping
 A set of samples, where samples can originate from multiple *entities*.
@@ -57,6 +60,6 @@ e.g.
 * Compare similarities across behavior and intensity
 * Isolate entities through groupings
   
-[See Dynamic Grouping](DynamicGrouping.md)
+[See Automated Grouping](GROUPING.md)
 
 

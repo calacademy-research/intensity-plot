@@ -2,7 +2,7 @@
 
 This project is a visualization tool for organizing microsatellite data.  It allows you to select and group allele samples that are related.
 
-The visualization component itself is a written in javascript, using react components.  The visualization is hosted in an Electron application shell, but could be re-used in a different application.
+The visualization component itself is written in javascript, using react components.  The visualization can be run in a browser window or Electron application shell, but could also be re-used in a different application.
 
 ## Getting Started
 
@@ -49,7 +49,6 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-
 ## Built With
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -83,8 +82,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 * grid.js
 
 ## Learn More
-[Concepts](CONCEPTS.md)
 
+[Concepts](CONCEPTS.md)
 
 ## Contributing
 

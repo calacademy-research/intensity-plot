@@ -280,10 +280,8 @@ function GridGraph(canvasId, // Integer denoting the 'group' on the page
 
         var globallyCalledAlleles = mu.oLocusCalls[primerName];
 
-        var globalHitsExist = false;
         for (var sampleName in globallyCalledAlleles) {
             if (globallyCalledAlleles && globallyCalledAlleles[sampleName]) {
-                globalHitsExist = true;
                 break;
             }
         }
